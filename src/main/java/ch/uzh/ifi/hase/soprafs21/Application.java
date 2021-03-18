@@ -21,7 +21,7 @@ public class Application {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public String helloWorld() {
-        return "Hello from Group 8.";
+        return "Hello from Group 8!";
     }
 
     @Bean
