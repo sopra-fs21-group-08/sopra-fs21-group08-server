@@ -3,6 +3,7 @@ package ch.uzh.ifi.hase.soprafs21.controller;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.rest.dto.UserGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.dto.UserPostDTO;
+import ch.uzh.ifi.hase.soprafs21.rest.dto.UserPutDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs21.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    // get all users
     @GetMapping("/users")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -40,6 +42,7 @@ public class UserController {
         return userGetDTOs;
     }
 
+    //create new user
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
@@ -52,5 +55,50 @@ public class UserController {
 
         // convert internal representation of user back to API
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(createdUser);
+    }
+
+    @PutMapping("/login")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseBody
+    public UserPutDTO loginUser(@RequestBody UserPostDTO userPostDTO) {
+        // convert API user to internal representation
+        User userInput = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
+
+        // find user
+        User loginUser = userService.loginUser(userInput);
+
+        // convert internal representation of user back to API
+        return DTOMapper.INSTANCE.convertEntityToUserPutDTO(loginUser);
+    }
+
+    @GetMapping("users/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public UserGetDTO getUser(@PathVariable("id") long id) {
+
+        // fetch user in the internal representation
+        User user = userService.getUserDataById(id);
+        return DTOMapper.INSTANCE.convertEntityToUserGetDTO(user);
+    }
+
+    @PutMapping("users/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseBody
+    public void putUser(@RequestBody UserPutDTO userIdPutDTO, @PathVariable("id") long id) {
+        User user = DTOMapper.INSTANCE.convertUserPutDTOtoEntity(userIdPutDTO);
+        userService.updateUser(user, id);
+    }
+
+    @PutMapping("/logout")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseBody
+    public UserGetDTO logoutUser(@RequestBody UserPutDTO userPutDTO) {
+        User logoutUser = DTOMapper.INSTANCE.convertUserPutDTOtoEntity(userPutDTO);
+
+        // find user and set status to offline
+        User offlineUser = userService.logoutUser(logoutUser);
+
+        // convert internal representation of user back to API
+        return DTOMapper.INSTANCE.convertEntityToUserGetDTO(offlineUser);
     }
 }
