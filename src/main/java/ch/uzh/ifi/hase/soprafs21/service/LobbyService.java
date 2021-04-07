@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs21.service;
 
 
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
+import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.repository.LobbyRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +32,25 @@ public class LobbyService {
     }
 
 
+    public Lobby joinLobby(User userToJoin, long lobbyId){
+        //check it the lobby exits
+        checkIfLobbyExists();
+        Lobby foundLobby = this.lobbyRepository.findByLobbyId(lobbyId);
+
+        // adds the user to the lobby with the matching LobbyID
+        foundLobby.addUser(userToJoin);
+        return foundLobby;
+
+    }
+
+    private void checkIfLobbyExists() {
+        // implement this in the future
+        // will check if the id of the lobby is found
+    }
+
 
     private void checkIfLobbyAlreadyExists(Lobby lobbyToCreat) {
-        //does nothing so far
+        // does nothing so far
+        // will check if the chosen username is taken
     }
 }

@@ -70,7 +70,7 @@ public class UserService {
     }
 
     public User getUserDataById(long id){
-        User foundUser = this.userRepository.findById(id);
+        User foundUser = this.userRepository.findByUserId(id);
         String baseErrorMessage = "The user doesn't exits.";
         if (foundUser == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, baseErrorMessage);
@@ -106,7 +106,7 @@ public class UserService {
     }
     public void updateUser(User changeUser, long id) {
 
-        User foundUser = this.userRepository.findById(id);
+        User foundUser = this.userRepository.findByUserId(id);
 
         String baseErrorMessage = "User couldn't be found";
         if (foundUser == null) {
@@ -149,6 +149,6 @@ public class UserService {
     private User getUserById(User inputUser) {
         long userId = inputUser.getUserId();
         // find user in repository
-        return this.userRepository.findById(userId);
+        return this.userRepository.findByUserId(userId);
     }
 }

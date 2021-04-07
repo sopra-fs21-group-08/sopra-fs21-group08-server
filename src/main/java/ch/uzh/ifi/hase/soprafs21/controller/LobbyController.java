@@ -8,6 +8,7 @@ import ch.uzh.ifi.hase.soprafs21.rest.UserDTO.UserPutDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.LobbyDTOMapper;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.UserDTOMapper;
 import ch.uzh.ifi.hase.soprafs21.service.LobbyService;
+import ch.uzh.ifi.hase.soprafs21.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,11 +16,11 @@ import org.springframework.web.bind.annotation.*;
 public class LobbyController {
 
     private final LobbyService lobbyService;
-    private final UserController userController;
+    private final UserService userService;
 
-    public LobbyController(LobbyService lobbyService, UserController userController) {
+    public LobbyController(LobbyService lobbyService, UserService userService) {
         this.lobbyService = lobbyService;
-        this.userController = userController;
+        this.userService = userService;
     }
 
     @PostMapping("/rooms")
@@ -36,18 +37,22 @@ public class LobbyController {
         return LobbyDTOMapper.INSTANCE.convertLobbyToGetDTO(createdLobby);
     }
 
-    @PostMapping("/rooms/{id}")
+    @PostMapping("/rooms/{lobbyId}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public LobbyGetDTO joinLobby(@RequestBody UserPutDTO userPutDTO, @PathVariable("id") long id) {
+    public LobbyGetDTO joinLobby(@RequestBody UserPutDTO userPutDTO, @PathVariable("lobbyId") long lobbyId) {
         //convert Lobby representation to internal repr.
         User joinedUser = UserDTOMapper.INSTANCE.convertUserPutDTOtoEntity(userPutDTO);
 
+        //find the user by id
+        User foundUser = userService.getUserDataById(joinedUser.getUserId());
 
+        //add user to lobby
+        Lobby joinedLobby = lobbyService.joinLobby(foundUser, lobbyId);
 
 
         //convert Lobby to DTO object and respond
-        return null;
+        return LobbyDTOMapper.INSTANCE.convertLobbyToGetDTO(joinedLobby);
     }
 
 

@@ -40,7 +40,6 @@ public class Lobby {
         this.lobbyId = id;
     }
 
-
     public String getName() {
         return name;
     }
@@ -58,6 +57,9 @@ public class Lobby {
         int indexToRemove = users.indexOf(user);
         this.users.remove(indexToRemove);
         this.users.add(user);
+    }
+    public int getSize(){
+        return users.size();
     }
 
 
