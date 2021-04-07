@@ -2,7 +2,8 @@ package ch.uzh.ifi.hase.soprafs21.controller;
 
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
-import ch.uzh.ifi.hase.soprafs21.rest.LobbyDTO.*;
+import ch.uzh.ifi.hase.soprafs21.rest.LobbyDTO.LobbyGetDTO;
+import ch.uzh.ifi.hase.soprafs21.rest.LobbyDTO.LobbyPostDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.UserDTO.UserPutDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.LobbyDTOMapper;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.UserDTOMapper;
@@ -42,7 +43,7 @@ public class LobbyController {
         //convert Lobby representation to internal repr.
         User joinedUser = UserDTOMapper.INSTANCE.convertUserPutDTOtoEntity(userPutDTO);
 
-        //createLobby
+
 
 
         //convert Lobby to DTO object and respond
