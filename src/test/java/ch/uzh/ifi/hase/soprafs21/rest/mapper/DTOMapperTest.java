@@ -2,9 +2,9 @@ package ch.uzh.ifi.hase.soprafs21.rest.mapper;
 
 import ch.uzh.ifi.hase.soprafs21.constant.UserStatus;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
-import ch.uzh.ifi.hase.soprafs21.rest.dto.UserGetDTO;
-import ch.uzh.ifi.hase.soprafs21.rest.dto.UserPostDTO;
-import ch.uzh.ifi.hase.soprafs21.rest.dto.UserPutDTO;
+import ch.uzh.ifi.hase.soprafs21.rest.UserDTO.UserGetDTO;
+import ch.uzh.ifi.hase.soprafs21.rest.UserDTO.UserPostDTO;
+import ch.uzh.ifi.hase.soprafs21.rest.UserDTO.UserPutDTO;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,7 +26,7 @@ public class DTOMapperTest {
 
 
         // MAP -> Create user
-        User user = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
+        User user = UserDTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
 
         // check content
         assertEquals(userPostDTO.getPassword(), user.getPassword());
@@ -45,7 +45,7 @@ public class DTOMapperTest {
 
 
         // MAP -> Create user
-        User user = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
+        User user = UserDTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
         user.setUsername("un");
         user.setPassword("pw");
         user.setDob("2000-01-02");
@@ -69,7 +69,7 @@ public class DTOMapperTest {
 
 
         // MAP -> Create UserGetDTO
-        UserGetDTO userGetDTO = DTOMapper.INSTANCE.convertEntityToUserGetDTO(user);
+        UserGetDTO userGetDTO = UserDTOMapper.INSTANCE.convertEntityToUserGetDTO(user);
 
         // check content
         assertEquals(user.getId(), userGetDTO.getId());
@@ -93,7 +93,7 @@ public class DTOMapperTest {
 
 
         // MAP -> Create UserGetDTO
-        UserGetDTO userGetDTO = DTOMapper.INSTANCE.convertEntityToUserGetDTO(user);
+        UserGetDTO userGetDTO = UserDTOMapper.INSTANCE.convertEntityToUserGetDTO(user);
 
         userGetDTO.setId((long) 2);
         userGetDTO.setUsername("un1");
@@ -119,7 +119,7 @@ public class DTOMapperTest {
         user.setToken("ölkj");
         user.setDob("2000-01-03");
 
-        UserPutDTO userPutDTO = DTOMapper.INSTANCE.convertEntityToUserPutDTO(user);
+        UserPutDTO userPutDTO = UserDTOMapper.INSTANCE.convertEntityToUserPutDTO(user);
 
         assertEquals(user.getId(), userPutDTO.getId());
         assertEquals(user.getUsername(), userPutDTO.getUsername());
@@ -135,7 +135,7 @@ public class DTOMapperTest {
         userPutDTO.setToken("ölkj");
         userPutDTO.setDob("2000-01-03");
 
-        User user = DTOMapper.INSTANCE.convertUserPutDTOtoEntity(userPutDTO);
+        User user = UserDTOMapper.INSTANCE.convertUserPutDTOtoEntity(userPutDTO);
 
         assertEquals(user.getId(), userPutDTO.getId());
         assertEquals(user.getUsername(), userPutDTO.getUsername());

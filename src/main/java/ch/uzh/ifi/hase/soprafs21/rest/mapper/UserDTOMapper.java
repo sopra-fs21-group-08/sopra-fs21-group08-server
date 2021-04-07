@@ -1,9 +1,9 @@
 package ch.uzh.ifi.hase.soprafs21.rest.mapper;
 
 import ch.uzh.ifi.hase.soprafs21.entity.User;
-import ch.uzh.ifi.hase.soprafs21.rest.dto.UserGetDTO;
-import ch.uzh.ifi.hase.soprafs21.rest.dto.UserPostDTO;
-import ch.uzh.ifi.hase.soprafs21.rest.dto.UserPutDTO;
+import ch.uzh.ifi.hase.soprafs21.rest.UserDTO.UserGetDTO;
+import ch.uzh.ifi.hase.soprafs21.rest.UserDTO.UserPostDTO;
+import ch.uzh.ifi.hase.soprafs21.rest.UserDTO.UserPutDTO;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
@@ -16,9 +16,9 @@ import org.mapstruct.factory.Mappers;
  * Always created one mapper for getting information (GET) and one mapper for creating information (POST).
  */
 @Mapper
-public interface DTOMapper {
+public interface UserDTOMapper {
 
-    DTOMapper INSTANCE = Mappers.getMapper(DTOMapper.class);
+    UserDTOMapper INSTANCE = Mappers.getMapper(UserDTOMapper.class);
 
     @Mapping(source = "password", target = "password")
     @Mapping(source = "username", target = "username")
