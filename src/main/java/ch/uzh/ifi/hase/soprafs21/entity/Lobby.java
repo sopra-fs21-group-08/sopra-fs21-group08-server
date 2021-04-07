@@ -21,7 +21,8 @@ public class Lobby {
     @GeneratedValue
     private Long lobbyId;
 
-    @Column(unique = true)
+
+    @Column
     private String lobbyName;
 
     @OneToMany

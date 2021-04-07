@@ -28,10 +28,12 @@ public class LobbyController {
         this.userService = userService;
     }
 
-    @PostMapping("/rooms")
+    @PostMapping("/lobbies")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public LobbyGetDTO createLobby(@RequestBody LobbyPostDTO lobbyPostDTO) {
+
+        //TODO: player needs to join the lobby aswell
         //convert Lobby representation to internal repr.
         Lobby lobbyInput = LobbyDTOMapper.INSTANCE.covertLobbyPostDToLobby(lobbyPostDTO);
 
@@ -60,7 +62,7 @@ public class LobbyController {
         return LobbyDTOMapper.INSTANCE.convertLobbyToGetDTO(joinedLobby);
     }
 
-    @GetMapping("/rooms/{lobbyId}/users")
+    @GetMapping("/rooms/{lobbyId}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<UserGetDTO> getAllUsersInLobby(@PathVariable("lobbyId") long lobbyId) {
