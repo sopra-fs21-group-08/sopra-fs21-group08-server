@@ -116,7 +116,7 @@ public class UserControllerTest {
 
 
         // when/then -> do the request + validate the result
-        MockHttpServletRequestBuilder postRequest = post("/users")
+        MockHttpServletRequestBuilder postRequest = post("/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(userPostDTO));
 
@@ -137,7 +137,7 @@ public class UserControllerTest {
 
 
         // when/then -> do the request + validate the result
-        MockHttpServletRequestBuilder postRequest = post("/users")
+        MockHttpServletRequestBuilder postRequest = post("/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(userPostDTO));
 

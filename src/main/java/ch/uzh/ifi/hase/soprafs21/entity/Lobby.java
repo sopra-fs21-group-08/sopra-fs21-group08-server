@@ -22,7 +22,7 @@ public class Lobby {
     private Long lobbyId;
 
     @Column(unique = true)
-    private String name;
+    private String lobbyName;
 
     @OneToMany
     private List<User> users = new ArrayList<>();
@@ -40,11 +40,11 @@ public class Lobby {
         this.lobbyId = id;
     }
 
-    public String getName() {
-        return name;
+    public String getLobbyName() {
+        return lobbyName;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setLobbyName(String name) {
+        this.lobbyName = name;
     }
 
     public List<User> getUsers() {

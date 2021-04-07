@@ -11,11 +11,10 @@ import org.mapstruct.factory.Mappers;
 public interface LobbyDTOMapper {
     LobbyDTOMapper INSTANCE = Mappers.getMapper(LobbyDTOMapper.class);
 
-    @Mapping(source = "id", target = "lobbyId")
-    @Mapping(source = "lobbyname", target = "lobbyname")
+    @Mapping(source = "lobbyName", target = "lobbyName")
     Lobby covertLobbyPostDToLobby(LobbyPostDTO lobbyPostDTO);
 
-    @Mapping(source = "lobbyId", target = "id")
+    @Mapping(source = "lobbyId", target = "lobbyId")
     LobbyGetDTO convertLobbyToGetDTO(Lobby lobby);
 
 
