@@ -4,6 +4,7 @@ import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -19,9 +20,8 @@ public class Lobby {
     @Column(unique = true)
     private String name;
 
-    @JoinColumn
-    @CollectionTable(name ="LobbyMembers")
-    private ArrayList<User> users = new ArrayList<>();
+    @OneToMany
+    private List<User> users = new ArrayList<User>();
 
     @OneToOne
     private Game game;
@@ -41,7 +41,7 @@ public class Lobby {
         this.name = name;
     }
 
-    public ArrayList<User> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
     public void addUser(User user) {
@@ -52,9 +52,6 @@ public class Lobby {
         this.users.remove(indexToRemove);
         this.users.add(user);
     }
-
-
-    //TODO figgure out why this doesnt work with basic entity chat
 
     /*
     @OneToOne
