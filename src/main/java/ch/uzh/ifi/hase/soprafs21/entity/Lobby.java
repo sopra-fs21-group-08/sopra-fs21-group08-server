@@ -3,6 +3,7 @@ package ch.uzh.ifi.hase.soprafs21.entity;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
 
 import javax.persistence.*;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,10 @@ import java.util.List;
 @Table(name= "LOBBY")
 public class Lobby {
 
-
+    // dont know exactly what this is used for but copied it from the
+    // user class
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue
@@ -21,7 +25,7 @@ public class Lobby {
     private String name;
 
     @OneToMany
-    private List<User> users = new ArrayList<User>();
+    private List<User> users = new ArrayList<>();
 
     @OneToOne
     private Game game;

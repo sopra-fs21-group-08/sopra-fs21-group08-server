@@ -60,7 +60,7 @@ public class DTOMapperTest {
     public void testGetUser_fromUser_toUserGetDTO_success() {
         // create User
         User user = new User();
-        user.setId((long) 1);
+        user.setUserId((long) 1);
         user.setUsername("un");
         user.setStatus(UserStatus.OFFLINE);
         user.setDob("2000-01-02");
@@ -72,7 +72,7 @@ public class DTOMapperTest {
         UserGetDTO userGetDTO = UserDTOMapper.INSTANCE.convertEntityToUserGetDTO(user);
 
         // check content
-        assertEquals(user.getId(), userGetDTO.getId());
+        assertEquals(user.getUserId(), userGetDTO.getId());
         assertEquals(user.getUsername(), userGetDTO.getUsername());
         assertEquals(user.getStatus(), userGetDTO.getStatus());
         assertEquals(user.getDob(), userGetDTO.getDob());
@@ -84,7 +84,7 @@ public class DTOMapperTest {
     public void testGetUser_fromUser_toUserGetDTO_fail() {
         // create User
         User user = new User();
-        user.setId((long) 1);
+        user.setUserId((long) 1);
         user.setUsername("un");
         user.setStatus(UserStatus.OFFLINE);
         user.setDob("2000-01-02");
@@ -102,7 +102,7 @@ public class DTOMapperTest {
         userGetDTO.setCreationDate("2000-01-03");
 
         // check content
-        assertNotEquals(user.getId(), userGetDTO.getId());
+        assertNotEquals(user.getUserId(), userGetDTO.getId());
         assertNotEquals(user.getUsername(), userGetDTO.getUsername());
         assertNotEquals(user.getStatus(), userGetDTO.getStatus());
         assertNotEquals(user.getDob(), userGetDTO.getDob());
@@ -114,14 +114,14 @@ public class DTOMapperTest {
     public void testConvert_fromUser_toUserPutDTO(){
         User user = new User();
 
-        user.setId((long) 1);
+        user.setUserId((long) 1);
         user.setUsername("un");
         user.setToken("ölkj");
         user.setDob("2000-01-03");
 
         UserPutDTO userPutDTO = UserDTOMapper.INSTANCE.convertEntityToUserPutDTO(user);
 
-        assertEquals(user.getId(), userPutDTO.getId());
+        assertEquals(user.getUserId(), userPutDTO.getId());
         assertEquals(user.getUsername(), userPutDTO.getUsername());
         assertEquals(user.getToken(), userPutDTO.getToken());
         assertEquals(user.getDob(), userPutDTO.getDob());
@@ -137,7 +137,7 @@ public class DTOMapperTest {
 
         User user = UserDTOMapper.INSTANCE.convertUserPutDTOtoEntity(userPutDTO);
 
-        assertEquals(user.getId(), userPutDTO.getId());
+        assertEquals(user.getUserId(), userPutDTO.getId());
         assertEquals(user.getUsername(), userPutDTO.getUsername());
         assertEquals(user.getToken(), userPutDTO.getToken());
         assertEquals(user.getDob(), userPutDTO.getDob());

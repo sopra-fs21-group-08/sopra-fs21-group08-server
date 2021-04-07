@@ -63,19 +63,19 @@ public class UserControllerTest {
 
         testUser1.setUsername("testUsername1");
         testUser1.setPassword("testPassword1");
-        testUser1.setId(1L);
+        testUser1.setUserId(1L);
         testUser1.setDob("2000-01-01");
         testUser1.setToken(UUID.randomUUID().toString());
 
         testUser2.setUsername("testUsername2");
         testUser2.setPassword("testPassword2");
-        testUser2.setId(2L);
+        testUser2.setUserId(2L);
         testUser2.setDob("2000-01-01");
         testUser2.setToken(UUID.randomUUID().toString());
 
         testUser3.setUsername("testUsername3");
         testUser3.setPassword("testPassword3");
-        testUser3.setId(3L);
+        testUser3.setUserId(3L);
         testUser3.setDob("2000-01-01");
         testUser3.setToken(UUID.randomUUID().toString());
 
@@ -196,7 +196,7 @@ public class UserControllerTest {
         UserGetDTO userGetDTO = new UserGetDTO();
         userGetDTO.setUsername(testUser3.getUsername());
 
-        Mockito.when(userService.getUserDataById(testUser3.getId()))
+        Mockito.when(userService.getUserDataById(testUser3.getUserId()))
                 .thenReturn(testUser3);
 
         MockHttpServletRequestBuilder getRequest = get("/users/3")
