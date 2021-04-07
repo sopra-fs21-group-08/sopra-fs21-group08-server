@@ -26,6 +26,9 @@ public class Lobby {
     @OneToOne
     private Game game;
 
+    @OneToOne(mappedBy = "lobby")
+    private Chat chat;
+
     public Long getLobbyId() {
         return lobbyId;
     }
@@ -53,13 +56,10 @@ public class Lobby {
         this.users.add(user);
     }
 
-    /*
-    @OneToOne
-    private Chat chat;
 
     public Chat getChat(){return this.chat;}
     public void setChat(Chat chat){this.chat = chat;}
-    */
+
 
 
 }
