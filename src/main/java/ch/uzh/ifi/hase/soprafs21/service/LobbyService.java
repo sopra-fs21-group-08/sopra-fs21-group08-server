@@ -53,9 +53,13 @@ public class LobbyService {
         // will check if the id of the lobby is found
     }
 
-
-    private void checkIfLobbyAlreadyExists(Lobby lobbyToCreat) {
+    private void checkIfLobbyAlreadyExists(Lobby lobbyToCreate) {
         // does nothing so far
         // will check if the chosen username is taken
+    }
+
+    public void removeUser(User userToRemove, long lobbyId){
+        Lobby targetLobby = lobbyRepository.findByLobbyId(lobbyId);
+        targetLobby.removeUser(userToRemove);
     }
 }

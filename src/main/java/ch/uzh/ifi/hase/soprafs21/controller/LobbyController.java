@@ -44,7 +44,7 @@ public class LobbyController {
         return LobbyDTOMapper.INSTANCE.convertLobbyToGetDTO(createdLobby);
     }
 
-    @PutMapping("/rooms/{lobbyId}")
+    @PutMapping("/lobbies/{lobbyId}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public LobbyGetDTO joinLobby(@RequestBody UserPutDTO userPutDTO, @PathVariable("lobbyId") long lobbyId) {
@@ -62,7 +62,7 @@ public class LobbyController {
         return LobbyDTOMapper.INSTANCE.convertLobbyToGetDTO(joinedLobby);
     }
 
-    @GetMapping("/rooms/{lobbyId}")
+    @GetMapping("/lobbies/{lobbyId}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<UserGetDTO> getAllUsersInLobby(@PathVariable("lobbyId") long lobbyId) {
@@ -78,5 +78,12 @@ public class LobbyController {
         return userGetDTOs;
     }
 
-
+    @DeleteMapping("/lobbies/{lobbyId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseBody
+    public void removeUserInLobby(@RequestBody UserPutDTO userPutDTO, @PathVariable("lobbyId") long lobbyId){
+        User userToRemove = UserDTOMapper.INSTANCE.convertUserPutDTOtoEntity(userPutDTO);
+        userToRemove = userService.getUserDataById(userToRemove.getUserId());
+        lobbyService.removeUser(userToRemove, lobbyId);
+    }
 }
