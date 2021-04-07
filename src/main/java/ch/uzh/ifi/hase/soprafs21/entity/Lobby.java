@@ -53,10 +53,11 @@ public class Lobby {
     public void addUser(User user) {
         this.users.add(user);
     }
+
     public void removeUser(User user) {
         int indexToRemove = users.indexOf(user);
         this.users.remove(indexToRemove);
-        this.users.add(user);
+        //this.users.add(user);
     }
     public int getSize(){
         return users.size();

@@ -2,8 +2,10 @@ package ch.uzh.ifi.hase.soprafs21.controller;
 
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
+import ch.uzh.ifi.hase.soprafs21.repository.LobbyRepository;
 import ch.uzh.ifi.hase.soprafs21.rest.LobbyDTO.LobbyGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.LobbyDTO.LobbyPostDTO;
+import ch.uzh.ifi.hase.soprafs21.rest.UserDTO.UserGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.UserDTO.UserPutDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.LobbyDTOMapper;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.UserDTOMapper;
@@ -11,6 +13,9 @@ import ch.uzh.ifi.hase.soprafs21.service.LobbyService;
 import ch.uzh.ifi.hase.soprafs21.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class LobbyController {
@@ -37,7 +42,7 @@ public class LobbyController {
         return LobbyDTOMapper.INSTANCE.convertLobbyToGetDTO(createdLobby);
     }
 
-    @PostMapping("/rooms/{lobbyId}")
+    @PutMapping("/rooms/{lobbyId}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public LobbyGetDTO joinLobby(@RequestBody UserPutDTO userPutDTO, @PathVariable("lobbyId") long lobbyId) {
@@ -55,7 +60,21 @@ public class LobbyController {
         return LobbyDTOMapper.INSTANCE.convertLobbyToGetDTO(joinedLobby);
     }
 
+    @GetMapping("/rooms/{lobbyId}/users")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<UserGetDTO> getAllUsersInLobby(@PathVariable("lobbyId") long lobbyId) {
 
+        //find the user by lobbyId
+        List<User> users = lobbyService.getUsers(lobbyId);
+        List<UserGetDTO> userGetDTOs = new ArrayList<>();
+
+        // convert each user to the API representation
+        for (User user : users) {
+            userGetDTOs.add(UserDTOMapper.INSTANCE.convertEntityToUserGetDTO(user));
+        }
+        return userGetDTOs;
+    }
 
 
 }
