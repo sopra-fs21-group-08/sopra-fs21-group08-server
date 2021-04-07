@@ -37,7 +37,7 @@ public class UserRepositoryIntegrationTest {
         User found = userRepository.findByUsername(user.getUsername());
 
         // then
-        assertNotNull(found.getId());
+        assertNotNull(found.getLobbyId());
         assertEquals(found.getPassword(), user.getPassword());
         assertEquals(found.getUsername(), user.getUsername());
         assertEquals(found.getToken(), user.getToken());

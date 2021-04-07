@@ -1,5 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.entity;
 
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 
@@ -12,8 +14,7 @@ public class Lobby {
 
     @Id
     @GeneratedValue
-    private Long id;
-
+    private Long lobbyId;
 
     @Column(unique = true)
     private String name;
@@ -22,12 +23,14 @@ public class Lobby {
     @CollectionTable(name ="LobbyMembers")
     private ArrayList<User> users = new ArrayList<>();
 
+    @OneToOne
+    private Game game;
 
-    public Long getId() {
-        return id;
+    public Long getLobbyId() {
+        return lobbyId;
     }
-    public void setId(Long id) {
-        this.id = id;
+    public void setLobbyId(Long id) {
+        this.lobbyId = id;
     }
 
 

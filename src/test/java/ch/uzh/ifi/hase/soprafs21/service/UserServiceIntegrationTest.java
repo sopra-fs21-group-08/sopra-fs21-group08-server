@@ -47,7 +47,7 @@ public class UserServiceIntegrationTest {
         User createdUser = userService.createUser(testUser);
 
         // then
-        assertEquals(testUser.getId(), createdUser.getId());
+        assertEquals(testUser.getLobbyId(), createdUser.getLobbyId());
         assertEquals(testUser.getPassword(), createdUser.getPassword());
         assertEquals(testUser.getUsername(), createdUser.getUsername());
         assertNotNull(createdUser.getToken());
