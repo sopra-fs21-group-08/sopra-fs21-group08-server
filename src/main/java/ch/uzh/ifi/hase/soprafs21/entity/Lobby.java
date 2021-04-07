@@ -30,7 +30,7 @@ public class Lobby {
     @OneToOne
     private Game game;
 
-    @OneToOne(mappedBy = "lobby")
+    @OneToOne
     private Chat chat;
 
     public Long getLobbyId() {
