@@ -43,7 +43,7 @@ public class UserController {
     }
 
     //create new user
-    @PostMapping("/users")
+    @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public UserGetDTO createUser(@RequestBody UserPostDTO userPostDTO) {
