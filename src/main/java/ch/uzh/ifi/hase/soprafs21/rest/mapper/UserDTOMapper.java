@@ -25,14 +25,14 @@ public interface UserDTOMapper {
     @Mapping(source = "dob", target = "dob")
     User convertUserPostDTOtoEntity(UserPostDTO userPostDTO);
 
-    @Mapping(source = "id", target = "id")
+    @Mapping(source = "userId", target = "userId")
     @Mapping(source = "username", target = "username")
     @Mapping(source = "status", target = "status")
     @Mapping(source = "dob", target = "dob")
     @Mapping(source = "creationDate", target = "creationDate")
     UserGetDTO convertEntityToUserGetDTO(User user);
 
-    @Mapping(source = "id", target = "id")
+    @Mapping(source = "userId", target = "userId")
     @Mapping(source = "token", target = "token")
     @Mapping(source = "username", target = "username")
     @Mapping(source = "dob", target = "dob")
