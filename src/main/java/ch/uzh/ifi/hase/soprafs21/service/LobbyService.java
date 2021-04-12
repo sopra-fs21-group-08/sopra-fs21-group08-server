@@ -67,4 +67,8 @@ public class LobbyService {
             lobbyRepository.delete(targetLobby);
         }
     }
+
+    public Lobby findLobbyById(long gameID) {
+        return lobbyRepository.findByLobbyId(gameID);
+    }
 }
