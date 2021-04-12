@@ -12,10 +12,10 @@ public interface LobbyDTOMapper {
     LobbyDTOMapper INSTANCE = Mappers.getMapper(LobbyDTOMapper.class);
 
     @Mapping(source = "lobbyName", target = "lobbyName")
-    Lobby covertLobbyPostDToLobby(LobbyPostDTO lobbyPostDTO);
+    Lobby covertLobbyPostDTOToEntity(LobbyPostDTO lobbyPostDTO);
 
     @Mapping(source = "lobbyId", target = "lobbyId")
-    LobbyGetDTO convertLobbyToGetDTO(Lobby lobby);
+    LobbyGetDTO convertEntityToLobbyGetDTO(Lobby lobby);
 
 
 

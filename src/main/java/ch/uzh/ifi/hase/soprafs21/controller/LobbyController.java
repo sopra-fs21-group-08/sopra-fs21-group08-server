@@ -2,7 +2,6 @@ package ch.uzh.ifi.hase.soprafs21.controller;
 
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
-import ch.uzh.ifi.hase.soprafs21.repository.LobbyRepository;
 import ch.uzh.ifi.hase.soprafs21.rest.LobbyDTO.LobbyGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.LobbyDTO.LobbyPostDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.UserDTO.UserGetDTO;
@@ -35,13 +34,13 @@ public class LobbyController {
 
         //TODO: player needs to join the lobby aswell
         //convert Lobby representation to internal repr.
-        Lobby lobbyInput = LobbyDTOMapper.INSTANCE.covertLobbyPostDToLobby(lobbyPostDTO);
+        Lobby lobbyInput = LobbyDTOMapper.INSTANCE.covertLobbyPostDTOToEntity(lobbyPostDTO);
 
         //createLobby
         Lobby createdLobby = lobbyService.createLobby(lobbyInput);
 
         //convert Lobby to DTO object and respond
-        return LobbyDTOMapper.INSTANCE.convertLobbyToGetDTO(createdLobby);
+        return LobbyDTOMapper.INSTANCE.convertEntityToLobbyGetDTO(createdLobby);
     }
 
     @PutMapping("/lobbies/{lobbyId}")
@@ -59,7 +58,7 @@ public class LobbyController {
 
 
         //convert Lobby to DTO object and respond
-        return LobbyDTOMapper.INSTANCE.convertLobbyToGetDTO(joinedLobby);
+        return LobbyDTOMapper.INSTANCE.convertEntityToLobbyGetDTO(joinedLobby);
     }
 
     @GetMapping("/lobbies/{lobbyId}")
