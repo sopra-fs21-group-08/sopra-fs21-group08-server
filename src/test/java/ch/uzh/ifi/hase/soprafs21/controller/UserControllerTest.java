@@ -233,13 +233,15 @@ public class UserControllerTest {
         UserPutDTO userPutDTO = new UserPutDTO();
         userPutDTO.setUsername("newUsername");
         userPutDTO.setDob("1995-07-14");
+        userPutDTO.setToken(testUser2.getToken());
 
         doNothing().when(userService).updateUser(Mockito.any(), anyLong());
 
         // when/then -> do the request + validate the result
         MockHttpServletRequestBuilder putRequest = put("/users/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(userPutDTO));;
+                .content(asJsonString(userPutDTO))
+                .header("Authorization", testUser2.getToken());
 
         mockMvc.perform(putRequest)
                 .andExpect(status().isNoContent());
@@ -251,6 +253,7 @@ public class UserControllerTest {
         UserPutDTO userPutDTO = new UserPutDTO();
         userPutDTO.setUsername("newUsername");
         userPutDTO.setDob("1995-07-14");
+        userPutDTO.setToken(testUser2.getToken());
         long id = 5;
 
         doThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, baseTestErrorMessage))
@@ -260,7 +263,8 @@ public class UserControllerTest {
         // when/then -> do the request + validate the result
         MockHttpServletRequestBuilder putRequest = put("/users/5")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(userPutDTO));;
+                .content(asJsonString(userPutDTO))
+                .header("Authorization", testUser2.getToken());
 
         mockMvc.perform(putRequest)
                 .andExpect(status().isNotFound());
@@ -283,7 +287,8 @@ public class UserControllerTest {
         // when/then -> do the request + validate the result
         MockHttpServletRequestBuilder putRequest = put("/users/5")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(userPutDTO));;
+                .content(asJsonString(userPutDTO))
+                .header("Authorization", "wrong on purpose");
 
         mockMvc.perform(putRequest)
                 .andExpect(status().isUnauthorized());
@@ -306,7 +311,8 @@ public class UserControllerTest {
         // when/then -> do the request + validate the result
         MockHttpServletRequestBuilder putRequest = put("/users/5")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(userPutDTO));;
+                .content(asJsonString(userPutDTO))
+                .header("Authorization", testUser2.getToken());
 
         mockMvc.perform(putRequest)
                 .andExpect(status().isConflict());
