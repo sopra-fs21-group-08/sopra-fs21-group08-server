@@ -61,6 +61,9 @@ public class Lobby {
     public int getSize(){
         return users.size();
     }
+    public boolean isEmpty(){
+        return this.users.isEmpty();
+    }
 
 
     public Chat getChat(){return this.chat;}

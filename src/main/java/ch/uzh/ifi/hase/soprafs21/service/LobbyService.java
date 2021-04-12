@@ -61,5 +61,10 @@ public class LobbyService {
     public void removeUser(User userToRemove, long lobbyId){
         Lobby targetLobby = lobbyRepository.findByLobbyId(lobbyId);
         targetLobby.removeUser(userToRemove);
+
+        //incase the lobby is now empty, it should delete the lobby
+        if (targetLobby.isEmpty()){
+            lobbyRepository.delete(targetLobby);
+        }
     }
 }
