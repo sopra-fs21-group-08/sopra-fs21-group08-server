@@ -32,12 +32,13 @@ public class LobbyController {
     @ResponseBody
     public LobbyGetDTO createLobby(@RequestBody LobbyPostDTO lobbyPostDTO) {
 
-        //TODO: player needs to join the lobby aswell
         //convert Lobby representation to internal repr.
         Lobby lobbyInput = LobbyDTOMapper.INSTANCE.covertLobbyPostDTOToEntity(lobbyPostDTO);
 
+        User foundUser = userService.getUserDataById(lobbyPostDTO.getUserID());
+
         //createLobby
-        Lobby createdLobby = lobbyService.createLobby(lobbyInput);
+        Lobby createdLobby = lobbyService.createLobby(lobbyInput, foundUser);
 
         //convert Lobby to DTO object and respond
         return LobbyDTOMapper.INSTANCE.convertEntityToLobbyGetDTO(createdLobby);

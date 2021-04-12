@@ -8,7 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -25,9 +28,17 @@ public class LobbyService {
         this.lobbyRepository = lobbyRepository;
     }
 
-    public Lobby createLobby(Lobby lobbyToCreate){
+    public Lobby createLobby(Lobby lobbyToCreate, User issuingUser){
         checkIfLobbyAlreadyExists(lobbyToCreate);
         Lobby newLobby = lobbyRepository.save(lobbyToCreate);
+
+        //find issuing user
+        //---> user is found in LobbyController
+
+        // add issuing user to lobby
+        newLobby.addUser(issuingUser);
+
+        //flush lobby
         lobbyRepository.flush();
         return newLobby;
     }
@@ -35,7 +46,7 @@ public class LobbyService {
 
     public Lobby joinLobby(User userToJoin, long lobbyId){
         //check it the lobby exits
-        checkIfLobbyExists();
+        checkIfLobbyExists(lobbyId);
         Lobby foundLobby = this.lobbyRepository.findByLobbyId(lobbyId);
 
         // adds the user to the lobby with the matching LobbyID
@@ -48,9 +59,13 @@ public class LobbyService {
         return this.lobbyRepository.findByLobbyId(lobbyId).getUsers();
     }
 
-    private void checkIfLobbyExists() {
+    private void checkIfLobbyExists(long id) {
         // implement this in the future
-        // will check if the id of the lobby is found
+        // checks if the id of the lobby is found
+        if(lobbyRepository.findByLobbyId(id)==null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Lobby doesn't exist dude");
+        }
+
     }
 
     private void checkIfLobbyAlreadyExists(Lobby lobbyToCreate) {

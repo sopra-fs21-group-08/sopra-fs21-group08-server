@@ -15,7 +15,7 @@ public class Lobby {
     // dont know exactly what this is used for but copied it from the
     // user class
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionLID = 1L;
 
     @Id
     @GeneratedValue
