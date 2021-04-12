@@ -4,7 +4,7 @@ package ch.uzh.ifi.hase.soprafs21.entity;
 import javax.persistence.*;
 
 @Entity
-@Table("MESSAGE")
+@Table(name= "MESSAGE")
 public class Message {
 
 
