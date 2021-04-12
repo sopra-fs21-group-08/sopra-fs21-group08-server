@@ -12,7 +12,7 @@ public class Chat {
     private static final long serialVersionUID = 1L;
 
     @OneToMany
-    private List<Message> messages = new ArrayList<>();
+    public List<Message> messages = new ArrayList<>();
 
     @Id
     @GeneratedValue
