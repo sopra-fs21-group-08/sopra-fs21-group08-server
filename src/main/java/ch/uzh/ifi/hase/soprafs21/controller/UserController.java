@@ -84,8 +84,9 @@ public class UserController {
     @PutMapping("users/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ResponseBody
-    public void putUser(@RequestBody UserPutDTO userIdPutDTO, @PathVariable("id") long id) {
+    public void putUser(@RequestBody UserPutDTO userIdPutDTO, @PathVariable("id") long id, @RequestHeader("Authorization") String token) {
         User user = UserDTOMapper.INSTANCE.convertUserPutDTOtoEntity(userIdPutDTO);
+        user.setToken(token);
         userService.updateUser(user, id);
     }
 
