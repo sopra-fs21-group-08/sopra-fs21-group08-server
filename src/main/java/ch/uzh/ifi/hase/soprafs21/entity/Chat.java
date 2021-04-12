@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs21.entity;
 
 import javax.persistence.*;
 import java.io.Serial;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -10,9 +11,8 @@ public class Chat {
 
     private static final long serialVersionUID = 1L;
 
-    /*
-    private List<String> messages;
-    */
+    @OneToMany
+    private List<Message> messages = new ArrayList<>();
 
     @Id
     @GeneratedValue
@@ -24,4 +24,6 @@ public class Chat {
     public Long getChatId() {
         return chatId;
     }
+
+
 }
