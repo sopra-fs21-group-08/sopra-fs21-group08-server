@@ -35,7 +35,8 @@ public class LobbyController {
         //convert Lobby representation to internal repr.
         Lobby lobbyInput = LobbyDTOMapper.INSTANCE.covertLobbyPostDTOToEntity(lobbyPostDTO);
 
-        User foundUser = userService.getUserDataById(lobbyPostDTO.getUserID());
+        //find user
+        User foundUser = userService.getUserById(lobbyPostDTO.getUserId());
 
         //createLobby
         Lobby createdLobby = lobbyService.createLobby(lobbyInput, foundUser);
@@ -52,7 +53,7 @@ public class LobbyController {
         User joinedUser = UserDTOMapper.INSTANCE.convertUserPutDTOtoEntity(userPutDTO);
 
         //find the user by id
-        User foundUser = userService.getUserDataById(joinedUser.getUserId());
+        User foundUser = userService.getUserById(joinedUser.getUserId());
 
         //add user to lobby
         Lobby joinedLobby = lobbyService.joinLobby(foundUser, lobbyId);
@@ -83,7 +84,7 @@ public class LobbyController {
     @ResponseBody
     public void removeUserInLobby(@RequestBody UserPutDTO userPutDTO, @PathVariable("lobbyId") long lobbyId){
         User userToRemove = UserDTOMapper.INSTANCE.convertUserPutDTOtoEntity(userPutDTO);
-        userToRemove = userService.getUserDataById(userToRemove.getUserId());
+        userToRemove = userService.getUserById(userToRemove.getUserId());
         lobbyService.removeUser(userToRemove, lobbyId);
     }
 }
