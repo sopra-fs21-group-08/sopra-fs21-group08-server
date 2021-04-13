@@ -1,0 +1,250 @@
+name,stop_lat,stop_lon,reachable_by_tram,reachable_by_bus
+"Zürich, Laubegg",47.3587861235647,8.51722365396655,"['Zürich, Uetlihof', 'Zürich, Saalsporthalle']",[]
+"Zürich, Zypressenstrasse",47.376661515558396,8.51397175263758,"['Zürich, Albisriederplatz', 'Zürich, Lochergut']",[]
+"Zürich, Lochergut",47.375365783732605,8.517825525206991,"['Zürich, Zypressenstrasse', 'Zürich,Kalkbreite/Bhf.Wiedikon']",[]
+"Zürich, Sihlpost / HB",47.3763391063895,8.53457012210531,"['Zürich, Stauffacher', 'Zürich, Löwenplatz']","['Zürich, Löwenplatz', 'Zürich, Kanonengasse']"
+"Zürich, Seebach",47.4216942513698,8.54995826292442,"['Zürich, Seebacherplatz']",[]
+"Zürich, Hölderlinsteig",47.3672439224786,8.56470859989172,[],"['Zürich, Klusplatz', 'Zürich, Klosbach']"
+"Zürich, Hardturm",47.3941963875977,8.50444062747175,"['Zürich, Hardhof', 'Zürich, Bernoulli-Häuser']",[]
+"Zürich, Bäckeranlage",47.3782248679118,8.52271236035328,"['Zürich, Güterbahnhof', 'Zürich, Helvetiaplatz']","['Zürich, Güterbahnhof', 'Zürich, Militär-/Langstrasse']"
+"Zürich, Messe/Hallenstadion",47.411220856901295,8.550281656426751,"['Zürich, Sternen Oerlikon', 'Zürich, Leutschenbach']",[]
+"Zürich, Regensbergbrücke",47.408515550016006,8.53907966483222,"['Zürich, Bahnhof Oerlikon', 'Zürich, Bad Allenmoos']",[]
+"Zürich, Heerenwiesen",47.404825165788495,8.57605432193173,"['Zürich, Luegisland', 'Zürich, Schwamendingerplatz']",[]
+"Zürich, Friesenbergstrasse",47.3620720482395,8.50498859979514,[],"['Zürich, Friesenberg', 'Zürich, Im Hagacker']"
+"Zürich, Post Wollishofen",47.3446299679502,8.53301603666357,"['Zch, Bhf.Wollishofen/Staubstr.', 'Zürich, Morgental']",[]
+"Zürich, Helvetiaplatz",47.376162692991,8.52607205951636,"['Zürich, Bäckeranlage', 'Zürich, Stauffacher']","['Zürich, Militär-/Langstrasse', 'Zürich, Kernstrasse']"
+"Zürich, Salersteig",47.40604113643379,8.54836824487131,"['Zürich, Sternen Oerlikon', 'Zürich, Berninaplatz']",[]
+"Zürich, Freihofstrasse",47.3830180484378,8.49984125321642,"['Zürich, Kappeli', 'Zürich, Letzigrund']",[]
+"Zürich, Werdhölzli",47.3977902247233,8.48205461058837,"['Zürich, Bändliweg']",[]
+"Zürich, Schwamendingerplatz",47.404879885070706,8.57148189713492,"['Zürich, Heerenwiesen', 'Zürich, Roswiesen', 'Zürich, Schörlistrasse']",[]
+"Zürich, Güterbahnhof",47.38022613459721,8.52012521233466,"['Zürich, Bäckeranlage', 'Zürich, Hardplatz']","['Zürich, Bäckeranlage', 'Zürich, Hardplatz']"
+"Zürich, Waffenplatzstrasse",47.3609889327173,8.524931199105371,"['Zürich, Sihlcity Nord', 'Zürich, Bahnhof Enge/Bederstr.']",[]
+"Zürich, Radiostudio",47.402070888486996,8.53498334713606,"['Zürich, Bucheggplatz', 'Zürich, Bad Allenmoos']","['Zürich, Bucheggplatz', 'Zürich, Birchdörfli']"
+"Zürich, Oerlikerhus",47.4174698884865,8.55369525450688,"['Zürich, Leutschenbach', 'Glattpark']",[]
+"Zürich, Quellenstrasse",47.3866065658351,8.52891073581457,"['Zürich, Löwenbräu', 'Zürich, Limmatplatz']",[]
+"Zürich, Bethanien",47.3808830688024,8.55605782370444,[],"['Zürich, Toblerplatz', 'Zürich, Spyriplatz']"
+"Zürich, Sihlcity Nord",47.359753667088,8.52255066360212,"['Zürich, Waffenplatzstrasse', 'Zürich, Saalsporthalle']",[]
+"Zürich, Schulhaus Altweg",47.372640384714096,8.494154917467151,[],"['Zürich, Sackzelg', 'Zürich, In der Ey']"
+"Zürich, SBB-Werkstätte",47.3866673860586,8.50281467680727,[],"['Zürich, Herdernstrasse', 'Zürich, Letzipark']"
+"Zürich, Kantonsschule",47.3727377228187,8.550353521649491,"['Zürich, Kunsthaus', 'Zürich, ETH/Universitätsspital']",[]
+"Zürich, Hirschwiesenstrasse",47.4001494972038,8.543283780362481,"['Zürich, Milchbuck', 'Zürich, Berninaplatz']",[]
+"Zürich, Birchdörfli",47.4072206011409,8.53089601259275,[],"['Zürich, Radiostudio', 'Zürich, Neuaffoltern']"
+"Zürich, Universität Irchel",47.3960936722579,8.5451073603895,"['Zürich, Langmauerstrasse', 'Zürich, Milchbuck']",[]
+"Zürich, Roswiesen",47.403128839848,8.57670110893638,"['Zürich, Schwamendingerplatz', 'Zürich, Glattwiesen']",[]
+"Zürich, Fröhlichstrasse",47.3551105134921,8.55699207160005,"['Zürich, Wildbachstrasse', 'Zürich, Höschgasse']","['Zürich, Wildbachstrasse', 'Zürich, Höschgasse']"
+"Zürich, Drusbergstrasse",47.3603804310956,8.578776217242991,[],"['Zürich, Schlyfi', 'Zürich, Waserstrasse']"
+"Zürich, Siemens",47.3786020121232,8.494334580524,"['Zürich, Fellenbergstrasse', 'Zürich, Hubertus']",[]
+"Zürich, Scheuchzerstrasse",47.3880783955424,8.54364310647618,[],"['Zürich, Seilbahn Rigiblick', 'Zürich, Schaffhauserplatz']"
+"Schlieren, Mülligen",47.3957896248255,8.46705274534149,"['Schlieren, Gasometerbrücke', 'Zürich, Micafil']",[]
+"Zürich, Hirzenbach",47.403128839848,8.59106517033145,"['Zürich, Altried']",[]
+"Zürich, Zweiackerstrasse",47.3569666068716,8.59806304639572,[],"['Zürich, Kienastenwies', 'Zürich, Loorenstrasse']"
+"Zürich, Nordstrasse",47.3880662318289,8.53610624124137,[],"['Zürich, Rotbuchstrasse', 'Zürich, Limmatplatz']"
+"Zürich, Bellevue",47.3668727813338,8.54533193921056,"['Zürich, Bürkliplatz', 'Zürich, Kunsthaus', 'Zürich, Opernhaus', 'Zürich, Helmhaus', 'Zürich, Bahnhof Stadelhofen']",[]
+"Dübendorf, Giessen",47.402034407026704,8.60745942426892,"['Dübendorf, Ringwiesen', 'Wallisellen, Neugut']",[]
+"Zürich, Werd",47.372415289658896,8.52662901499259,"['Zürich, Stauffacher', 'Zürich, Bahnhof Wiedikon']",[]
+"Zürich, Fischerweg",47.3935213756188,8.51259733025269,"['Zürich, Bernoulli-Häuser', 'Zürich, Förrlibuckstrasse']",[]
+"Zürich, Schörlistrasse",47.4060472162165,8.56406181288706,"['Zürich, Waldgarten', 'Zürich, Schwamendingerplatz']",[]
+"Glattbrugg, Unterriet",47.4379928596955,8.56242687906973,"['Kloten Balsberg, Bahnhof', 'Rümlang, Bäuler']",[]
+"Zürich, Tunnelstrasse",47.366197419436396,8.532620777938499,"['Zürich, Stockerstrasse', 'Zürich, Bahnhof Enge/Bederstr.', 'Zürich, Bahnhof Enge']",[]
+"Zürich, Hubertus",47.3774097405616,8.49916751675323,"['Zürich, Altes Krematorium', 'Zürich, Siemens']","['Zürich, Altes Krematorium', 'Zürich, Sackzelg']"
+"Zürich, Letzipark",47.3874458787206,8.50033532662275,[],"['Zürich, Letzibach', 'Zürich, SBB-Werkstätte']"
+"Zürich, Hofstrasse",47.372932398489,8.56259755897374,[],"['Zürich, Kirche Fluntern', 'Zürich, Klosbach']"
+"Zürich, Friedhof Enzenbühl",47.3509903614489,8.58056386465863,"['Zürich, Rehalp', 'Zürich, Balgrist']",[]
+"Zürich, Bahnhof Oerlikon Ost",47.4132755814091,8.54597872621522,"['Zürich, Leutschenbach', 'Zürich, Sternen Oerlikon', 'Zürich, Felsenrainstrasse']",[]
+"Zürich, Würzgraben",47.3920740234923,8.495098148515611,"['Zürich, Bahnhof Altstetten N', 'Zürich, Aargauerstrasse']",[]
+"Zürich, Letzibach",47.3888751126601,8.49551137354636,[],"['Zürich, Letzipark', 'Zürich, Bahnhof Altstetten']"
+"Zürich, Hottingerplatz",47.369349034311,8.55457560348544,"['Zürich, Römerhof', 'Zürich, Kunsthaus']",[]
+"Zürich, Opernhaus",47.3653151769051,8.54772145786665,"['Zürich, Kreuzstrasse', 'Zürich, Bellevue']",[]
+"Zürich, Berghaldenstrasse",47.3586826744651,8.590265669728481,[],"['Zürich, Loorenstrasse', 'Zürich, Zentrum Witikon']"
+"Zürich, Waserstrasse",47.358274961332995,8.58438170461667,[],"['Zürich, Drusbergstrasse', 'Zürich, Zentrum Witikon']"
+"Zürich, Kronenstrasse",47.3879263489224,8.53935814257034,"['Zürich, Beckenhof', 'Zürich, Schaffhauserplatz']",[]
+"Zürich, Sackzelg",47.3740091853096,8.49521492950256,[],"['Zürich, Hubertus', 'Zürich, Schulhaus Altweg']"
+"Wallisellen, Neugut",47.4046974872424,8.60451295013659,"['Wallisellen, Glatt (Tram)', 'Dübendorf, Giessen']",[]
+"Zürich, Bändliweg",47.3962700189648,8.4852346466946,"['Zürich, Werdhölzli', 'Zürich, Grünaustrasse']",[]
+"Zch, Bhf.Wollishofen/Staubstr.",47.34688206094751,8.5329172219823,"['Zürich, Billoweg', 'Zürich, Post Wollishofen']",[]
+"Zürich, Löwenplatz",47.3760775276908,8.53747168047342,"['Zürich, Bahnhofplatz/HB', 'Zürich, Sihlpost / HB']","['Zürich, Bahnhofplatz/HB', 'Zürich, Sihlpost / HB']"
+"Zürich, Sprecherstrasse",47.3678827658739,8.55182675871565,[],"['Zürich, Kreuzplatz', 'Zürich, Kunsthaus']"
+"Zürich, Friesenberg",47.36446334252889,8.50790812446893,[],"['Zürich, Friesenbergstrasse', 'Zürich, Höfliweg']"
+"Zürich, Stockerstrasse",47.3677306610054,8.53495639767754,"['Zürich, Tunnelstrasse', 'Zürich, Bahnhof Selnau', 'Zürich, Paradeplatz']",[]
+"Zürich, Sonneggstrasse",47.38275042040279,8.54349039287786,"['Zürich, Ottikerstrasse', 'Zürich, Haldenegg']",[]
+"Wallisellen, Belair",47.4142542829426,8.58589985744705,"['Wallisellen, Bahnhof', 'Wallisellen, Herti']",[]
+"Zürich, Museum Rietberg",47.3605264721249,8.53157873220878,"['Zürich, Brunaustrasse', 'Zürich, Bahnhof Enge']",[]
+"Zürich, Toni-Areal",47.390091451443396,8.51087256490694,"['Zürich, Sportweg', 'Zürich, Technopark']",[]
+"Zürich, Heuried",47.3694342104779,8.50612047705329,"['Zürich, Schaufelbergerstrasse', 'Zürich, Talwiesenstrasse']",[]
+"Zürich, Hardhof",47.396203128904,8.497694279687071,"['Zürich, Hardturm', 'Zürich, Tüffenwies']",[]
+"Zürich, Kapfstrasse",47.361031527567995,8.57115850363259,[],"['Zürich, Schlyfi', 'Zürich, Klusplatz']"
+"Rümlang, Bäuler",47.43490611329371,8.55728851564386,"['Glattbrugg, Unterriet', 'Glattbrugg, Bahnhof']",[]
+"Zürich, Haldenegg",47.37914339184,8.54500854570823,"['Zürich, ETH/Universitätsspital', 'Zürich, Sonneggstrasse', 'Zürich, Central']",[]
+"Zürich, Luegisland",47.4059681789866,8.58094115707802,"['Zürich, Luchswiesen', 'Zürich, Heerenwiesen']",[]
+"Zürich, Klusplatz",47.3640374201824,8.56620878641641,"['Zürich, Hölderlinstrasse']","['Zürich, Kapfstrasse', 'Zürich, Hölderlinsteig', 'Zürich, Freiestrasse']"
+"Zürich, Hardplatz",47.3823428932854,8.51491498368604,"['Zürich, Güterbahnhof', 'Zürich, Bahnhof Hardbrücke']","['Zürich, Güterbahnhof', 'Zürich, Herdernstrasse', 'Zürich, Albisriederplatz', 'Zürich, Bahnhof Hardbrücke']"
+"Zürich, Winkelriedstrasse",47.382999801114906,8.54817061550877,"['Zürich, Seilbahn Rigiblick', 'Zürich, Haldenbach']",[]
+"Zürich, Escher-Wyss-Platz",47.3899637371901,8.52360169248469,"['Zürich, Schiffbau', 'Zürich, Löwenbräu', 'Zürich, Wipkingerplatz', 'Zürich, Förrlibuckstrasse']","['Zürich, Rosengartenstrasse', 'Zürich, Schiffbau']"
+"Zürich, Altes Krematorium",47.3777321431841,8.50760269727229,"['Zürich, Hubertus', 'Zürich, Albisriederplatz']","['Zürich, Hubertus', 'Zürich, Albisriederplatz']"
+"Zürich, Zentrum Witikon",47.358195852449796,8.587498858653001,[],"['Zürich, Waserstrasse', 'Zürich, Berghaldenstrasse']"
+"Zürich, Seidelhof",47.3919037441582,8.483680561252859,[],"['Zürich, Farbhof', 'Zürich, Bahnhof Altstetten']"
+"Schlieren, Gasometerbrücke",47.3976017215914,8.460557925836401,"['Schlieren, Wagonsfabrik', 'Schlieren, Mülligen']",[]
+"Zürich, Stauffacher",47.373595507097995,8.530303124505151,"['Zürich, Sihlpost / HB', 'Zürich, Helvetiaplatz', 'Zürich, Bezirksgebäude', 'Zürich, Sihlstrasse', 'Zürich, Bahnhof Selnau', 'Zürich, Werd']",[]
+"Zürich, Bahnhof Stettbach",47.3969267532335,8.59567352773963,"['Zürich, Mattenhof', 'Dübendorf, Ringwiesen']",[]
+"Zürich, Bahnhof Oerlikon",47.4115248152832,8.54502651201392,"['Zürich, Sternen Oerlikon', 'Zürich, Regensbergbrücke']",[]
+"Zürich, Neuaffoltern",47.411536973582,8.525362390441801,[],"['Zürich, Glaubtenstrasse', 'Zürich, Birchdörfli']"
+"Zürich, Herdernstrasse",47.385311078409,8.50772846141208,[],"['Zürich, Hardplatz', 'Zürich, SBB-Werkstätte']"
+"Zürich, Guggachstrasse",47.3956132765108,8.540067811644889,"['Zürich, Milchbuck', 'Zürich, Schaffhauserplatz']",[]
+"Zürich, Bahnhof Hardbrücke",47.3853049962333,8.5173404349535,"['Zürich, Schiffbau', 'Zürich, Hardplatz']","['Zürich, Schiffbau', 'Zürich, Hardplatz']"
+"Zürich, Loorenstrasse",47.35943723971211,8.59476622930254,[],"['Zürich, Zweiackerstrasse', 'Zürich, Berghaldenstrasse']"
+"Schlieren, Geissweid",47.3978935971223,8.44481045890359,"['Schlieren, Zentrum/Bahnhof']",[]
+"Zürich, Bahnhof Stadelhofen",47.3661122380425,8.54812569974456,"['Zürich, Kreuzplatz', 'Zürich, Bellevue']",[]
+"Zürich, Wildbachstrasse",47.3531082936664,8.55889650000265,"['Zürich, Bahnhof Tiefenbrunnen', 'Zürich, Fröhlichstrasse']","['Zürich, Bahnhof Tiefenbrunnen', 'Zürich, Fröhlichstrasse']"
+"Zürich, Römerhof",47.3680227019655,8.56036973706882,"['Zürich, Hottingerplatz', 'Zürich, Hölderlinstrasse']",[]
+"Zürich, Signaustrasse",47.36300302302379,8.55787242057862,"['Zürich, Hegibachplatz', 'Zürich, Kreuzplatz']","['Zürich, Kreuzplatz', 'Zürich, Hegibachplatz']"
+"Zürich, Kantonalbank",47.368047038639205,8.53982526651814,"['Zürich, Bürkliplatz', 'Zürich, Paradeplatz']",[]
+"Zürich, Einfangstrasse",47.4155065080687,8.51338784770283,[],"['Zürich, Zehntenhausplatz', 'Zürich, Glaubtenstrasse']"
+"Zürich, Lägernstrasse",47.39585043445229,8.5320907719208,[],"['Zürich, Bucheggplatz', 'Zürich, Rotbuchstrasse']"
+"Zürich, Schaffhauserplatz",47.392408499153994,8.53894491753958,"['Zürich, Röslistrasse', 'Zürich, Kronenstrasse', 'Zürich, Laubiweg', 'Zürich, Guggachstrasse']","['Zürich, Scheuchzerstrasse', 'Zürich, Rotbuchstrasse']"
+"Zürich, Kernstrasse",47.3746540301674,8.52439220993482,[],"['Zürich, Helvetiaplatz', 'Zürich,Kalkbreite/Bhf.Wiedikon']"
+"Zürich, Rathaus",47.371849505953705,8.54272682488625,"['Zürich, Helmhaus', 'Zürich, Rudolf-Brun-Brücke']",[]
+"Zürich, Schwert",47.3996448163545,8.50492571772524,"['Zürich, Meierhofplatz', 'Zürich, Alte Trotte']",[]
+"Zürich, Fellenbergstrasse",47.375779448057,8.48823501974398,"['Zürich, Siemens', 'Zürich, Albisrieden']",[]
+"Zürich, Letzistrasse",47.39051108181089,8.54549363596172,"['Zürich, Kinkelstrasse', 'Zürich, Langmauerstrasse']",[]
+"Zürich, Kirche Fluntern",47.376290440683405,8.55928277557488,[],"['Zürich, Toblerplatz', 'Zürich, Hofstrasse']"
+"Zürich, Balgrist",47.3543558863687,8.5751380403418,"['Zürich, Friedhof Enzenbühl', 'Zürich, Burgwies']",[]
+"Zürich, Ottikerstrasse",47.3856334327159,8.542214785174231,"['Zürich, Röslistrasse', 'Zürich, Sonneggstrasse']",[]
+"Kloten Balsberg, Bahnhof",47.4414986492587,8.56827491157017,"['Zürich Flughafen, Bahnhof', 'Glattbrugg, Unterriet']",[]
+"Zürich, Billoweg",47.351440733461,8.53191110886395,"['Zch, Bhf.Wollishofen/Staubstr.', 'Zürich, Brunaustrasse']",[]
+"Zürich, Rudolf-Brun-Brücke",47.373753678562096,8.54275377434478,"['Zürich, Rathaus', 'Zürich, Central']",[]
+"Zürich, Grünaustrasse",47.3950355796226,8.48994181878404,"['Zürich, Bändliweg', 'Zürich, Tüffenwies']",[]
+"Zürich, Mattenhof",47.3988056977355,8.590750759981969,"['Zürich, Probstei', 'Zürich, Bahnhof Stettbach']",[]
+"Zürich, Röslistrasse",47.388461551079295,8.5405349355927,"['Zürich, Ottikerstrasse', 'Zürich, Schaffhauserplatz']",[]
+"Zürich, Hedwigsteig",47.3603074104294,8.5652116564509,"['Zürich, Hegibachplatz', 'Zürich, Wetlistrasse']",[]
+"Zürich, Wollishoferplatz",47.3383114211963,8.53079719791148,"['Zürich, Butzenstrasse']",[]
+"Zürich, Neumarkt",47.372640384714096,8.54744298012854,"['Zürich, Kunsthaus', 'Zürich, Central']","['Zürich, Kunsthaus', 'Zürich, Central']"
+"Zürich, Langmauerstrasse",47.3934484008329,8.544945663638341,"['Zürich, Universität Irchel', 'Zürich, Letzistrasse']",[]
+"Zürich, Saalsporthalle",47.357964610418996,8.52034979115572,"['Zürich, Sihlcity Nord', 'Zürich, Laubegg']",[]
+"Zürich, Frankental",47.405414915057,8.481767149697419,"['Zürich, Winzerstrasse']",[]
+"Zürich, Glattwiesen",47.401693912178494,8.58158794408267,"['Zürich, Probstei', 'Zürich, Roswiesen']",[]
+"Zürich, Altried",47.405542591864204,8.59136161437525,"['Zürich, Luchswiesen', 'Zürich, Hirzenbach']",[]
+"Zürich, Klosbach",47.370334635828506,8.56362163839778,[],"['Zürich, Hölderlinsteig', 'Zürich, Hofstrasse']"
+"Zürich, Butzenstrasse",47.340715966944195,8.53019532667104,"['Zürich, Wollishoferplatz', 'Zürich, Morgental']",[]
+"Zürich, Bahnhofquai/HB",47.377379325118,8.54166681285084,"['Zürich, Sihlquai/HB', 'Zürich, Stampfenbachplatz', 'Zürich, Bahnhofstrasse/HB', 'Zürich, Bahnhofplatz/HB', 'Zürich, Central']",[]
+"Zürich, Albisrieden",47.374362025925706,8.48501006787354,"['Zürich, Fellenbergstrasse']",[]
+"Zürich, Letzigrund",47.381138541005,8.503784857314251,"['Zürich, Albisriederplatz', 'Zürich, Freihofstrasse']",[]
+"Zürich, Tüffenwies",47.39761388310411,8.49485560338886,"['Zürich, Hardhof', 'Zürich, Grünaustrasse']",[]
+"Zürich, Hegibachplatz",47.361694785805994,8.5609177093922,"['Zürich, Signaustrasse', 'Zürich, Hedwigsteig']","['Zürich, Signaustrasse', 'Zürich, Freiestrasse', 'Zürich, Botanischer Garten']"
+"Zürich, Kreuzplatz",47.364785824303596,8.55424322683027,"['Zürich, Signaustrasse', 'Zürich, Bahnhof Stadelhofen']","['Zürich, Sprecherstrasse', 'Zürich, Signaustrasse']"
+"Zürich, Vogelsangstrasse",47.38354113567411,8.54923062754418,[],"['Zürich, Seilbahn Rigiblick', 'Zürich, Spyriplatz']"
+"Zürich, Museum für Gestaltung",47.38205093162271,8.5350552123588,"['Zürich, Sihlquai/HB', 'Zürich, Limmatplatz']",[]
+"Zürich, Kienastenwies",47.3552200552421,8.60082087431835,[],"['Zürich, Zweiackerstrasse']"
+"Zürich, Rehalp",47.3508625524751,8.58299829907894,"['Zürich, Friedhof Enzenbühl']",[]
+"Zürich, Kanonengasse",47.378322195708506,8.5302492255881,[],"['Zürich, Sihlpost / HB', 'Zürich, Militär-/Langstrasse']"
+"Zürich, Stampfenbachplatz",47.3798915816247,8.54252919552372,"['Zürich, Beckenhof', 'Zürich, Bahnhofquai/HB']",[]
+"Zürich, Leutschenbach",47.4142907559401,8.5514764157548,"['Zürich, Bahnhof Oerlikon Ost', 'Zürich, Messe/Hallenstadion', 'Zürich, Oerlikerhus']",[]
+"Zürich, Zehntenhausplatz",47.4188375250837,8.50713557332448,[],"['Zürich, Hungerbergstrasse', 'Zürich, Einfangstrasse']"
+"Zürich, Holzerhurd",47.42377287817099,8.49664325080451,[],"['Zürich, Hungerbergstrasse']"
+"Zürich, Spyriplatz",47.38214825235661,8.55203337123103,[],"['Zürich, Vogelsangstrasse', 'Zürich, Bethanien']"
+"Zürich, Bachmattstrasse",47.38899066605121,8.48299784163683,"['Zürich, Farbhof', 'Zürich, Lindenplatz']",[]
+"Zürich, Botanischer Garten",47.3591816623693,8.55749512815923,[],"['Zürich, Hegibachplatz', 'Zürich, Höschgasse']"
+"Schlieren, Wagonsfabrik",47.398477343333596,8.45463802811323,"['Schlieren, Gasometerbrücke', 'Schlieren, Zentrum/Bahnhof']",[]
+"Zürich, Sihlstrasse",47.372171942572606,8.5348216503849,"['Zürich, Stauffacher', 'Zürich, Paradeplatz']",[]
+"Zürich, Sportweg",47.391502369265204,8.506093527594759,"['Zürich, Toni-Areal', 'Zürich, Aargauerstrasse']",[]
+"Zürich, Brunaustrasse",47.35592598550961,8.532198569754911,"['Zürich, Billoweg', 'Zürich, Museum Rietberg']",[]
+"Zürich, Morgental",47.343260404957704,8.53036600657505,"['Zürich, Butzenstrasse', 'Zürich, Post Wollishofen']",[]
+"Zürich, Seebacherplatz",47.4197796540743,8.54815264920309,"['Zürich, Seebach', 'Zürich, Felsenrainstrasse']",[]
+"Zürich, Schlyfi",47.3626987847054,8.57432057343313,[],"['Zürich, Drusbergstrasse', 'Zürich, Kapfstrasse']"
+"Zürich, Bahnhofstrasse/HB",47.375974112498504,8.53934017626465,"['Zürich, Rennweg', 'Zürich, Bahnhofquai/HB', 'Zürich, Central']",[]
+"Zürich, Schmiede Wiedikon",47.37020687370789,8.518849604631031,"['Zürich, Goldbrunnenplatz', 'Zürich, Bahnhof Wiedikon']",[]
+"Zürich, Rentenanstalt",47.3634532925151,8.53460605471668,"['Zürich, Bürkliplatz', 'Zürich, Bahnhof Enge']",[]
+"Zürich, Waldgarten",47.4036213271999,8.55683935800174,"['Zürich, Tierspital', 'Zürich, Schörlistrasse']",[]
+"Zürich, Meierhofplatz",47.401815517734,8.49995803420337,"['Zürich, Schwert', 'Zürich, Zwielplatz']",[]
+"Zürich, Central",47.37679534520039,8.544074297812621,"['Zürich, Neumarkt', 'Zürich, Bahnhofstrasse/HB', 'Zürich, Bahnhofquai/HB', 'Zürich, Bahnhofplatz/HB', 'Zürich, Rudolf-Brun-Brücke', 'Zürich, Haldenegg']","['Zürich, Bahnhofplatz/HB', 'Zürich, Neumarkt']"
+"Glattbrugg, Lindberghplatz",47.4251099631438,8.56036973706882,"['Glattpark', 'Glattbrugg, Bahnhof']",[]
+"Zürich, Laubiweg",47.394859228784505,8.53645658420223,"['Zürich, Bucheggplatz', 'Zürich, Schaffhauserplatz']",[]
+"Zürich, Höschgasse",47.3578733303911,8.55435102466438,"['Zürich, Feldeggstrasse', 'Zürich, Fröhlichstrasse']","['Zürich, Fröhlichstrasse', 'Zürich, Botanischer Garten']"
+"Zürich, Im Hagacker",47.3595346021838,8.50738710160407,[],"['Zürich, Hegianwandweg', 'Zürich, Friesenbergstrasse']"
+"Zürich Flughafen, Bahnhof",47.45070858804271,8.563819267760321,"['Kloten Balsberg, Bahnhof', 'Zürich Flughafen, Fracht']",[]
+"Zürich, Sternen Oerlikon",47.409670641865205,8.546248220800491,"['Zürich, Bahnhof Oerlikon Ost', 'Zürich, Salersteig', 'Zürich, Messe/Hallenstadion', 'Zürich, Bahnhof Oerlikon']",[]
+"Zürich, Fernsehstudio",47.418375571806095,8.561420765951379,"['Zürich, Auzelg', 'Glattpark']",[]
+"Zürich, Winzerstrasse",47.4036456474437,8.48655517016244,"['Zürich, Frankental', 'Zürich, Wartau']",[]
+"Zürich, Hölderlinstrasse",47.365990550098196,8.562498744292471,"['Zürich, Römerhof', 'Zürich, Klusplatz']",[]
+"Zürich, Rennweg",47.37290198046289,8.53821728215934,"['Zürich, Bahnhofstrasse/HB', 'Zürich, Paradeplatz']",[]
+"Zürich, Albisgütli",47.3519823920064,8.50737811845123,"['Zürich, Strassenverkehrsamt']",[]
+"Zürich, Bahnhof Altstetten N",47.3920253723101,8.49048080795459,"['Zürich, Würzgraben']",[]
+"Zürich,Kalkbreite/Bhf.Wiedikon",47.374495861403894,8.52128403905133,"['Zürich, Bezirksgebäude', 'Zürich, Lochergut']","['Zürich, Zwinglihaus', 'Zürich, Kernstrasse']"
+"Zürich, Bahnhof Selnau",47.3706996687536,8.53178534472415,"['Zürich, Stauffacher', 'Zürich, Stockerstrasse']",[]
+"Zürich, Lindenplatz",47.3877803837547,8.48634855764706,"['Zürich, Grimselstrasse', 'Zürich, Bachmattstrasse']",[]
+"Zürich, Bahnhof Wipkingen",47.3934727257728,8.52967430380618,[],"['Zürich, Rosengartenstrasse', 'Zürich, Nürenbergstrasse']"
+"Zürich, Hegianwandweg",47.3565467094935,8.51003713169259,[],"['Zürich, Strassenverkehrsamt', 'Zürich, Im Hagacker']"
+"Zürich, Waidfussweg",47.3952362539964,8.51922689705042,"['Zürich, Wipkingerplatz', 'Zürich, Eschergutweg']",[]
+"Zürich, Toblerplatz",47.3791920549131,8.5594354891732,[],"['Zürich, Bethanien', 'Zürich, Kirche Fluntern']"
+"Zürich, Zwinglihaus",47.3720746034237,8.51663974903179,[],"['Zürich, Goldbrunnenplatz', 'Zürich,Kalkbreite/Bhf.Wiedikon']"
+"Zürich, Talwiesenstrasse",47.3698175015265,8.50928254685383,"['Zürich, Heuried', 'Zürich, Goldbrunnenplatz']",[]
+"Zürich, Beckenhof",47.3839364888622,8.54040018830006,"['Zürich, Stampfenbachplatz', 'Zürich, Kronenstrasse']",[]
+"Zürich, Militär-/Langstrasse",47.3796908488222,8.52750038081831,[],"['Zürich, Bäckeranlage', 'Zürich, Röntgenstrasse', 'Zürich, Kanonengasse', 'Zürich, Helvetiaplatz']"
+"Zürich, In der Ey",47.3695680584622,8.49188217979801,[],"['Zürich, Triemli', 'Zürich, Schulhaus Altweg']"
+"Zürich, Bürkliplatz",47.3666111556789,8.54176562753211,"['Zürich, Rentenanstalt', 'Zürich, Kantonalbank', 'Zürich, Bellevue']",[]
+"Zürich, Bucheggplatz",47.3980577763979,8.533384345930111,"['Zürich, Laubiweg', 'Zürich, Radiostudio']","['Zürich, Radiostudio', 'Zürich, Lägernstrasse']"
+"Zürich, Sihlquai/HB",47.379763842657006,8.53739981525068,"['Zürich, Museum für Gestaltung', 'Zürich, Bahnhofquai/HB']",[]
+"Zürich, Zwielplatz",47.402162092027396,8.49662528449882,"['Zürich, Meierhofplatz', 'Zürich, Wartau']",[]
+"Schlieren, Zentrum/Bahnhof",47.3977719825142,8.4487271135429,"['Schlieren, Geissweid', 'Schlieren, Wagonsfabrik']",[]
+"Zürich, Kinkelstrasse",47.3888021314405,8.546382968093129,"['Zürich, Seilbahn Rigiblick', 'Zürich, Letzistrasse']",[]
+"Zürich, Kreuzstrasse",47.36337419139621,8.54951808843514,"['Zürich, Feldeggstrasse', 'Zürich, Opernhaus']",[]
+"Zürich, Kunsthaus",47.3705475720085,8.54904198133449,"['Zürich, Neumarkt', 'Zürich, Bellevue', 'Zürich, Kantonsschule', 'Zürich, Hottingerplatz']","['Zürich, Sprecherstrasse', 'Zürich, Neumarkt']"
+"Zürich, Schiffbau",47.3879202670485,8.51978385252665,"['Zürich, Technopark', 'Zürich, Bahnhof Hardbrücke', 'Zürich, Escher-Wyss-Platz']","['Zürich, Bahnhof Hardbrücke', 'Zürich, Escher-Wyss-Platz']"
+"Zürich, Wipkingerplatz",47.3924997194205,8.52369152401311,"['Zürich, Waidfussweg', 'Zürich, Escher-Wyss-Platz']",[]
+"Zürich, Hungerbergstrasse",47.42091626467629,8.50216788980261,[],"['Zürich, Holzerhurd', 'Zürich, Zehntenhausplatz']"
+"Zürich, Bahnhof Altstetten",47.390669202531996,8.48925909916802,[],"['Zürich, Letzibach', 'Zürich, Seidelhof']"
+"Zürich, Helmhaus",47.3695619744703,8.54347242657217,"['Zürich, Rathaus', 'Zürich, Bellevue']",[]
+"Zürich, Haldenbach",47.38011664476711,8.548071800827511,"['Zürich, ETH/Universitätsspital', 'Zürich, Winkelriedstrasse']",[]
+"Zürich, Milchbuck",47.39748010630961,8.54161291393379,"['Zürich, Universität Irchel', 'Zürich, Guggachstrasse', 'Zürich, Tierspital', 'Zürich, Hirschwiesenstrasse']",[]
+"Zürich, Schaufelbergerstrasse",47.368892731074894,8.50154805225648,"['Zürich, Heuried', 'Zürich, Triemli']",[]
+"Zürich, Hermetschloo",47.3940626021267,8.47374519420911,[],"['Zürich, Micafil']"
+Glattpark,47.420259829461095,8.55691122322447,"['Glattbrugg, Lindberghplatz', 'Zürich, Fernsehstudio', 'Zürich, Oerlikerhus']",[]
+"Zürich, Farbhof",47.3902495734235,8.478910507093518,"['Zürich, Micafil', 'Zürich, Bachmattstrasse']","['Zürich, Micafil', 'Zürich, Seidelhof']"
+"Zürich, Micafil",47.39289500541779,8.47481418939736,"['Zürich, Farbhof', 'Schlieren, Mülligen']","['Zürich, Hermetschloo', 'Zürich, Farbhof']"
+"Zürich, Bahnhof Wiedikon",47.3711802915849,8.52362864194321,"['Zürich, Schmiede Wiedikon', 'Zürich, Werd']",[]
+"Zürich, Tierspital",47.4018094374629,8.55210523645377,"['Zürich, Waldgarten', 'Zürich, Milchbuck']",[]
+"Zürich, Bahnhof Enge",47.364080012571705,8.53147991752751,"['Zürich, Tunnelstrasse', 'Zürich, Rentenanstalt', 'Zürich, Bahnhof Enge/Bederstr.', 'Zürich, Museum Rietberg']",[]
+"Zürich, Wetlistrasse",47.360039667121896,8.56858033876681,"['Zürich, Burgwies', 'Zürich, Hedwigsteig']",[]
+"Dübendorf, Ringwiesen",47.3973584907472,8.60412667456437,"['Zürich, Bahnhof Stettbach', 'Dübendorf, Giessen']",[]
+"Glattbrugg, Bahnhof",47.4306281181422,8.55951633754878,"['Glattbrugg, Lindberghplatz', 'Rümlang, Bäuler']",[]
+"Zürich, Röntgenstrasse",47.3820691792739,8.52932396084532,[],"['Zürich, Militär-/Langstrasse', 'Zürich, Limmatplatz']"
+"Zürich, Bahnhofplatz/HB",47.3770812528432,8.53977136760109,"['Zürich, Löwenplatz', 'Zürich, Bahnhofquai/HB', 'Zürich, Central']","['Zürich, Löwenplatz', 'Zürich, Central']"
+"Zürich, Probstei",47.4003866347285,8.5860795205039,"['Zürich, Mattenhof', 'Zürich, Glattwiesen']",[]
+"Zürich, Luchswiesen",47.4067281474386,8.58507340738554,"['Zürich, Luegisland', 'Zürich, Altried']",[]
+"Zürich, Rotbuchstrasse",47.390924627310106,8.53621403907548,[],"['Zürich, Schaffhauserplatz', 'Zürich, Nürenbergstrasse', 'Zürich, Lägernstrasse', 'Zürich, Nordstrasse']"
+"Zürich, Berninaplatz",47.40360308700971,8.54787417146497,"['Zürich, Salersteig', 'Zürich, Hirschwiesenstrasse']",[]
+"Zürich, Triemli",47.36774891361279,8.49534069364235,"['Zürich, Schaufelbergerstrasse']","['Zürich, In der Ey']"
+"Zürich, Felsenrainstrasse",47.41666144659229,8.545215158223609,"['Zürich, Bahnhof Oerlikon Ost', 'Zürich, Seebacherplatz']",[]
+"Zürich, Alte Trotte",47.397492267850396,8.507773377176301,"['Zürich, Schwert', 'Zürich, Eschergutweg']",[]
+"Zürich, Höfliweg",47.367615061012,8.51093544697684,[],"['Zürich, Friesenberg', 'Zürich, Goldbrunnenplatz']"
+"Zürich, Rosengartenstrasse",47.394366659524,8.525200693690639,[],"['Zürich, Bahnhof Wipkingen', 'Zürich, Escher-Wyss-Platz']"
+"Wallisellen, Bahnhof",47.4125582606597,8.59328400908354,"['Wallisellen, Glatt (Tram)', 'Wallisellen, Belair']",[]
+"Zürich, Grimselstrasse",47.3868985022676,8.49031911120342,"['Zürich, Kappeli', 'Zürich, Lindenplatz']",[]
+"Zürich, Albisriederplatz",47.378188369941704,8.51052222194608,"['Zürich, Altes Krematorium', 'Zürich, Zypressenstrasse', 'Zürich, Letzigrund']","['Zürich, Altes Krematorium', 'Zürich, Hardplatz']"
+"Zürich, ETH/Universitätsspital",47.3772089983102,8.54746992958706,"['Zürich, Kantonsschule', 'Zürich, Haldenbach', 'Zürich, Haldenegg']",[]
+"Zürich, Eschergutweg",47.3963247471331,8.513253100410191,"['Zürich, Waidfussweg', 'Zürich, Alte Trotte']",[]
+"Wallisellen, Glatt (Tram)",47.409184290489904,8.59806304639572,"['Wallisellen, Neugut', 'Wallisellen, Bahnhof']",[]
+"Zürich, Glaubtenstrasse",47.4139077882063,8.51978385252665,[],"['Zürich, Einfangstrasse', 'Zürich, Neuaffoltern']"
+"Zürich, Technopark",47.388966339042504,8.51555278753785,"['Zürich, Schiffbau', 'Zürich, Toni-Areal']",[]
+"Zürich, Kappeli",47.38506779083429,8.49511611482129,"['Zürich, Freihofstrasse', 'Zürich, Grimselstrasse']",[]
+"Zürich, Löwenbräu",47.388254769072,8.526278672031731,"['Zürich, Quellenstrasse', 'Zürich, Escher-Wyss-Platz']",[]
+"Zürich, Paradeplatz",47.3696167303722,8.53919644581917,"['Zürich, Rennweg', 'Zürich, Sihlstrasse', 'Zürich, Kantonalbank', 'Zürich, Stockerstrasse']",[]
+"Zürich, Aargauerstrasse",47.3922199767694,8.502715862126,"['Zürich, Würzgraben', 'Zürich, Sportweg']",[]
+"Zürich, Bezirksgebäude",47.373948350481996,8.52587443015382,"['Zürich, Stauffacher', 'Zürich,Kalkbreite/Bhf.Wiedikon']",[]
+"Zürich, Bernoulli-Häuser",47.393819354945705,8.5088962712816,"['Zürich, Fischerweg', 'Zürich, Hardturm']",[]
+"Zürich, Nürenbergstrasse",47.3926760781549,8.53253992956292,[],"['Zürich, Bahnhof Wipkingen', 'Zürich, Rotbuchstrasse']"
+"Zürich Flughafen, Fracht",47.4525613162346,8.57216461675095,"['Zürich Flughafen, Bahnhof']",[]
+"Zürich, Bad Allenmoos",47.4059499396091,8.53764236037743,"['Zürich, Regensbergbrücke', 'Zürich, Radiostudio']",[]
+"Zürich, Freiestrasse",47.362869158379794,8.562876036711861,[],"['Zürich, Hegibachplatz', 'Zürich, Klusplatz']"
+"Zürich, Goldbrunnenplatz",47.3702920484894,8.51362140967673,"['Zürich, Schmiede Wiedikon', 'Zürich, Talwiesenstrasse']","['Zürich, Zwinglihaus', 'Zürich, Höfliweg']"
+"Zürich, Bahnhof Tiefenbrunnen",47.3506130197771,8.56093567569789,"['Zürich, Wildbachstrasse']","['Zürich, Wildbachstrasse']"
+"Zürich, Seilbahn Rigiblick",47.3857003361929,8.54844011009405,"['Zürich, Kinkelstrasse', 'Zürich, Winkelriedstrasse']","['Zürich, Scheuchzerstrasse', 'Zürich, Vogelsangstrasse']"
+"Wallisellen, Herti",47.41650340386929,8.57926130749648,"['Zürich, Auzelg', 'Wallisellen, Belair']",[]
+"Zürich, Limmatplatz",47.384489978344405,8.53176737841847,"['Zürich, Museum für Gestaltung', 'Zürich, Quellenstrasse']","['Zürich, Röntgenstrasse', 'Zürich, Nordstrasse']"
+"Zürich, Burgwies",47.3579159277571,8.57190410531852,"['Zürich, Wetlistrasse', 'Zürich, Balgrist']",[]
+"Zürich, Strassenverkehrsamt",47.353144808993704,8.511097143728,"['Zürich, Uetlihof', 'Zürich, Albisgütli']","['Zürich, Hegianwandweg']"
+"Zürich, Auzelg",47.4163332034833,8.56899356379756,"['Zürich, Fernsehstudio', 'Wallisellen, Herti']",[]
+"Zürich, Feldeggstrasse",47.3604899619055,8.55204235438387,"['Zürich, Kreuzstrasse', 'Zürich, Höschgasse']",[]
+"Zürich, Förrlibuckstrasse",47.3922199767694,8.51743924963477,"['Zürich, Fischerweg', 'Zürich, Escher-Wyss-Platz']",[]
+"Zürich, Uetlihof",47.356589307930605,8.51381903903926,"['Zürich, Strassenverkehrsamt', 'Zürich, Laubegg']",[]
+"Zürich, Bahnhof Enge/Bederstr.",47.364536357443,8.53022227612957,"['Zürich, Tunnelstrasse', 'Zürich, Waffenplatzstrasse', 'Zürich, Bahnhof Enge']",[]
+"Zürich, Wartau",47.4026667487634,8.49209777546623,"['Zürich, Winzerstrasse', 'Zürich, Zwielplatz']",[]
