@@ -196,7 +196,7 @@ public class UserControllerTest {
         UserGetDTO userGetDTO = new UserGetDTO();
         userGetDTO.setUsername(testUser3.getUsername());
 
-        Mockito.when(userService.getUserDataById(testUser3.getUserId()))
+        Mockito.when(userService.getUserById(testUser3.getUserId()))
                 .thenReturn(testUser3);
 
         MockHttpServletRequestBuilder getRequest = get("/users/3")
@@ -214,7 +214,7 @@ public class UserControllerTest {
         UserGetDTO userGetDTO = new UserGetDTO();
         userGetDTO.setUsername(testUser3.getUsername());
 
-        given(userService.getUserDataById((long) 200))
+        given(userService.getUserById((long) 200))
                 .willThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, baseTestErrorMessage));
 
         MockHttpServletRequestBuilder getRequest = get("/users/200")

@@ -69,13 +69,19 @@ public class UserService {
         return foundUser;
     }
 
-    public User getUserDataById(long id){
+    public User getUserById(long id){
         User foundUser = this.userRepository.findByUserId(id);
         String baseErrorMessage = "The user doesn't exits.";
         if (foundUser == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, baseErrorMessage);
         }
         return foundUser;
+    }
+
+    private User getUserByEntity(User inputUser) {
+        long userId = inputUser.getUserId();
+        // find user in repository
+        return this.userRepository.findByUserId(userId);
     }
 
     private User checkIfUserExists(User userToBeCreated) {
@@ -135,7 +141,7 @@ public class UserService {
 
     public User logoutUser(User inputUser) {
 
-        User foundUser = getUserById(inputUser);
+        User foundUser = getUserByEntity(inputUser);
 
         String baseErrorMessage = "No User to log out";
         if (foundUser == null) {
@@ -146,9 +152,5 @@ public class UserService {
         return foundUser;
     }
 
-    private User getUserById(User inputUser) {
-        long userId = inputUser.getUserId();
-        // find user in repository
-        return this.userRepository.findByUserId(userId);
-    }
+
 }
