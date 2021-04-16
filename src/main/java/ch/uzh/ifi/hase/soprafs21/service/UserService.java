@@ -54,8 +54,10 @@ public class UserService {
 
     public User loginUser(User inputUser) {
 
+        //find user
+        User foundUser = findUserByEntity(inputUser);
 
-        User foundUser = authenticatePassword(inputUser, foundUser);
+                authenticatePassword(inputUser, foundUser);
         foundUser.setStatus(UserStatus.ONLINE);
         log.debug("User Logged in: {}", foundUser);
         return foundUser;
