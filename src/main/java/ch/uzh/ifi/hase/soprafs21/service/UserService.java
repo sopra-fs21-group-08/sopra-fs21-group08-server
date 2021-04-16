@@ -42,7 +42,7 @@ public class UserService {
         newUser.setStatus(UserStatus.ONLINE);
         newUser.setCreationDate(java.time.LocalDate.now().toString());
 
-        checkIfUserAlreadyExists(newUser);
+        isUsernameAvailable(newUser);
 
         // saves the given entity but data is only persisted in the database once flush() is called
         newUser = userRepository.save(newUser);
@@ -53,22 +53,17 @@ public class UserService {
     }
 
     public User loginUser(User inputUser) {
-        User foundUser = checkIfUserExists(inputUser);
 
-        // checks if passwords match
-        String inputUserPassword = inputUser.getPassword();
-        String foundUserPassword = foundUser.getPassword();
 
-        String baseErrorMessage = "Incorrect Password, try again";
-
-        if (!inputUserPassword.equals(foundUserPassword)) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, baseErrorMessage);
-        }
+        User foundUser = authenticatePassword(inputUser, foundUser);
         foundUser.setStatus(UserStatus.ONLINE);
-        log.debug("User Logged in: {}", inputUser);
+        log.debug("User Logged in: {}", foundUser);
         return foundUser;
     }
 
+
+
+    //TODO need to remove this class and replace by findUserByEntity class, it is more elegant to pass around objects.
     public User getUserById(long id){
         User foundUser = this.userRepository.findByUserId(id);
         String baseErrorMessage = "The user doesn't exits.";
@@ -78,7 +73,7 @@ public class UserService {
         return foundUser;
     }
 
-    private User getUserByEntity(User inputUser) {
+    private User findUserByEntity(User inputUser) {
         long userId = inputUser.getUserId();
         // find user in repository
         return this.userRepository.findByUserId(userId);
@@ -102,14 +97,20 @@ public class UserService {
      * @throws org.springframework.web.server.ResponseStatusException
      * @see User
      */
-    private void checkIfUserAlreadyExists(User userToBeCreated) {
+    private void isUsernameAvailable(User userToBeCreated) {
+
+        //find user with the same username
         User userByUsername = this.userRepository.findByUsername(userToBeCreated.getUsername());
 
         String baseErrorMessage = "The username provided is not unique. Therefore, the user could not be created!";
+
+        //if this user already exists then username is taken --> throw error message
         if (userByUsername != null) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, baseErrorMessage);
         }
     }
+
+
     public void updateUser(User changeUser, long id) {
 
         User foundUser = this.userRepository.findByUserId(id);
@@ -139,17 +140,54 @@ public class UserService {
         log.debug("User profile updated: {}", changeUser);
     }
 
+
     public User logoutUser(User inputUser) {
 
-        User foundUser = getUserByEntity(inputUser);
+        User foundUser = findUserByEntity(inputUser);
 
+        authenticateToken(inputUser, foundUser);
+        /*
         String baseErrorMessage = "No User to log out";
         if (foundUser == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, baseErrorMessage);
-        }
+        }*/
+
         foundUser.setStatus(UserStatus.OFFLINE);
         log.debug("User Logged out: {}", inputUser);
         return foundUser;
+    }
+
+    //TODO this function will expose internal behavior, fix at later point
+    /**
+     * this method will take two arguments
+     * @param subject
+     * @return
+     */
+    private void authenticatePassword(User subject, User target) {
+
+        // checks if passwords match
+        String inputUserPassword = subject.getPassword();
+        String foundUserPassword = target.getPassword();
+
+        String baseErrorMessage = "Incorrect PASSWORD, try again";
+
+        if (!inputUserPassword.equals(foundUserPassword)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, baseErrorMessage);
+        }
+    }
+
+    //TODO this function will expose internal behavior, fix at later point
+    private void authenticateToken(User subject, User target) {
+
+        // checks if Tokens match
+        String inputUserPassword = subject.getToken();
+        String foundUserPassword = target.getToken();
+
+        String baseErrorMessage = "Incorrect TOKEN, try again";
+
+        if (!inputUserPassword.equals(foundUserPassword)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, baseErrorMessage);
+        }
     }
 
 
