@@ -17,6 +17,4 @@ public interface LobbyDTOMapper {
     @Mapping(source = "lobbyId", target = "lobbyId")
     LobbyGetDTO convertEntityToLobbyGetDTO(Lobby lobby);
 
-
-
 }

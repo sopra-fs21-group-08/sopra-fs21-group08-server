@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs21;
 
+import ch.uzh.ifi.hase.soprafs21.service.StationService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +25,7 @@ public class Application {
         return "The application is running. Noice";
     }
 
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
@@ -33,4 +35,5 @@ public class Application {
             }
         };
     }
+
 }
