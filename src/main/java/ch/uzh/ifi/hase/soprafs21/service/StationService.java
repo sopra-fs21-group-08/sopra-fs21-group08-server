@@ -1,9 +1,10 @@
 package ch.uzh.ifi.hase.soprafs21.service;
 
 
+import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.network.Station;
 import ch.uzh.ifi.hase.soprafs21.repository.StationRepository;
-import ch.uzh.ifi.hase.soprafs21.rest.StationDTO.StationPostDTO;
+import ch.uzh.ifi.hase.soprafs21.rest.StationDTO.StationDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.StationDTOMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,9 +15,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,15 +35,15 @@ public class StationService {
 
     public void initialiseStationsFromJSON(){
         ObjectMapper mapper = new ObjectMapper();
-        TypeReference<List<StationPostDTO>> mapType = new TypeReference<List<StationPostDTO>>() {};
+        TypeReference<List<StationDTO>> mapType = new TypeReference<List<StationDTO>>() {};
         InputStream is = TypeReference.class.getResourceAsStream("/json/station_info_new.json");
         try {
-            List<StationPostDTO> stationDTOList = mapper.readValue(is, mapType);
-            for (StationPostDTO stationDTO : stationDTOList){
-                stationRepository.save(StationDTOMapper.INSTANCE.convertStationPostDTOtoEntity(stationDTO));
+            List<StationDTO> stationDTOList = mapper.readValue(is, mapType);
+            for (StationDTO stationDTO : stationDTOList){
+                stationRepository.save(StationDTOMapper.INSTANCE.convertStationDTOtoEntity(stationDTO));
                 stationRepository.flush();
             }
-            for (StationPostDTO stationDTO : stationDTOList){
+            for (StationDTO stationDTO : stationDTOList){
                 Optional<Station> optStation = stationRepository.findById(stationDTO.getId());
                 if (!optStation.isPresent()){
                     throw new IllegalArgumentException("Station wasn't found.");
@@ -68,5 +69,16 @@ public class StationService {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public List<Station> getStations() {
+        return this.stationRepository.findAll();
+    }
+
+    public StationDTO convertEntityToDTO(Station station){
+        StationDTO stationDTO = StationDTOMapper.INSTANCE.convertEntitytoStationDTO(station);
+        stationDTO.setReachable_by_bus(station.get_reachable_by_bus());
+        stationDTO.setReachable_by_tram(station.get_reachable_by_tram());
+        return stationDTO;
     }
 }

@@ -3,7 +3,7 @@ package ch.uzh.ifi.hase.soprafs21.rest.StationDTO;
 
 import java.util.List;
 
-public class StationPostDTO {
+public class StationDTO {
     private Long id;
     private String name;
     private List<Long> reachable_by_bus;

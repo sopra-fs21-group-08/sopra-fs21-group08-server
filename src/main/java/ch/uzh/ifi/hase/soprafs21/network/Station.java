@@ -73,4 +73,20 @@ public class Station implements Serializable{
         this.stations_reachable_by_tram.add(station);
     }
 
+    public List<Long> get_reachable_by_bus(){
+        List<Long> reachable_by_bus = new ArrayList<>();
+        for (Station station : stations_reachable_by_bus){
+            reachable_by_bus.add(station.getId());
+        }
+        return reachable_by_bus;
+    }
+
+    public List<Long> get_reachable_by_tram(){
+        List<Long> reachable_by_tram = new ArrayList<>();
+        for (Station station : stations_reachable_by_tram){
+            reachable_by_tram.add(station.getId());
+        }
+        return reachable_by_tram;
+    }
+
 }

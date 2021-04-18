@@ -1,10 +1,11 @@
 package ch.uzh.ifi.hase.soprafs21.controller;
 
 
-import ch.uzh.ifi.hase.soprafs21.rest.UserDTO.UserGetDTO;
+import ch.uzh.ifi.hase.soprafs21.network.Station;
+import ch.uzh.ifi.hase.soprafs21.rest.StationDTO.StationDTO;
 
+import ch.uzh.ifi.hase.soprafs21.rest.mapper.StationDTOMapper;
 import ch.uzh.ifi.hase.soprafs21.service.StationService;
-import ch.uzh.ifi.hase.soprafs21.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,11 +26,16 @@ public class StationController {
     @GetMapping("/stations")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<UserGetDTO> getAllStations() {
+    public List<StationDTO> getAllStations() {
         // fetch all users in the internal representation
-        List<UserGetDTO> userGetDTOs = new ArrayList<>();
+        List<Station> stations = stationService.getStations();
+        List<StationDTO> stationDTOs = new ArrayList<>();
 
-        return userGetDTOs;
+        // convert each user to the API representation
+        for (Station station : stations) {
+            stationDTOs.add(stationService.convertEntityToDTO(station));
+        }
+        return stationDTOs;
     }
 
     @PostConstruct
