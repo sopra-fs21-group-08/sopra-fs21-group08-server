@@ -182,12 +182,12 @@ public class UserService {
     private void authenticateToken(User subject, User target) {
 
         // checks if Tokens match
-        String inputUserPassword = subject.getToken();
-        String foundUserPassword = target.getToken();
+        String inputUserToken = subject.getToken();
+        String foundUserToken = target.getToken();
 
         String baseErrorMessage = "Incorrect TOKEN, try again";
 
-        if (!inputUserPassword.equals(foundUserPassword)) {
+        if (!inputUserToken.equals(foundUserToken)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, baseErrorMessage);
         }
     }
