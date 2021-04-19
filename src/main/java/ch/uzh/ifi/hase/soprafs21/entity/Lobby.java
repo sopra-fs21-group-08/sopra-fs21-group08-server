@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.entity;
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
+import ch.uzh.ifi.hase.soprafs21.Helpers.InitGame;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -12,13 +13,8 @@ import java.util.List;
 @Table(name= "LOBBY")
 public class Lobby {
 
-    // dont know exactly what this is used for but copied it from the
-    // user class
-    @Serial
-    private static final long serialVersionLID = 1L;
-
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long lobbyId;
 
 
@@ -65,11 +61,22 @@ public class Lobby {
         return this.users.isEmpty();
     }
 
+    public Game getGame() {
+        return game;
+    }
+    public void setGame(Game game) {
+        this.game = game;
+    }
 
     public Chat getChat(){return this.chat;}
     public void setChat(Chat chat){this.chat = chat;}
 
+    public int getNumberOfPlayers() {
+        return this.users.size();
+    }
 
-
+    public void createGame(){
+        this.setGame(InitGame.getNewGame(this));
+    }
 }
 

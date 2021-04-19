@@ -87,4 +87,11 @@ public class LobbyController {
         userToRemove = userService.getUserById(userToRemove.getUserId());
         lobbyService.removeUser(userToRemove, lobbyId);
     }
+
+    @PostMapping("/games/{lobbyId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createGame(@PathVariable("lobbyId") long lobbyId){
+        Lobby lobby = lobbyService.findLobbyById(lobbyId);
+        lobby.createGame();
+    }
 }

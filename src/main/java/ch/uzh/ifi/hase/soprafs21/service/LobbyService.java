@@ -83,7 +83,7 @@ public class LobbyService {
         }
     }
 
-    public Lobby findLobbyById(long gameID) {
-        return lobbyRepository.findByLobbyId(gameID);
+    public Lobby findLobbyById(long lobbyId) {
+        return lobbyRepository.findByLobbyId(lobbyId);
     }
 }
