@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.GameEntities;
 
 
+import ch.uzh.ifi.hase.soprafs21.Helpers.TicketWallet.TicketWallet;
 import ch.uzh.ifi.hase.soprafs21.constant.PlayerClass;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.network.Station;
@@ -22,10 +23,18 @@ public class Player {
 
     private PlayerClass playerClass;
 
+    private TicketWallet ticketWallet;
+
 
 
     public void setPlayerId(Long playerId) {
         this.playerId = playerId;
+    }
+    public TicketWallet getTicketWallet() {
+        return ticketWallet;
+    }
+    public void setTicketWallet(TicketWallet ticketWallet) {
+        this.ticketWallet = ticketWallet;
     }
     public Long getPlayerId() {
         return playerId;
