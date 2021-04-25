@@ -21,6 +21,14 @@ public class Player {
     @OneToOne
     private Station currentStation;
 
+    public Station getCurrentStation() {
+        return currentStation;
+    }
+
+    public void setCurrentStation(Station currentStation) {
+        this.currentStation = currentStation;
+    }
+
     private PlayerClass playerClass;
 
     private TicketWallet ticketWallet;

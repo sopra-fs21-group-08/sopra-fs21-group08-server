@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs21.entity;
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
 import ch.uzh.ifi.hase.soprafs21.Helpers.InitGame;
+import ch.uzh.ifi.hase.soprafs21.network.Network;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -75,8 +76,10 @@ public class Lobby {
         return this.users.size();
     }
 
-    public void createGame(){
-        this.setGame(InitGame.getNewGame(this));
+    public void createGame(Network network){
+        // why initgame
+        this.setGame(this.game.initializeGame(this, network));
+        //this.setGame(InitGame.getNewGame(this));
     }
 }
 

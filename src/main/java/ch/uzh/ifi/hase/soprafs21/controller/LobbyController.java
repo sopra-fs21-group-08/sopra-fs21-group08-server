@@ -9,6 +9,7 @@ import ch.uzh.ifi.hase.soprafs21.rest.UserDTO.UserPutDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.LobbyDTOMapper;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.UserDTOMapper;
 import ch.uzh.ifi.hase.soprafs21.service.LobbyService;
+import ch.uzh.ifi.hase.soprafs21.service.StationService;
 import ch.uzh.ifi.hase.soprafs21.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +22,12 @@ public class LobbyController {
 
     private final LobbyService lobbyService;
     private final UserService userService;
+    private final StationService stationService;
 
-    public LobbyController(LobbyService lobbyService, UserService userService) {
+    public LobbyController(LobbyService lobbyService, UserService userService, StationService stationservice) {
         this.lobbyService = lobbyService;
         this.userService = userService;
+        this.stationService = stationservice;
     }
 
     @PostMapping("/lobbies")
@@ -92,6 +95,8 @@ public class LobbyController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createGame(@PathVariable("lobbyId") long lobbyId){
         Lobby lobby = lobbyService.findLobbyById(lobbyId);
-        lobby.createGame();
+        lobby.createGame(stationService.getNetwork());
     }
+
+
 }
