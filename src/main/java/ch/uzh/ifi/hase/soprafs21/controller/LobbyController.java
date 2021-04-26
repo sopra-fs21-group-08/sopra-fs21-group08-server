@@ -58,11 +58,12 @@ public class LobbyController {
         //add user to lobby
         Lobby joinedLobby = lobbyService.joinLobby(foundUser, lobbyId);
 
-
         //convert Lobby to DTO object and respond
         return LobbyDTOMapper.INSTANCE.convertEntityToLobbyGetDTO(joinedLobby);
     }
 
+
+    //TODO: add field, isGameStarted boolean
     @GetMapping("/lobbies/{lobbyId}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

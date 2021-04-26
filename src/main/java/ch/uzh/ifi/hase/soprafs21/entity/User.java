@@ -3,7 +3,7 @@ package ch.uzh.ifi.hase.soprafs21.entity;
 import ch.uzh.ifi.hase.soprafs21.constant.UserStatus;
 
 import javax.persistence.*;
-import java.io.Serial;
+
 import java.io.Serializable;
 
 /**
@@ -18,12 +18,12 @@ import java.io.Serializable;
 @Table(name = "USER")
 public class User implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
+
+    @OneToOne(mappedBy = "LobbyId")
+    private Lobby currentLobby;
 
     @Column(nullable = false, unique = true)
     private String username;
@@ -37,7 +37,7 @@ public class User implements Serializable {
     @Column(nullable = false)
     private UserStatus status;
 
-    @Column(nullable = true)
+    @Column(name = "Date of Birth")
     private String dob;
 
     @Column(nullable = false)
@@ -46,7 +46,6 @@ public class User implements Serializable {
     public String getCreationDate() {
         return creationDate;
     }
-
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
@@ -54,17 +53,13 @@ public class User implements Serializable {
     public String getDob() {
         return dob;
     }
-
     public void setDob(String dob) {
         this.dob = dob;
     }
 
-
-
     public Long getUserId() {
         return userId;
     }
-
     public void setUserId(Long id) {
         this.userId = id;
     }
@@ -72,7 +67,6 @@ public class User implements Serializable {
     public String getUsername() {
         return username;
     }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -80,7 +74,6 @@ public class User implements Serializable {
     public String getToken() {
         return token;
     }
-
     public void setToken(String token) {
         this.token = token;
     }
@@ -88,7 +81,6 @@ public class User implements Serializable {
     public UserStatus getStatus() {
         return status;
     }
-
     public void setStatus(UserStatus status) {
         this.status = status;
     }
@@ -96,8 +88,14 @@ public class User implements Serializable {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Lobby getCurrentLobby() {
+        return currentLobby;
+    }
+    public void setCurrentLobby(Lobby currentLobby) {
+        this.currentLobby = currentLobby;
     }
 }
