@@ -9,12 +9,11 @@ import java.util.List;
 @Table(name="CHAT")
 public class Chat {
 
-
     @Id
     @GeneratedValue
     private Long chatId;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     public List<Message> messages = new ArrayList<>();
 
     public void setChatId(Long chatId) {

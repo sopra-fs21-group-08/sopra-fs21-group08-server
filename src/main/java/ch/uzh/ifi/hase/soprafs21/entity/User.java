@@ -22,7 +22,8 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @OneToOne(mappedBy = "LobbyId")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lobbyId")
     private Lobby currentLobby;
 
     @Column(nullable = false, unique = true)
@@ -37,7 +38,7 @@ public class User implements Serializable {
     @Column(nullable = false)
     private UserStatus status;
 
-    @Column(name = "Date of Birth")
+    @Column
     private String dob;
 
     @Column(nullable = false)
@@ -97,5 +98,9 @@ public class User implements Serializable {
     }
     public void setCurrentLobby(Lobby currentLobby) {
         this.currentLobby = currentLobby;
+    }
+
+    public void removeCurrentLobby() {
+        this.setCurrentLobby(null);
     }
 }

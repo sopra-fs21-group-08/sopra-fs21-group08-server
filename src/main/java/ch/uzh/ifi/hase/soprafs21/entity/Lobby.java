@@ -5,7 +5,6 @@ import ch.uzh.ifi.hase.soprafs21.Helpers.InitGame;
 import ch.uzh.ifi.hase.soprafs21.network.Network;
 
 import javax.persistence.*;
-import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,13 +21,14 @@ public class Lobby {
     @Column
     private String lobbyName;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<User> users = new ArrayList<>();
 
     @OneToOne
     private Game game;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private Chat chat;
 
     public Long getLobbyId() {

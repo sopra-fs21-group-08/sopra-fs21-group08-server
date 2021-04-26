@@ -3,6 +3,7 @@ package ch.uzh.ifi.hase.soprafs21.service;
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Player;
+import ch.uzh.ifi.hase.soprafs21.entity.Chat;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.repository.LobbyRepository;
@@ -34,8 +35,8 @@ public class LobbyService {
         checkIfLobbyAlreadyExists(lobbyToCreate);
         Lobby newLobby = lobbyRepository.save(lobbyToCreate);
 
-        //find issuing user
-        //---> user is found in LobbyController
+        //created new chat
+        newLobby.setChat(new Chat());
 
         // add issuing user to lobby
         newLobby.addUser(issuingUser);
@@ -67,7 +68,6 @@ public class LobbyService {
         if(lobbyRepository.findByLobbyId(id)==null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Lobby doesn't exist dude");
         }
-
     }
 
     private void checkIfLobbyAlreadyExists(Lobby lobbyToCreate) {

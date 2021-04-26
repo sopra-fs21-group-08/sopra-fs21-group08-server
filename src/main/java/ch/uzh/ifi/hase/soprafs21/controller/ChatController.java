@@ -49,7 +49,7 @@ public class ChatController {
 
         //find issuing User
         //todo autthenticate user
-        User user = userService.getUserById(receivedMessageDTO.getUserId());
+        User user = ChatDTOMapper.INSTANCE.convertReceivedMessageDTOtoUser(receivedMessageDTO);
 
         //setting message writer
         msg.setUsername(user.getUsername());

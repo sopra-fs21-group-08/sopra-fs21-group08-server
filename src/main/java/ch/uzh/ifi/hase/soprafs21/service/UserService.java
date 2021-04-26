@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.service;
 
 import ch.uzh.ifi.hase.soprafs21.constant.UserStatus;
+import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.repository.UserRepository;
 import org.slf4j.Logger;
@@ -142,6 +143,14 @@ public class UserService {
         log.debug("User profile updated: {}", changeUser);
     }
 
+    public void setUserLobby(User user, Lobby lobby){
+        user.setCurrentLobby(lobby);
+    }
+
+    public void removeCurrentLobby(User user){
+        user.removeCurrentLobby();
+    }
+
 
     public User logoutUser(User inputUser) {
 
@@ -191,6 +200,8 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, baseErrorMessage);
         }
     }
+
+
 
 
 }

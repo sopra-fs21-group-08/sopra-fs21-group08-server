@@ -14,10 +14,6 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long messageId;
 
-    @Id
-    @OneToOne(mappedBy = "chatId")
-    private Chat chat;
-
     @Column
     private String username;
 

@@ -18,7 +18,6 @@ public class InitGame {
 
         Game game = new Game();
         // copies lobbyId to gameId
-        game.setGameId(lobby.getLobbyId());
 
         int lobbySize = lobby.getNumberOfPlayers();
 
