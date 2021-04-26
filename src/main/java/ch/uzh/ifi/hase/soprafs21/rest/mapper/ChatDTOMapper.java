@@ -1,6 +1,6 @@
 package ch.uzh.ifi.hase.soprafs21.rest.mapper;
 
-import ch.uzh.ifi.hase.soprafs21.entity.Message;
+import ch.uzh.ifi.hase.soprafs21.entity.*;
 import ch.uzh.ifi.hase.soprafs21.rest.ChatDTO.MessageGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.ChatDTO.ReceivedMessageDTO;
 import org.mapstruct.Mapper;
@@ -20,6 +20,11 @@ public interface ChatDTOMapper{
 
     @Mapping(source = "message", target = "message")
     Message convertReceivedMessageDTOtoMessage(ReceivedMessageDTO msgDTO);
+
+    @Mapping(source = "userId", target = "userId")
+    @Mapping(source = "token", target = "token")
+    User convertReceivedMessageDTOtoUser(ReceivedMessageDTO msgDTO);
+
 
 
 }
