@@ -1,5 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.Helpers.TicketWallet;
 
+import ch.uzh.ifi.hase.soprafs21.rest.WalletDTO.WalletGetDTO;
+
 public class DetectiveTicketWallet implements TicketWallet{
     private BusTicket busTicket;
     private TramTicket tramTicket;
@@ -31,5 +33,13 @@ public class DetectiveTicketWallet implements TicketWallet{
         }else{
             return null;
         }
+    }
+
+    public WalletGetDTO convertToWalletDTO(){
+        WalletGetDTO walletGetDTO = new WalletGetDTO();
+        walletGetDTO.setTrain(this.trainTicket.getTicketCount());
+        walletGetDTO.setTram(this.tramTicket.getTicketCount());
+        walletGetDTO.setBus(this.busTicket.getTicketCount());
+        return walletGetDTO;
     }
 }

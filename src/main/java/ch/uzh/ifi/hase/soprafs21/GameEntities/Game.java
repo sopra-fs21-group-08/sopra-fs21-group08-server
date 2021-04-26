@@ -28,7 +28,7 @@ public class Game {
     @OneToOne
     private PlayerGroup playerGroup;
 
-    @OneToOne
+    @Transient
     private Network network;
 
     public Network getNetwork() {
@@ -73,5 +73,7 @@ public class Game {
         return this;
     }
 
-
+    public Player findCorrespondingPlayer(User user){
+        return playerGroup.findCorrespondingPlayer(user);
+    }
 }

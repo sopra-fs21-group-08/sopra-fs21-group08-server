@@ -1,5 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.GameEntities;
 
+import ch.uzh.ifi.hase.soprafs21.entity.User;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,5 +40,14 @@ public class PlayerGroup {
             }
         }
         return playerToReturn;
+    }
+
+    public Player findCorrespondingPlayer(User user){
+        for(Player player : players) {
+            if (player.getUser() == user){
+                return player;
+            }
+        }
+        return null;
     }
 }

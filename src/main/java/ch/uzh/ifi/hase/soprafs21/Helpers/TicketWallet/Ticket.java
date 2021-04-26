@@ -1,7 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.Helpers.TicketWallet;
 
 public abstract class Ticket{
-    private int  ticketCount;
+    private int ticketCount;
 
     protected Ticket(int ticketCount){
         this.ticketCount=ticketCount;
@@ -16,5 +16,8 @@ public abstract class Ticket{
     }
     public boolean isTicketAvaiable(){
         return this.ticketCount>0;
+    }
+    public int getTicketCount(){
+        return this.ticketCount;
     }
 }

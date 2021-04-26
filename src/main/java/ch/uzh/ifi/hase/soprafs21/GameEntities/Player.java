@@ -1,10 +1,12 @@
 package ch.uzh.ifi.hase.soprafs21.GameEntities;
 
 
+import ch.uzh.ifi.hase.soprafs21.Helpers.TicketWallet.DetectiveTicketWallet;
 import ch.uzh.ifi.hase.soprafs21.Helpers.TicketWallet.TicketWallet;
 import ch.uzh.ifi.hase.soprafs21.constant.PlayerClass;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.network.Station;
+import ch.uzh.ifi.hase.soprafs21.rest.PlayerDTO.PlayerGetDTO;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
@@ -31,19 +33,13 @@ public class Player {
 
     private PlayerClass playerClass;
 
-    private TicketWallet ticketWallet;
-
-
+    @Transient
+    private DetectiveTicketWallet wallet;
 
     public void setPlayerId(Long playerId) {
         this.playerId = playerId;
     }
-    public TicketWallet getTicketWallet() {
-        return ticketWallet;
-    }
-    public void setTicketWallet(TicketWallet ticketWallet) {
-        this.ticketWallet = ticketWallet;
-    }
+
     public Long getPlayerId() {
         return playerId;
     }
@@ -66,4 +62,12 @@ public class Player {
         return this.playerClass == PlayerClass.MRX;
     }
 
+    public PlayerGetDTO convertToPlayerDTO(){
+        PlayerGetDTO playerGetDTO = new PlayerGetDTO();
+        playerGetDTO.setUserId(this.user.getUserId());
+        playerGetDTO.setUsername(this.user.getUsername());
+        playerGetDTO.setStationId(this.currentStation.getId());
+        playerGetDTO.setWallet(this.wallet.convertToWalletDTO());
+        return playerGetDTO;
+    }
 }
