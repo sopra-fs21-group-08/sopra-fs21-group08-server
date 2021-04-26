@@ -80,4 +80,12 @@ public class GameController {
                            @RequestHeader("Authorization") String token){
 
     }
+
+    @GetMapping("/games/{gameId}/moves/blackboards")
+    @ResponseStatus(HttpStatus.OK)
+    public List<MoveDTO> getBlackboard(@PathVariable("gameId") long gameId,
+                               @RequestHeader("Authorization") String token){
+
+        return new ArrayList<>();
+    }
 }
