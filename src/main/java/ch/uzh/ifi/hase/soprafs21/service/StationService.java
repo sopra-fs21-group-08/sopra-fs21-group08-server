@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @Transactional
@@ -89,4 +90,9 @@ public class StationService {
         return network;
     }
 
+    public Station getRandomStation(){
+        Random rand = new Random();
+        List<Station> stationList = this.getStations();
+        return stationList.get(rand.nextInt(stationList.size()));
+    }
 }
