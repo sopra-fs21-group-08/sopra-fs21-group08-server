@@ -1,10 +1,11 @@
 package ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet;
 
 public abstract class Ticket{
+
     private int ticketCount;
 
     protected Ticket(int ticketCount){
-        this.ticketCount=ticketCount;
+        this.ticketCount = ticketCount;
     }
     public boolean useTicket(){
         if(ticketCount>0){
@@ -14,6 +15,7 @@ public abstract class Ticket{
             return false;
         }
     }
+
     public boolean isTicketAvaiable(){
         return this.ticketCount>0;
     }
