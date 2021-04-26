@@ -1,7 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.entity;
 
 import javax.persistence.*;
-import java.io.Serial;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,20 +9,23 @@ import java.util.List;
 @Table(name="CHAT")
 public class Chat {
 
-    private static final long serialVersionUID = 1L;
-
-    @OneToMany
-    public List<Message> messages = new ArrayList<>();
 
     @Id
     @GeneratedValue
     private Long chatId;
+
+    @OneToMany
+    public List<Message> messages = new ArrayList<>();
 
     public void setChatId(Long chatId) {
         this.chatId = chatId;
     }
     public Long getChatId() {
         return chatId;
+    }
+
+    public void addMessage(Message msg){
+        this.messages.add(msg);
     }
 
 

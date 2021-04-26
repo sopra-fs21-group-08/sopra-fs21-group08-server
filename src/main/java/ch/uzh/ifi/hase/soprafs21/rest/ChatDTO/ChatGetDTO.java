@@ -1,17 +1,16 @@
 package ch.uzh.ifi.hase.soprafs21.rest.ChatDTO;
 
-import ch.uzh.ifi.hase.soprafs21.entity.Message;
 
 import java.util.List;
 
 public class ChatGetDTO {
 
-    public List<Message> messages;
+    public List<MessageGetDTO> messages;
 
-    public List<Message> getMessages() {
+    public List<MessageGetDTO> getMessages() {
         return messages;
     }
-    public void setMessages(List<Message> messages) {
+    public void setMessages(List<MessageGetDTO> messages) {
         this.messages = messages;
     }
 
