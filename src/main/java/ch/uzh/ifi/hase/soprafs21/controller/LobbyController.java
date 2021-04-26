@@ -45,7 +45,7 @@ public class LobbyController {
         //find user
         User foundUser = userService.getUserById(lobbyPostDTO.getUserId());
 
-        //createLobby & add user to lobby
+        //createLobby
         Lobby createdLobby = lobbyService.createLobby(lobbyInput, foundUser);
 
         //set user to being in lobby
