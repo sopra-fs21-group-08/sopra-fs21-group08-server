@@ -1,8 +1,8 @@
 package ch.uzh.ifi.hase.soprafs21.GameEntities;
 
 
-import ch.uzh.ifi.hase.soprafs21.Helpers.TicketWallet.DetectiveTicketWallet;
-import ch.uzh.ifi.hase.soprafs21.Helpers.TicketWallet.TicketWallet;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.DetectiveTicketWallet;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.TicketWallet;
 import ch.uzh.ifi.hase.soprafs21.constant.PlayerClass;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.network.Station;
