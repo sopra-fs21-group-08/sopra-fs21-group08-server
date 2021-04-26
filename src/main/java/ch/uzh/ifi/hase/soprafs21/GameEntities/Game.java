@@ -8,6 +8,7 @@ import ch.uzh.ifi.hase.soprafs21.network.Network;
 import ch.uzh.ifi.hase.soprafs21.service.StationService;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -18,12 +19,10 @@ public class Game {
     @Id
     private Long gameId;
 
-    public Long getGameId() {
-        return gameId;
-    }
-    public void setGameId(Long id) {
-        this.gameId = id;
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lobbyId")
+    @MapsId
+    private Lobby lobby;
 
     @OneToOne
     private PlayerGroup playerGroup;
@@ -43,37 +42,21 @@ public class Game {
     public void addToPlayerGroup(Player player){
         playerGroup.add(player);
     }
-
-    public Game initializeGame(Lobby lobby, Network network){
-        // copies lobbyId to gameId
-        this.setGameId(lobby.getLobbyId());
-        this.setNetwork(network);
-
-        int lobbySize = lobby.getNumberOfPlayers();
-
-        //random number that decides who is MrX
-        int whoIsMrX = ThreadLocalRandom.current().nextInt(0, lobbySize);
-        int i = 0;
-        for (User currUser: lobby.getUsers()){
-
-            Player newPlayer = new Player();
-            newPlayer.setPlayerId(currUser.getUserId());
-            newPlayer.setUser(currUser);
-            newPlayer.setCurrentStation(network.getRandomStation());
-
-            // PlayerClass gets assigned by Random number
-            if(i == whoIsMrX){
-                newPlayer.setPlayerClass(PlayerClass.MRX);
-            } else {
-                newPlayer.setPlayerClass(PlayerClass.AGENT);
-            }
-            this.addToPlayerGroup(newPlayer);
-            i++;
-        }
-        return this;
-    }
-
     public Player findCorrespondingPlayer(User user){
         return playerGroup.findCorrespondingPlayer(user);
+    }
+
+    public Lobby getLobby() {
+        return lobby;
+    }
+    public void setLobby(Lobby lobby) {
+        this.lobby = lobby;
+    }
+
+    public Long getGameId() {
+        return gameId;
+    }
+    public void setGameId(Long gameId) {
+        this.gameId = gameId;
     }
 }

@@ -17,18 +17,16 @@ public class Lobby {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long lobbyId;
 
-
     @Column
     private String lobbyName;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<User> users = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Game game;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
     private Chat chat;
 
     public Long getLobbyId() {

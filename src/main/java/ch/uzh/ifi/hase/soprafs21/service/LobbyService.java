@@ -36,7 +36,9 @@ public class LobbyService {
         Lobby newLobby = lobbyRepository.save(lobbyToCreate);
 
         //created new chat
-        newLobby.setChat(new Chat());
+        Chat newChat = new Chat();
+        newLobby.setChat(newChat);
+        newChat.setLobby(newLobby);
 
         // add issuing user to lobby
         newLobby.addUser(issuingUser);
@@ -88,9 +90,10 @@ public class LobbyService {
     public Lobby findLobbyById(long lobbyId) {
         return lobbyRepository.findByLobbyId(lobbyId);
     }
-
+/*
     public Player getPlayer(User user, Game game){
         Game foundGame = findLobbyById(game.getGameId()).getGame();
         return foundGame.findCorrespondingPlayer(user);
     }
+    */
 }

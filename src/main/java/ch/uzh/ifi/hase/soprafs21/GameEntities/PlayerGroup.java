@@ -11,7 +11,7 @@ import java.util.List;
 public class PlayerGroup {
 
     @Id
-    private Long playerGroupId = this.game.getGameId();
+    private Long playerGroupId;
 
     @OneToOne
     private Game game;

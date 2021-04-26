@@ -10,8 +10,12 @@ import java.util.List;
 public class Chat {
 
     @Id
-    @GeneratedValue
     private Long chatId;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lobbyId")
+    @MapsId
+    private Lobby lobby;
 
     @OneToMany(cascade = CascadeType.ALL)
     public List<Message> messages = new ArrayList<>();
@@ -25,6 +29,13 @@ public class Chat {
 
     public void addMessage(Message msg){
         this.messages.add(msg);
+    }
+
+    public Lobby getLobby() {
+        return lobby;
+    }
+    public void setLobby(Lobby lobby) {
+        this.lobby = lobby;
     }
 
 
