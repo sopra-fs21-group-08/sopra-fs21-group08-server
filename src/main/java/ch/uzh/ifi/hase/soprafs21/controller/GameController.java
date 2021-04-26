@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.controller;
 
 
+import ch.uzh.ifi.hase.soprafs21.rest.GameStatusDTO.GameStatusGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.MoveDTO.MoveDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.PlayerDTO.PlayerGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.StationDTO.StationDTO;
@@ -84,8 +85,16 @@ public class GameController {
     @GetMapping("/games/{gameId}/moves/blackboards")
     @ResponseStatus(HttpStatus.OK)
     public List<MoveDTO> getBlackboard(@PathVariable("gameId") long gameId,
-                               @RequestHeader("Authorization") String token){
+                                       @RequestHeader("Authorization") String token){
 
         return new ArrayList<>();
+    }
+
+    @GetMapping("/games/{gameId}/status")
+    @ResponseStatus(HttpStatus.OK)
+    public GameStatusGetDTO getStatus(@PathVariable("gameId") long gameId,
+                                      @RequestHeader("Authorization") String token){
+
+        return new GameStatusGetDTO();
     }
 }
