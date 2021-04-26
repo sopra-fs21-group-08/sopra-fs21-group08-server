@@ -1,4 +1,4 @@
-package ch.uzh.ifi.hase.soprafs21.Helpers.TicketWallet;
+package ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet;
 
 import ch.uzh.ifi.hase.soprafs21.rest.WalletDTO.WalletGetDTO;
 

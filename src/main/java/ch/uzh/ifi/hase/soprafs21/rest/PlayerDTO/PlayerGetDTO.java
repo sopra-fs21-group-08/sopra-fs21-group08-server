@@ -1,6 +1,6 @@
 package ch.uzh.ifi.hase.soprafs21.rest.PlayerDTO;
 
-import ch.uzh.ifi.hase.soprafs21.Helpers.TicketWallet.DetectiveTicketWallet;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.DetectiveTicketWallet;
 import ch.uzh.ifi.hase.soprafs21.rest.WalletDTO.WalletGetDTO;
 
 public class PlayerGetDTO {
