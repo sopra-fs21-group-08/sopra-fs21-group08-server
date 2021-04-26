@@ -78,8 +78,7 @@ public class Lobby {
 
     public void createGame(Network network){
         // why initgame
-        this.setGame(this.game.initializeGame(this, network));
-        //this.setGame(InitGame.getNewGame(this));
+        this.setGame(InitGame.getNewGame(this));
     }
 }
 

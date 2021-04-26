@@ -31,12 +31,13 @@ public class GameController {
         this.stationService = stationService;
     }
 
-
     @PostMapping("/games/{lobbyId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createGame(@PathVariable("lobbyId") long lobbyId){
-
+    public void createGame(@PathVariable("lobbyId") long lobbyId) {
     }
+
+
+
 
     @GetMapping("/games/{gameId}/players")
     @ResponseStatus(HttpStatus.OK)
@@ -54,6 +55,8 @@ public class GameController {
 
         return new PlayerGetDTO();
     }
+
+
 
     @GetMapping("/games/{gameId}/mrX")
     @ResponseStatus(HttpStatus.OK)

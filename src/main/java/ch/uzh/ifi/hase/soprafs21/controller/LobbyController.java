@@ -105,21 +105,4 @@ public class LobbyController {
         lobbyService.removeUser(userToRemove, lobbyId);
     }
 
-    @PostMapping("/games/{lobbyId}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void createGame(@PathVariable("lobbyId") long lobbyId){
-        Lobby lobby = lobbyService.findLobbyById(lobbyId);
-        lobby.createGame(stationService.getNetwork());
-    }
-
-    @GetMapping("/games/{gameId}/players/{userId}")
-    @ResponseStatus(HttpStatus.OK)
-    public PlayerGetDTO getPlayer(@PathVariable("gameId") long gameId,
-                                  @PathVariable("userId") long userId,
-                                  @RequestHeader("Authorization") String token){
-        User user = userService.getUserById(userId);
-        // verification needed with token
-        Game game = new Game();
-        return lobbyService.getPlayer(user, game).convertToPlayerDTO();
-    }
 }
