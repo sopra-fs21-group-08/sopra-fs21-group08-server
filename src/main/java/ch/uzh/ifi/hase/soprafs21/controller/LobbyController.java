@@ -1,14 +1,19 @@
 package ch.uzh.ifi.hase.soprafs21.controller;
 
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Player;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.rest.LobbyDTO.LobbyGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.LobbyDTO.LobbyPostDTO;
+import ch.uzh.ifi.hase.soprafs21.rest.PlayerDTO.PlayerGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.UserDTO.UserGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.UserDTO.UserPutDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.LobbyDTOMapper;
+import ch.uzh.ifi.hase.soprafs21.rest.mapper.PlayerDTOMapper;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.UserDTOMapper;
 import ch.uzh.ifi.hase.soprafs21.service.LobbyService;
+import ch.uzh.ifi.hase.soprafs21.service.StationService;
 import ch.uzh.ifi.hase.soprafs21.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +26,12 @@ public class LobbyController {
 
     private final LobbyService lobbyService;
     private final UserService userService;
+    private final StationService stationService;
 
-    public LobbyController(LobbyService lobbyService, UserService userService) {
+    public LobbyController(LobbyService lobbyService, UserService userService, StationService stationservice) {
         this.lobbyService = lobbyService;
         this.userService = userService;
+        this.stationService = stationservice;
     }
 
     @PostMapping("/lobbies")
@@ -93,6 +100,18 @@ public class LobbyController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createGame(@PathVariable("lobbyId") long lobbyId){
         Lobby lobby = lobbyService.findLobbyById(lobbyId);
-        lobby.createGame();
+        lobby.createGame(stationService.getNetwork());
+    }
+
+    @GetMapping("/games/{gameId}/players/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    public PlayerGetDTO getPlayer(@PathVariable("gameId") long gameId,
+                                  @PathVariable("userId") long userId,
+                                  @RequestHeader("Authorization") String token){
+        User user = userService.getUserById(userId);
+        // verification needed with token
+        Game game = new Game();
+        game.setGameId(gameId);
+        return lobbyService.getPlayer(user, game).convertToPlayerDTO();
     }
 }

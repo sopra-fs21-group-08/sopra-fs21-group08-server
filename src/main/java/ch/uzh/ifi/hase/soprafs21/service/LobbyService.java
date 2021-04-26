@@ -1,6 +1,8 @@
 package ch.uzh.ifi.hase.soprafs21.service;
 
 
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Player;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.repository.LobbyRepository;
@@ -77,7 +79,7 @@ public class LobbyService {
         Lobby targetLobby = lobbyRepository.findByLobbyId(lobbyId);
         targetLobby.removeUser(userToRemove);
 
-        //incase the lobby is now empty, it should delete the lobby
+        //in case the lobby is now empty, it should delete the lobby
         if (targetLobby.isEmpty()){
             lobbyRepository.delete(targetLobby);
         }
@@ -85,5 +87,10 @@ public class LobbyService {
 
     public Lobby findLobbyById(long lobbyId) {
         return lobbyRepository.findByLobbyId(lobbyId);
+    }
+
+    public Player getPlayer(User user, Game game){
+        Game foundGame = findLobbyById(game.getGameId()).getGame();
+        return foundGame.findCorrespondingPlayer(user);
     }
 }

@@ -2,8 +2,10 @@ package ch.uzh.ifi.hase.soprafs21.entity;
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
 import ch.uzh.ifi.hase.soprafs21.Helpers.InitGame;
+import ch.uzh.ifi.hase.soprafs21.network.Network;
 
 import javax.persistence.*;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +18,7 @@ public class Lobby {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long lobbyId;
 
+
     @Column
     private String lobbyName;
 
@@ -24,8 +27,6 @@ public class Lobby {
 
     @OneToOne
     private Game game;
-
-    private boolean isGameStarted = false;
 
     @OneToOne
     private Chat chat;
@@ -71,24 +72,14 @@ public class Lobby {
     public Chat getChat(){return this.chat;}
     public void setChat(Chat chat){this.chat = chat;}
 
-    public boolean isGameStarted() {
-        return isGameStarted;
-    }
-    public void setGameStarted(boolean gameStarted) {
-        isGameStarted = gameStarted;
-    }
-
     public int getNumberOfPlayers() {
         return this.users.size();
     }
 
-    public Game createGame(){
-        if(this.game != null){
-            return this.game;
-        }
-        this.setGame(InitGame.getNewGame(this));
-        this.isGameStarted = true;
-        return this.game;
+    public void createGame(Network network){
+        // why initgame
+        this.setGame(this.game.initializeGame(this, network));
+        //this.setGame(InitGame.getNewGame(this));
     }
 }
 

@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs21.service;
 
 
 import ch.uzh.ifi.hase.soprafs21.entity.User;
+import ch.uzh.ifi.hase.soprafs21.network.Network;
 import ch.uzh.ifi.hase.soprafs21.network.Station;
 import ch.uzh.ifi.hase.soprafs21.repository.StationRepository;
 import ch.uzh.ifi.hase.soprafs21.rest.StationDTO.StationDTO;
@@ -81,4 +82,11 @@ public class StationService {
         stationDTO.setReachable_by_tram(station.get_reachable_by_tram());
         return stationDTO;
     }
+
+    public Network getNetwork(){
+        Network network = new Network();
+        network.setStationList(this.getStations());
+        return network;
+    }
+
 }
