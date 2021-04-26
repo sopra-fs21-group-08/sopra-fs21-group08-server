@@ -11,12 +11,14 @@ import java.util.List;
 public class PlayerGroup {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long playerGroupId;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "gameId")
     private Game game;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     public List<Player> players = new ArrayList<>();
 
     public void setPlayerGroupId(Long id) {
@@ -25,9 +27,15 @@ public class PlayerGroup {
     public Long getPlayerGroupId() {
         return playerGroupId;
     }
-
     public void add(Player player) {
         this.players.add(player);
+    }
+
+    public Game getGame() {
+        return game;
+    }
+    public void setGame(Game game) {
+        this.game = game;
     }
 
 

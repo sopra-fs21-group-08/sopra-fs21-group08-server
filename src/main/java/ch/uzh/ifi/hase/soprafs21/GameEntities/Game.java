@@ -24,26 +24,20 @@ public class Game {
     @MapsId
     private Lobby lobby;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private PlayerGroup playerGroup;
 
-    @Transient
-    private Network network;
-
-    public Network getNetwork() {
-        return network;
-    }
-
-    public void setNetwork(Network network) {
-        this.network = network;
-    }
-
-    // make private and delete InitGame class
     public void addToPlayerGroup(Player player){
         playerGroup.add(player);
     }
     public Player findCorrespondingPlayer(User user){
         return playerGroup.findCorrespondingPlayer(user);
+    }
+    public PlayerGroup getPlayerGroup() {
+        return playerGroup;
+    }
+    public void setPlayerGroup(PlayerGroup playerGroup) {
+        this.playerGroup = playerGroup;
     }
 
     public Lobby getLobby() {

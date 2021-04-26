@@ -14,6 +14,7 @@ public interface LobbyDTOMapper {
     @Mapping(source = "lobbyName", target = "lobbyName")
     Lobby covertLobbyPostDTOToEntity(LobbyPostDTO lobbyPostDTO);
 
+    //TODO: add conversion to USER
     @Mapping(source = "lobbyId", target = "lobbyId")
     LobbyGetDTO convertEntityToLobbyGetDTO(Lobby lobby);
 

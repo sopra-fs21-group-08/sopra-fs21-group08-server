@@ -12,34 +12,35 @@ import javax.persistence.Entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "PLAYER")
 public class Player {
 
     @Id
-    private Long playerId = this.user.getUserId();
+    private Long playerId;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId")
+    @MapsId
     private User user;
 
     @OneToOne
     private Station currentStation;
-
-    public Station getCurrentStation() {
-        return currentStation;
-    }
-
-    public void setCurrentStation(Station currentStation) {
-        this.currentStation = currentStation;
-    }
 
     private PlayerClass playerClass;
 
     @Transient
     private DetectiveTicketWallet wallet;
 
+    public Station getCurrentStation() {
+        return currentStation;
+    }
+    public void setCurrentStation(Station currentStation) {
+        this.currentStation = currentStation;
+    }
+
     public void setPlayerId(Long playerId) {
         this.playerId = playerId;
     }
-
     public Long getPlayerId() {
         return playerId;
     }
@@ -60,14 +61,5 @@ public class Player {
 
     public boolean isMrX(){
         return this.playerClass == PlayerClass.MRX;
-    }
-
-    public PlayerGetDTO convertToPlayerDTO(){
-        PlayerGetDTO playerGetDTO = new PlayerGetDTO();
-        playerGetDTO.setUserId(this.user.getUserId());
-        playerGetDTO.setUsername(this.user.getUsername());
-        playerGetDTO.setStationId(this.currentStation.getId());
-        playerGetDTO.setWallet(this.wallet.convertToWalletDTO());
-        return playerGetDTO;
     }
 }

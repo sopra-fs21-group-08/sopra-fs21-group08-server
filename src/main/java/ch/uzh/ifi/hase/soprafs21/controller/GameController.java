@@ -1,6 +1,8 @@
 package ch.uzh.ifi.hase.soprafs21.controller;
 
 
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
+import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.rest.GameStatusDTO.GameStatusGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.MoveDTO.MoveDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.PlayerDTO.PlayerGetDTO;
@@ -34,6 +36,17 @@ public class GameController {
     @PostMapping("/games/{lobbyId}")
     @ResponseStatus(HttpStatus.CREATED)
     public void createGame(@PathVariable("lobbyId") long lobbyId) {
+
+        Lobby foundLobby = this.lobbyService.findLobbyById(lobbyId);
+
+        //initializing game
+        Game game = gameService.initializeGame(foundLobby);
+
+        lobbyService.setLobbyGame(foundLobby, game);
+
+
+
+
     }
 
 
@@ -99,5 +112,11 @@ public class GameController {
                                       @RequestHeader("Authorization") String token){
 
         return new GameStatusGetDTO();
+    }
+
+    private Lobby createLobbyFromId(long id){
+        Lobby lobby = new Lobby();
+        lobby.setLobbyId(id);
+        return lobby;
     }
 }

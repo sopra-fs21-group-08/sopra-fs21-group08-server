@@ -88,6 +88,7 @@ public class LobbyService {
         }
     }
 
+    //TODO: change to find lobby by entity.
     public Lobby findLobbyById(long lobbyId) {
         return lobbyRepository.findByLobbyId(lobbyId);
     }
@@ -100,6 +101,10 @@ public class LobbyService {
         chat.addMessage(msg);
 
         //lobbyRepository.flush();
+    }
+
+    public void setLobbyGame(Lobby lobby, Game game) {
+        lobby.setGame(game);
     }
 
 /*
