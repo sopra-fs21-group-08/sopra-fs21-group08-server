@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs21.controller;
 
 
 import ch.uzh.ifi.hase.soprafs21.entity.Chat;
+import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.Message;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.rest.ChatDTO.ChatGetDTO;
@@ -44,17 +45,15 @@ public class ChatController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public void writeChatMessage(@RequestBody ReceivedMessageDTO receivedMessageDTO, @PathVariable("gameID") long gameID){
-        Chat chat = this.lobbyService.findLobbyById(gameID).getChat();
         Message msg = ChatDTOMapper.INSTANCE.convertReceivedMessageDTOtoMessage(receivedMessageDTO);
 
         //find issuing User
-        //todo autthenticate user
         User user = ChatDTOMapper.INSTANCE.convertReceivedMessageDTOtoUser(receivedMessageDTO);
+        //TODO: authenticate user
 
-        //setting message writer
+        //add autheticated username to message
         msg.setUsername(user.getUsername());
 
-        //adding to chat
-        chat.addMessage(msg);
+        lobbyService.postMessageToChat(msg, gameID);
     }
 }

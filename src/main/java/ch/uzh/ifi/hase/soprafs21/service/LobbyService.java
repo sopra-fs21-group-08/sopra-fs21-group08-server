@@ -5,6 +5,7 @@ import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Player;
 import ch.uzh.ifi.hase.soprafs21.entity.Chat;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
+import ch.uzh.ifi.hase.soprafs21.entity.Message;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.repository.LobbyRepository;
 import org.slf4j.Logger;
@@ -90,6 +91,17 @@ public class LobbyService {
     public Lobby findLobbyById(long lobbyId) {
         return lobbyRepository.findByLobbyId(lobbyId);
     }
+
+    public void postMessageToChat(Message msg, long gameID) {
+        //finding lobby and chat
+        Chat chat = findLobbyById(gameID).getChat();
+
+        //adding message to chat
+        chat.addMessage(msg);
+
+        //lobbyRepository.flush();
+    }
+
 /*
     public Player getPlayer(User user, Game game){
         Game foundGame = findLobbyById(game.getGameId()).getGame();
