@@ -57,6 +57,7 @@ public class UserController {
         return UserDTOMapper.INSTANCE.convertEntityToUserPutDTO(createdUser);
     }
 
+    //TODO: change to users/login for consistency sake
     @PutMapping("/login")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @ResponseBody

@@ -67,6 +67,7 @@ public class GameController {
         return convertPlayerGroupToDTO(foundGame.getPlayerGroup());
     }
 
+
     @GetMapping("/games/{gameId}/players/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public PlayerGetDTO getPlayer(@PathVariable("gameId") long gameId,

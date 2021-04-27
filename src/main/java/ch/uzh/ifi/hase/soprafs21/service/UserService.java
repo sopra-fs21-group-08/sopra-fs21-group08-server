@@ -56,14 +56,18 @@ public class UserService {
     public User loginUser(User inputUser) {
 
         //find user
-        User foundUser = findUserByEntity(inputUser);
+        User foundUser = findUserByUsername(inputUser);
 
-                authenticatePassword(inputUser, foundUser);
+        authenticatePassword(inputUser, foundUser);
         foundUser.setStatus(UserStatus.ONLINE);
         log.debug("User Logged in: {}", foundUser);
         return foundUser;
     }
 
+    private User findUserByUsername(User inputUser) {
+        String username = inputUser.getUsername();
+        return userRepository.findByUsername(username);
+    }
 
 
     //TODO need to remove this class and replace by findUserByEntity class, it is more elegant to pass around objects.
@@ -77,7 +81,7 @@ public class UserService {
     }
 
     public User findUserByEntity(User inputUser) {
-        long userId = inputUser.getUserId();
+        Long userId = inputUser.getUserId();
         // find user in repository
         return this.userRepository.findByUserId(userId);
     }
@@ -151,7 +155,7 @@ public class UserService {
         user.removeCurrentLobby();
     }
 
-
+    //TODO: check if user is offlie or online
     public User logoutUser(User inputUser) {
 
         User foundUser = findUserByEntity(inputUser);
