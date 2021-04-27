@@ -32,7 +32,7 @@ public interface StationDTOMapper {
     StationDTO convertEntitytoStationDTO(Station station);
 
     @Named("stationListToLongList")
-    public static List<Long> stationListToLongList(List<Station> stationList){
+    static List<Long> stationListToLongList(List<Station> stationList){
         List<Long> longList = new ArrayList<Long>();
         for (Station station : stationList){
             longList.add(station.getStationId());

@@ -58,6 +58,14 @@ public class GameService {
         return this.gameRepository.findByGameId(game.getGameId());
     }
 
+    public Game getGameByGameId(long gameId) {
+        return this.gameRepository.findByGameId(gameId);
+    }
+
+    public PlayerGroup getPlayerGroupByGameId(long gameId){
+        return this.gameRepository.findByGameId(gameId).getPlayerGroup();
+    }
+
     /**
      *
      * @param users

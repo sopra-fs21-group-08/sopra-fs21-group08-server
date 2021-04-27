@@ -8,18 +8,13 @@ public class PlayerGetDTO {
     private UserGetDTO user;
     private Long playerId;
     private PlayerClass playerClass;
+    private Long stationId;
     private WalletGetDTO wallet;
-
-    public WalletGetDTO getWallet() {
-        return wallet;
-    }
-    public void setWallet(WalletGetDTO wallet) {
-        this.wallet = wallet;
-    }
 
     public UserGetDTO getUser() {
         return user;
     }
+
     public void setUser(UserGetDTO user) {
         this.user = user;
     }
@@ -27,6 +22,7 @@ public class PlayerGetDTO {
     public Long getPlayerId() {
         return playerId;
     }
+
     public void setPlayerId(Long playerId) {
         this.playerId = playerId;
     }
@@ -34,8 +30,24 @@ public class PlayerGetDTO {
     public PlayerClass getPlayerClass() {
         return playerClass;
     }
+
     public void setPlayerClass(PlayerClass playerClass) {
         this.playerClass = playerClass;
     }
 
+    public Long getStationId() {
+        return stationId;
+    }
+
+    public void setStationId(Long stationId) {
+        this.stationId = stationId;
+    }
+
+    public WalletGetDTO getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(WalletGetDTO wallet) {
+        this.wallet = wallet;
+    }
 }

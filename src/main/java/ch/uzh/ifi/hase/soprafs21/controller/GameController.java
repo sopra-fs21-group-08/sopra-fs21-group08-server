@@ -59,11 +59,14 @@ public class GameController {
         //TODO: why is authentication here required? anyone should be able to see which people are playing in a certan game
 
         // finds the game in the repository
-        Game foundGame = gameService.getGameByEntity(createGameFromId(gameId));
 
+        List<PlayerGetDTO> playerGetDTOS = new ArrayList<>();
 
-        // converts the game using defined private method below and send it
-        return convertPlayerGroupToDTO(foundGame.getPlayerGroup());
+        for (Player player : gameService.getPlayerGroupByGameId(gameId)){
+            playerGetDTOS.add(PlayerDTOMapper.INSTANCE.convertPlayerToGetDTO(player));
+        }
+
+        return playerGetDTOS;
     }
 
 
@@ -121,32 +124,5 @@ public class GameController {
         return new GameStatusGetDTO();
     }
 
-    private Game createGameFromId(long id){
-        Game game = new Game();
-        game.setGameId(id);
-        return game;
-    }
 
-    private List<PlayerGetDTO> convertPlayerGroupToDTO(PlayerGroup pg){
-
-        List<PlayerGetDTO> list = new ArrayList<>();
-
-        for(Player p :pg){
-            // converting player to DTO         :    playerId and playerclass
-            // remaining attributes to convert  :    Wallets, user
-            PlayerGetDTO dto = PlayerDTOMapper.INSTANCE.convertPlayerToGetDTO(p);
-
-            // converting user to DTO (UserGetDTO) and assigning to PlayerGetDTO
-            // dto.setUser(UserDTOMapper.INSTANCE.convertEntityToUserGetDTO(p.getUser()));
-
-            //converting Wallet to DTO .....
-
-
-            // adding playerGetDTO to dto list
-            list.add(dto);
-        }
-
-        return list;
-
-    }
 }
