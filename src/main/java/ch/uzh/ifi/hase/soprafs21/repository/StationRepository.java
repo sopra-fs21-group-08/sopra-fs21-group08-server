@@ -10,5 +10,5 @@ import java.io.Serializable;
 @Repository("stationRepository")
 public interface StationRepository extends JpaRepository<Station, Serializable>{
 
-    Station findById(long id);
+    Station findByStationId(long id);
 }

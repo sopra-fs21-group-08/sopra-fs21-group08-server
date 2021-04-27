@@ -13,7 +13,7 @@ import java.util.List;
 public class Station implements Serializable{
 
     @Id
-    private Long id;
+    private Long stationId;
 
     @Column(nullable = false, unique = true)
     private String name;
@@ -30,12 +30,12 @@ public class Station implements Serializable{
     @Column(nullable = false)
     private float stop_lon;
 
-    public Long getId() {
-        return id;
+    public Long getStationId() {
+        return stationId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setStationId(Long id) {
+        this.stationId = id;
     }
 
     public String getName() {
@@ -73,7 +73,7 @@ public class Station implements Serializable{
     public List<Long> get_reachable_by_bus(){
         List<Long> reachable_by_bus = new ArrayList<>();
         for (Station station : stations_reachable_by_bus){
-            reachable_by_bus.add(station.getId());
+            reachable_by_bus.add(station.getStationId());
         }
         return reachable_by_bus;
     }
@@ -81,7 +81,7 @@ public class Station implements Serializable{
     public List<Long> get_reachable_by_tram(){
         List<Long> reachable_by_tram = new ArrayList<>();
         for (Station station : stations_reachable_by_tram){
-            reachable_by_tram.add(station.getId());
+            reachable_by_tram.add(station.getStationId());
         }
         return reachable_by_tram;
     }
