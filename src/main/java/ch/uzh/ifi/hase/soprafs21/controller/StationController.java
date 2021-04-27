@@ -33,6 +33,7 @@ public class StationController {
 
         // convert each user to the API representation
         for (Station station : stations) {
+            // TODO: think of better way to map
             stationDTOs.add(stationService.convertEntityToDTO(station));
         }
         return stationDTOs;

@@ -17,6 +17,7 @@ public interface StationDTOMapper {
     @Mapping(source = "stop_lon", target = "stop_lon")
     Station convertStationDTOtoEntity(StationDTO stationDTO);
 
+    // TODO: think of better way to map
     @Mapping(source = "id", target = "id")
     @Mapping(source = "name", target = "name")
     @Mapping(source = "stop_lat", target = "stop_lat")
