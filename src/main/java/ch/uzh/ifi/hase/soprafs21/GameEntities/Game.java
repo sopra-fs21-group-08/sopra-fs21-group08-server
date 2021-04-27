@@ -1,15 +1,12 @@
 package ch.uzh.ifi.hase.soprafs21.GameEntities;
 
 
-import ch.uzh.ifi.hase.soprafs21.constant.PlayerClass;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.PlayerGroup;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
-import ch.uzh.ifi.hase.soprafs21.network.Network;
-import ch.uzh.ifi.hase.soprafs21.service.StationService;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.concurrent.ThreadLocalRandom;
 
 
 @Entity

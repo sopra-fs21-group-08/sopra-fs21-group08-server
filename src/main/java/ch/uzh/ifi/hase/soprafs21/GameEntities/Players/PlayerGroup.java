@@ -1,14 +1,17 @@
-package ch.uzh.ifi.hase.soprafs21.GameEntities;
+package ch.uzh.ifi.hase.soprafs21.GameEntities.Players;
 
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
 
 @Entity
 @Table(name = "PLAYERGROUP")
-public class PlayerGroup {
+public class PlayerGroup implements Iterable<Player>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +22,15 @@ public class PlayerGroup {
     private Game game;
 
     @OneToMany(cascade = CascadeType.ALL)
-    public List<Player> players = new ArrayList<>();
+    private List<Player> players = new ArrayList<>();
+
+    protected List<Player> getPlayers() {
+        return players;
+    }
+    protected void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+    protected int getSize(){return players.size();};
 
     public void setPlayerGroupId(Long id) {
         this.playerGroupId = id;
@@ -27,6 +38,7 @@ public class PlayerGroup {
     public Long getPlayerGroupId() {
         return playerGroupId;
     }
+
     public void add(Player player) {
         this.players.add(player);
     }
@@ -57,5 +69,15 @@ public class PlayerGroup {
             }
         }
         return null;
+    }
+
+    @Override
+    public Iterator iterator() {
+        return new PlayerGroupIterator(this);
+    }
+
+    @Override
+    public void forEach(Consumer action) {
+
     }
 }

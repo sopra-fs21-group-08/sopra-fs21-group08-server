@@ -76,7 +76,7 @@ public class UserService {
         return foundUser;
     }
 
-    private User findUserByEntity(User inputUser) {
+    public User findUserByEntity(User inputUser) {
         long userId = inputUser.getUserId();
         // find user in repository
         return this.userRepository.findByUserId(userId);

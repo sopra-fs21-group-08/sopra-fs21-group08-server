@@ -13,7 +13,6 @@ public class UserGetDTO {
     public String getCreationDate() {
         return creationDate;
     }
-
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
@@ -21,7 +20,6 @@ public class UserGetDTO {
     public String getDob() {
         return dob;
     }
-
     public void setDob(String dob) {
         this.dob = dob;
     }
@@ -29,7 +27,6 @@ public class UserGetDTO {
     public Long getUserId() {
         return userId;
     }
-
     public void setUserId(Long userId) {
         this.userId = userId;
     }
@@ -37,7 +34,6 @@ public class UserGetDTO {
     public String getUsername() {
         return username;
     }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -45,7 +41,6 @@ public class UserGetDTO {
     public UserStatus getStatus() {
         return status;
     }
-
     public void setStatus(UserStatus status) {
         this.status = status;
     }

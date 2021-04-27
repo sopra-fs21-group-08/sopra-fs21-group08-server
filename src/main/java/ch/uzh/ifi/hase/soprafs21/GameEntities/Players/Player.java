@@ -1,4 +1,4 @@
-package ch.uzh.ifi.hase.soprafs21.GameEntities;
+package ch.uzh.ifi.hase.soprafs21.GameEntities.Players;
 
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.DetectiveTicketWallet;
