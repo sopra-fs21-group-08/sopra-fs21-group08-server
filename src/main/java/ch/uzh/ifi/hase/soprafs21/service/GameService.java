@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.service;
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Round;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.PlayerGroup;
 import ch.uzh.ifi.hase.soprafs21.constant.PlayerClass;
@@ -41,18 +42,31 @@ public class GameService {
     public Game initializeGame(Lobby lobby){
 
         Game game = new Game();
-        game.setLobby(lobby);
+
 
         //transforming user list into a player list
         PlayerGroup pg = createPlayerGroup(lobby.getUsers());
         pg.setGame(game);
+        pg.resetPlayerTurn();       // this is an int that will give determine which players turn it is.
+
+        // initializing the first round
+        Round newRound = new Round();
+        newRound.setRoundNumber(1);
+        newRound.setMaxMoves(lobby.getSize());
+
+
+        // setting all the preparations to the game
         game.setPlayerGroup(pg);
+        game.setCurrentRound(newRound);
+        game.setLobby(lobby);
+
 
         game = gameRepository.save(game);
         gameRepository.flush();
+        // the game gets saved to the lobby after this return
         return game;
-
     }
+
 
     public Game getGameByEntity(Game game) {
         return this.gameRepository.findByGameId(game.getGameId());
@@ -65,7 +79,6 @@ public class GameService {
     public PlayerGroup getPlayerGroupByGameId(long gameId){
         return this.gameRepository.findByGameId(gameId).getPlayerGroup();
     }
-
     /**
      *
      * @param users
@@ -93,10 +106,12 @@ public class GameService {
             pg.add(newPlayer);
             i++;
         }
+
+        //change order of pg so that MrX is always first in the list
+        pg.moveMRXToTopOfList();
         return pg;
 
     }
-
     /**
      *
      * @param totalStations

@@ -17,14 +17,11 @@ public interface ChatDTOMapper{
     @Mapping(source = "time", target = "time")
     MessageGetDTO covertEntityToMessageDTO(Message msg);
 
-
     @Mapping(source = "message", target = "message")
     Message convertReceivedMessageDTOtoMessage(ReceivedMessageDTO msgDTO);
 
     @Mapping(source = "userId", target = "userId")
     @Mapping(source = "token", target = "token")
     User convertReceivedMessageDTOtoUser(ReceivedMessageDTO msgDTO);
-
-
 
 }

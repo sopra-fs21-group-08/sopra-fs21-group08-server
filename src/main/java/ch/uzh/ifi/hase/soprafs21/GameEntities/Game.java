@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.GameEntities;
 
 
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Round;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.PlayerGroup;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
@@ -23,6 +24,13 @@ public class Game {
 
     @OneToOne(cascade = CascadeType.ALL)
     private PlayerGroup playerGroup;
+
+     @OneToOne(cascade = CascadeType.ALL)
+     @JoinColumn(name = "roundId")
+     private Round currentRound;
+
+     private boolean isGameOver = false;
+
 
     public void addToPlayerGroup(Player player){
         playerGroup.add(player);
@@ -49,5 +57,41 @@ public class Game {
     }
     public void setGameId(Long gameId) {
         this.gameId = gameId;
+    }
+
+    public Round getCurrentRound() {
+        return currentRound;
+    }
+    public void setCurrentRound(Round currentRound) {
+        this.currentRound = currentRound;
+    }
+
+    public boolean isGameOver() {
+        return isGameOver;
+    }
+    public void gameOver (boolean gameOver) {
+        isGameOver = gameOver;
+    }
+
+    public Player getCurrentPlayer(){
+        return this.playerGroup.getCurrentPlayer();
+    }
+
+    public void successfullTurn(){
+        this.playerGroup.incrementPlayerTurn();
+        if(currentRound.isRoundOver()){
+            successfullRound();
+        }
+    }
+    private void successfullRound(){
+
+        if(currentRound.isRoundOver()){
+            Round newRound = new Round();
+            newRound.setRoundNumber(currentRound.incrementRoundNumber());
+            newRound.setMaxMoves(currentRound.getMaxMoves());
+
+            setCurrentRound(newRound);
+        }
+
     }
 }

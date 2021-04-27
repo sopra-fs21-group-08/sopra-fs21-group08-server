@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.GameEntities.Players;
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
+import ch.uzh.ifi.hase.soprafs21.constant.PlayerClass;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 
 import javax.persistence.*;
@@ -24,6 +25,9 @@ public class PlayerGroup implements Iterable<Player>{
     @OneToMany(cascade = CascadeType.ALL)
     private List<Player> players = new ArrayList<>();
 
+    // how many turns have been made by players, this will descide which players turn it is.
+    private int playerTurn;
+
     protected List<Player> getPlayers() {
         return players;
     }
@@ -38,7 +42,6 @@ public class PlayerGroup implements Iterable<Player>{
     public Long getPlayerGroupId() {
         return playerGroupId;
     }
-
     public void add(Player player) {
         this.players.add(player);
     }
@@ -51,6 +54,17 @@ public class PlayerGroup implements Iterable<Player>{
     }
 
 
+    public Player getCurrentPlayer() {
+        int currInt =  playerTurn%getSize();
+        return getPlayers().get(currInt);
+    }
+    public void incrementPlayerTurn(){
+        this.playerTurn++;
+    }
+    public void resetPlayerTurn() {
+        this.playerTurn = 0;
+    }
+
     //not sure if needed
     public Player getPlayerById(long id){
         Player playerToReturn = null;
@@ -61,7 +75,6 @@ public class PlayerGroup implements Iterable<Player>{
         }
         return playerToReturn;
     }
-
     public Player findCorrespondingPlayer(User user){
         for(Player player : players) {
             if (player.getUser() == user){
@@ -71,13 +84,27 @@ public class PlayerGroup implements Iterable<Player>{
         return null;
     }
 
+    public void moveMRXToTopOfList(){
+        int i = 0;
+        for (Player p: this){
+            if(p.getPlayerClass()== PlayerClass.MRX){
+                if(i==0){
+                    break;
+                }
+                // saves first player to temp
+                Player temp = this.getPlayers().get(0);
+                // sets MRX to first player in list
+                this.getPlayers().set(0, this.getPlayers().get(i));
+                // sets temp player to MRX's position.
+                this.getPlayers().set(i, temp);
+            }
+            i++;
+        }
+    }
+
     @Override
-    public Iterator iterator() {
+    public PlayerGroupIterator iterator() {
         return new PlayerGroupIterator(this);
     }
 
-    @Override
-    public void forEach(Consumer action) {
-
-    }
 }

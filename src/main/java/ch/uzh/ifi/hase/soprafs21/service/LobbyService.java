@@ -28,6 +28,7 @@ public class LobbyService {
 
     @Autowired
     public LobbyService(@Qualifier("lobbyRepository") LobbyRepository lobbyRepository) {
+
         this.lobbyRepository = lobbyRepository;
     }
 

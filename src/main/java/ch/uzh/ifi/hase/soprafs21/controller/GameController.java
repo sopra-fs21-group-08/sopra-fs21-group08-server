@@ -56,7 +56,7 @@ public class GameController {
     public List<PlayerGetDTO> getPlayers(@PathVariable("gameId") long gameId,
                                          @RequestHeader("Authorization") String token){
 
-        //TODO: why is authentication here required? anyone should be able to see which people are playing in a certan game
+        //TODO: why is authentication here required? anyone should be able to see which people are playing in a certain game
 
         // finds the game in the repository
 

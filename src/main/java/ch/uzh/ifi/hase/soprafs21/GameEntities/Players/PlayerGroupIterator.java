@@ -4,10 +4,11 @@ import java.util.Iterator;
 
 public class PlayerGroupIterator implements Iterator<Player> {
 
-    private int i = 0;
+    private int i;
     private PlayerGroup players;
 
     public PlayerGroupIterator(PlayerGroup players){
+        this.i = 0;
         this.players = players;
     }
 
