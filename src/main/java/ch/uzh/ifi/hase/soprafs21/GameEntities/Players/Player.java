@@ -1,7 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.GameEntities.Players;
 
 
-import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.DetectiveTicketWallet;
+
 import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.TicketWallet;
 import ch.uzh.ifi.hase.soprafs21.constant.PlayerClass;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
@@ -29,7 +29,7 @@ public class Player {
     private PlayerClass playerClass;
 
     @Transient
-    private DetectiveTicketWallet wallet;
+    private TicketWallet wallet;
 
     public Station getCurrentStation() {
         return currentStation;
