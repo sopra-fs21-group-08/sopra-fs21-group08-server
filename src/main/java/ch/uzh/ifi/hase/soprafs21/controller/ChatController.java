@@ -49,10 +49,12 @@ public class ChatController {
 
         //find issuing User
         User user = ChatDTOMapper.INSTANCE.convertReceivedMessageDTOtoUser(receivedMessageDTO);
+
         //TODO: authenticate user
+        User foundUser = userService.findUserByEntity(user);
 
         //add autheticated username to message
-        msg.setUsername(user.getUsername());
+        msg.setUsername(foundUser.getUsername());
 
         lobbyService.postMessageToChat(msg, gameID);
     }
