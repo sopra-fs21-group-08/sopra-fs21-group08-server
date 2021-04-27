@@ -51,10 +51,12 @@ public class ChatController {
         //todo autthenticate user
         User user = ChatDTOMapper.INSTANCE.convertReceivedMessageDTOtoUser(receivedMessageDTO);
 
+        User user2 = userService.getUserById(user.getUserId());
         //setting message writer
-        msg.setUsername(user.getUsername());
+        msg.setUsername(user2.getUsername());
 
         //adding to chat
         chat.addMessage(msg);
+        this.lobbyService.findLobbyById(gameID).setChat(chat);
     }
 }
