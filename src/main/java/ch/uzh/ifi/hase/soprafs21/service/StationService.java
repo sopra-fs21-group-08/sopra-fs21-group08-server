@@ -77,12 +77,14 @@ public class StationService {
         return this.stationRepository.findAll();
     }
 
+    /* redundant because of StationDTOMapper
     public StationDTO convertEntityToDTO(Station station){
         StationDTO stationDTO = StationDTOMapper.INSTANCE.convertEntitytoStationDTO(station);
         stationDTO.setReachable_by_bus(station.get_reachable_by_bus());
         stationDTO.setReachable_by_tram(station.get_reachable_by_tram());
         return stationDTO;
     }
+    */
 
     public Network getNetwork(){
         Network network = new Network();

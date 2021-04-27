@@ -11,7 +11,6 @@ import ch.uzh.ifi.hase.soprafs21.rest.PlayerDTO.PlayerGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.StationDTO.StationDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.TicketDTO.TicketDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.PlayerDTOMapper;
-import ch.uzh.ifi.hase.soprafs21.rest.mapper.UserDTOMapper;
 import ch.uzh.ifi.hase.soprafs21.service.GameService;
 import ch.uzh.ifi.hase.soprafs21.service.LobbyService;
 import ch.uzh.ifi.hase.soprafs21.service.StationService;
@@ -82,7 +81,7 @@ public class GameController {
     @GetMapping("/games/{gameId}/mrX")
     @ResponseStatus(HttpStatus.OK)
     public PlayerGetDTO getMrX(@PathVariable("gameId") long gameId,
-                                  @RequestHeader("Authorization") String token){
+                               @RequestHeader("Authorization") String token){
 
         return new PlayerGetDTO();
     }
