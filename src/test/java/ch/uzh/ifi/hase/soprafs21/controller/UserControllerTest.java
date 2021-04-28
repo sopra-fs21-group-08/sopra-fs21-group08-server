@@ -22,6 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
+import static ch.uzh.ifi.hase.soprafs21.TestHelpers.TestHelpers.asJsonString;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.*;
@@ -318,18 +319,5 @@ public class UserControllerTest {
                 .andExpect(status().isConflict());
     }
 
-    /**
-     * Helper Method to convert userPostDTO into a JSON string such that the input can be processed
-     * Input will look like this: {"name": "Test User", "username": "testUsername"}
-     * @param object
-     * @return string
-     */
-    private String asJsonString(final Object object) {
-        try {
-            return new ObjectMapper().writeValueAsString(object);
-        }
-        catch (JsonProcessingException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("The request body could not be created.%s", e.toString()));
-        }
-    }
+
 }
