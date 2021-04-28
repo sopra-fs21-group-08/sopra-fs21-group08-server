@@ -10,6 +10,7 @@ import ch.uzh.ifi.hase.soprafs21.rest.MoveDTO.MoveDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.PlayerDTO.PlayerGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.StationDTO.StationDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.TicketDTO.TicketDTO;
+import ch.uzh.ifi.hase.soprafs21.rest.mapper.GameDTOMapper;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.PlayerDTOMapper;
 import ch.uzh.ifi.hase.soprafs21.service.GameService;
 import ch.uzh.ifi.hase.soprafs21.service.LobbyService;
@@ -38,14 +39,16 @@ public class GameController {
 
     @PostMapping("/games/{lobbyId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createGame(@PathVariable("lobbyId") long lobbyId) {
+    public GameStatusGetDTO createGame(@PathVariable("lobbyId") long lobbyId) {
 
+        //find coresponding lobby
         Lobby foundLobby = this.lobbyService.findLobbyById(lobbyId);
 
         //initializing game
         Game game = gameService.initializeGame(foundLobby);
-
         lobbyService.setLobbyGame(foundLobby, game);
+
+        return GameDTOMapper.INSTANCE.convertEntityToGameStatusGetDTO(game);
     }
 
 
@@ -121,7 +124,7 @@ public class GameController {
     public GameStatusGetDTO getStatus(@PathVariable("gameId") long gameId,
                                       @RequestHeader("Authorization") String token){
 
-        return new GameStatusGetDTO();
+        return GameDTOMapper.INSTANCE.convertEntityToGameStatusGetDTO(gameService.getGameByGameId(gameId));
     }
 
 

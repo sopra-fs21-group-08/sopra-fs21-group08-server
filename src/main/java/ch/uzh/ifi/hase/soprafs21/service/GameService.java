@@ -4,6 +4,7 @@ import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Round;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.PlayerGroup;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.TicketWallet;
 import ch.uzh.ifi.hase.soprafs21.constant.PlayerClass;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
@@ -95,13 +96,27 @@ public class GameService {
         for (User currUser: users){
 
             Player newPlayer = new Player();
+            // give player the User
             newPlayer.setUser(currUser);
+            // give player the reandom station
             newPlayer.setCurrentStation(randomStations.get(i));
             // PlayerClass gets assigned by Random number
             if(i == whoIsMrX){
+                // MRX
                 newPlayer.setPlayerClass(PlayerClass.MRX);
+
+                // MRX TicketWallet
+                TicketWallet wallet = new TicketWallet();
+                wallet.createMrXWallet();
+                newPlayer.setWallet(wallet);
             } else {
-                newPlayer.setPlayerClass(PlayerClass.AGENT);
+                // DETECTIVE
+                newPlayer.setPlayerClass(PlayerClass.DETECTIVE);
+
+                //AGENT TicketWallet
+                TicketWallet wallet = new TicketWallet();
+                wallet.createDetectiveWallet();
+                newPlayer.setWallet(wallet);
             }
             pg.add(newPlayer);
             i++;

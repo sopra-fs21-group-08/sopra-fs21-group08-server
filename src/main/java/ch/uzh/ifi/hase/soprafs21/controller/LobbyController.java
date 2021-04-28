@@ -78,6 +78,8 @@ public class LobbyController {
     @ResponseBody
     public List<UserGetDTO> getAllUsersInLobby(@PathVariable("lobbyId") long lobbyId) {
 
+
+        //TODO: change DTO to include more lobby information
         //find the user by lobbyId
         List<User> users = lobbyService.getUsers(lobbyId);
         List<UserGetDTO> userGetDTOs = new ArrayList<>();

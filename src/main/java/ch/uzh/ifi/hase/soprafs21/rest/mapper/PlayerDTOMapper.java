@@ -11,16 +11,12 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface PlayerDTOMapper {
     PlayerDTOMapper INSTANCE = Mappers.getMapper(PlayerDTOMapper.class);
-
-    @Mapping(source = "playerId", target = "playerId")
+    @Mapping(source = "user", target = "user")
     @Mapping(source = "playerClass", target = "playerClass")
-    @Mapping(source = "currentStation", target = "stationId", qualifiedByName = "stationToStationId")
+    @Mapping(source = "currentStation.stationId", target = "stationId")
     PlayerGetDTO convertPlayerToGetDTO(Player player);
 
-    @Named("stationToStationId")
-    static Long stationToStationId(Station station){
-        return station.getStationId();
-    }
+
 
 }
 

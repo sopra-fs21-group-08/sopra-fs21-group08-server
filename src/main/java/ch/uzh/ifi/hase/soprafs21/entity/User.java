@@ -35,7 +35,7 @@ public class User implements Serializable {
     @Column(nullable = false, unique = true)
     private String token;
 
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private UserStatus status;
 
     @Column
