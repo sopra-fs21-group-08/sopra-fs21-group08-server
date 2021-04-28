@@ -4,6 +4,6 @@ enum Ticket {
     BUS,
     TRAM,
     TRAIN,
-    BLACKTICKET,
-    DOUBLETICKET
+    BLACK,
+    DOUBLE
 }

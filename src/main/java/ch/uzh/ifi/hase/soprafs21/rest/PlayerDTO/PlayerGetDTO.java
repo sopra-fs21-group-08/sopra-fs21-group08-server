@@ -6,7 +6,6 @@ import ch.uzh.ifi.hase.soprafs21.rest.WalletDTO.WalletGetDTO;
 
 public class PlayerGetDTO {
     private UserGetDTO user;
-    private Long playerId;
     private PlayerClass playerClass;
     private Long stationId;
     private WalletGetDTO wallet;
@@ -14,40 +13,29 @@ public class PlayerGetDTO {
     public UserGetDTO getUser() {
         return user;
     }
-
     public void setUser(UserGetDTO user) {
         this.user = user;
-    }
-
-    public Long getPlayerId() {
-        return playerId;
-    }
-
-    public void setPlayerId(Long playerId) {
-        this.playerId = playerId;
     }
 
     public PlayerClass getPlayerClass() {
         return playerClass;
     }
-
     public void setPlayerClass(PlayerClass playerClass) {
         this.playerClass = playerClass;
+    }
+
+
+    public WalletGetDTO getWallet() {
+        return wallet;
+    }
+    public void setWallet(WalletGetDTO wallet) {
+        this.wallet = wallet;
     }
 
     public Long getStationId() {
         return stationId;
     }
-
     public void setStationId(Long stationId) {
         this.stationId = stationId;
-    }
-
-    public WalletGetDTO getWallet() {
-        return wallet;
-    }
-
-    public void setWallet(WalletGetDTO wallet) {
-        this.wallet = wallet;
     }
 }

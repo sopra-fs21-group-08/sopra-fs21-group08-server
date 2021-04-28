@@ -26,9 +26,10 @@ public class Player {
     @OneToOne
     private Station currentStation;
 
+    @Enumerated(EnumType.STRING)
     private PlayerClass playerClass;
 
-    @Transient
+    @OneToOne(cascade = CascadeType.ALL)
     private TicketWallet wallet;
 
     public Station getCurrentStation() {
@@ -61,5 +62,12 @@ public class Player {
 
     public boolean isMrX(){
         return this.playerClass == PlayerClass.MRX;
+    }
+
+    public TicketWallet getWallet() {
+        return wallet;
+    }
+    public void setWallet(TicketWallet wallet) {
+        this.wallet = wallet;
     }
 }

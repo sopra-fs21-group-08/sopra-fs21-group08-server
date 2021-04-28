@@ -5,10 +5,11 @@ public class WalletGetDTO {
     private int tram;
     private int bus;
 
+
+
     public int getTrain() {
         return train;
     }
-
     public void setTrain(int train) {
         this.train = train;
     }
@@ -16,7 +17,6 @@ public class WalletGetDTO {
     public int getTram() {
         return tram;
     }
-
     public void setTram(int tram) {
         this.tram = tram;
     }
@@ -24,7 +24,6 @@ public class WalletGetDTO {
     public int getBus() {
         return bus;
     }
-
     public void setBus(int bus) {
         this.bus = bus;
     }

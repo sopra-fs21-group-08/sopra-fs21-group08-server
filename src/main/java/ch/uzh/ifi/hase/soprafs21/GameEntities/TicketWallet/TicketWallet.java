@@ -1,32 +1,40 @@
 package ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet;
 
+import javax.persistence.*;
 import java.util.EnumMap;
 import java.util.Map;
 
+
+
+@Entity
+@Table(name = "TICKETWALLET")
 public class TicketWallet{
-    Map<Ticket, Integer> ticketMap =new EnumMap<Ticket, Integer>(Ticket.class);
-    public TicketWallet(boolean isMrX){
-        if(isMrX){
-            this.createMrXWallet();
-        }else{
-            this.createDetectiveWallet();
-        }
 
 
-    }
-   
-    private void createDetectiveWallet(){
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+
+    @ElementCollection
+    @CollectionTable(name="TICKETS")
+    @MapKeyEnumerated(EnumType.STRING)
+    @MapKeyColumn(name="TICKET_TYPE")
+    @Column(name="AMOUNT")
+    private Map<Ticket, Integer> ticketMap = new EnumMap<Ticket, Integer>(Ticket.class);
+
+    public void createDetectiveWallet(){
         this.ticketMap.put(Ticket.TRAM, 10);
         this.ticketMap.put(Ticket.BUS, 10);
         this.ticketMap.put(Ticket.TRAIN, 10);
-        this.ticketMap.put(Ticket.DOUBLETICKET, 0);
-        this.ticketMap.put(Ticket.BLACKTICKET, 0);
+        this.ticketMap.put(Ticket.DOUBLE, 0);
+        this.ticketMap.put(Ticket.BLACK, 0);
     }
     
-    private void createMrXWallet(){
+    public void createMrXWallet(){
         this.createDetectiveWallet();
-        this.ticketMap.put(Ticket.DOUBLETICKET, 2);
-        this.ticketMap.put(Ticket.BLACKTICKET, 2);
+        this.ticketMap.put(Ticket.DOUBLE, 2);
+        this.ticketMap.put(Ticket.BLACK, 2);
     }
     
 
@@ -45,4 +53,10 @@ public class TicketWallet{
     }
 
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public Long getId() {
+        return id;
+    }
 }
