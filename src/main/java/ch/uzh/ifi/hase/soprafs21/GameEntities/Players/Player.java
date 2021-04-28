@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs21.GameEntities.Players;
 
 
 
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.TicketWallet;
 import ch.uzh.ifi.hase.soprafs21.constant.PlayerClass;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
@@ -23,7 +24,7 @@ public class Player {
     @MapsId
     private User user;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Station currentStation;
 
     @Enumerated(EnumType.STRING)
@@ -31,6 +32,12 @@ public class Player {
 
     @OneToOne(cascade = CascadeType.ALL)
     private TicketWallet wallet;
+
+
+
+
+
+
 
     public Station getCurrentStation() {
         return currentStation;
@@ -69,5 +76,15 @@ public class Player {
     }
     public void setWallet(TicketWallet wallet) {
         this.wallet = wallet;
+    }
+
+    public Move useMoveAndTicket(Move move){
+
+        move.setPlayer(this);
+
+        this.getWallet().useTicket(move.getTicket());
+
+        return move;
+
     }
 }

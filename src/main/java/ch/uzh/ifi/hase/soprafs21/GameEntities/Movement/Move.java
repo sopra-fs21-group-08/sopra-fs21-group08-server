@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs21.GameEntities.Movement;
 
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.Ticket;
 import ch.uzh.ifi.hase.soprafs21.network.Station;
 
 import javax.persistence.*;
@@ -14,21 +15,19 @@ public class Move {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long moveId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "roundId")
     private Round round;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "playerId")
     private Player player;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "to_stationId")
     private Station to;
 
-    /*
     private Ticket ticket;
-    */
 
     public Long getMoveId() {
         return moveId;
@@ -62,7 +61,17 @@ public class Move {
         this.to = to;
     }
 
+    public Ticket getTicket() {
+        return ticket;
+    }
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
     public void executeMove(){
         this.player.setCurrentStation(this.to);
     }
+
+
+
 }

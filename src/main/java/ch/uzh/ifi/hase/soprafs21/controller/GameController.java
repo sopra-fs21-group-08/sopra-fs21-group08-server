@@ -2,9 +2,11 @@ package ch.uzh.ifi.hase.soprafs21.controller;
 
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.PlayerGroup;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
+import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.rest.GameStatusDTO.GameStatusGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.MoveDTO.MoveDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.PlayerDTO.PlayerGetDTO;
@@ -104,10 +106,28 @@ public class GameController {
 
     @PostMapping("/games/{gameId}/moves/{userId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createMove(@RequestBody MoveDTO moveDTO,
+    public PlayerGetDTO createMove(@RequestBody MoveDTO moveDTO,
                            @PathVariable("gameId") long gameId,
                            @PathVariable("userId") long userId,
                            @RequestHeader("Authorization") String token){
+
+
+        Move issuedMove = new Move();
+        issuedMove.setTicket(moveDTO.getTicket());
+        issuedMove.setTo(stationService.getStationById(moveDTO.getTo()));
+
+                //MoverDTOMapper.INSTANCE.convertDTOtoMove(moveDTO);
+        User issuingUser = userService.getUserById(userId);
+
+        //TODO authenticate user
+
+        Player movedPlayer = gameService.playerIssuesMove(issuingUser, issuedMove, gameId);
+
+        PlayerGetDTO playerGetDTO = PlayerDTOMapper.INSTANCE.convertPlayerToGetDTO(movedPlayer);
+
+        return playerGetDTO;
+
+
 
     }
 

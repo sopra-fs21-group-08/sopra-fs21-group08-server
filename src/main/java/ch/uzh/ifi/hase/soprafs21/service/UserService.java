@@ -155,7 +155,7 @@ public class UserService {
         user.removeCurrentLobby();
     }
 
-    //TODO: check if user is offlie or online
+    //TODO: check if user is offline or online
     public User logoutUser(User inputUser) {
 
         User foundUser = findUserByEntity(inputUser);

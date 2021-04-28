@@ -19,7 +19,7 @@ public class Round implements Iterable<Move>{
     @OneToOne(mappedBy = "currentRound")
     private Game game;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Move> moves = new ArrayList<>();
 
     private int roundNumber;
@@ -42,7 +42,7 @@ public class Round implements Iterable<Move>{
     protected void setMoves(List<Move> moves) {
         this.moves = moves;
     }
-    protected void addMove(Move move){
+    public void addMove(Move move){
         this.moves.add(move);
         if (maxMoves==getSize()){
             setRoundOver(true);
@@ -76,7 +76,7 @@ public class Round implements Iterable<Move>{
         isRoundOver = roundOver;
     }
 
-    public int getMaxMoves() {
+    private int getMaxMoves() {
         return maxMoves;
     }
     public void setMaxMoves(int maxMoves) {
@@ -86,8 +86,19 @@ public class Round implements Iterable<Move>{
     public boolean isMrXVisible() {
         return isMrXVisible;
     }
-    public void setMrXVisible() {
+    private void setMrXVisible() {
         isMrXVisible = (roundNumber % 4 == 0);
+    }
+
+
+
+    public Round createNextRound(Round lastRound) {
+
+        this.setRoundNumber(lastRound.incrementRoundNumber());
+        this.setMaxMoves(lastRound.getMaxMoves());
+        this.setMrXVisible();
+
+        return this;
     }
 
     @Override

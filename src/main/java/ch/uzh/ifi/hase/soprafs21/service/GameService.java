@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.service;
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Round;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.PlayerGroup;
@@ -15,7 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -38,6 +41,26 @@ public class GameService {
         this.gameRepository = gameRepository;
         this.stationRepository = stationRepository;
     }
+
+    public Player playerIssuesMove(User issuingUser, Move issuedMove, long gameId){
+
+        Game theGame = gameRepository.findByGameId(gameId);
+
+        // checks if its users turn
+        Player currentPlayer = isUsersTurn(issuingUser, theGame); // because its his turn we get the player form game
+
+        // move is updated with currentPlayer and which Round it belongs to
+        Move finishedMove = theGame.createMoveForCurrentPlayer(issuedMove);
+
+        //wrap up the Turn
+        finishedMove.executeMove();
+        theGame.successfullTurn();
+
+        gameRepository.flush();
+
+        return currentPlayer;
+    }
+
 
 
     public Game initializeGame(Lobby lobby){
@@ -67,7 +90,6 @@ public class GameService {
         // the game gets saved to the lobby after this return
         return game;
     }
-
 
     public Game getGameByEntity(Game game) {
         return this.gameRepository.findByGameId(game.getGameId());
@@ -153,6 +175,17 @@ public class GameService {
         }
         return randomStations;
     }
+
+    private Player isUsersTurn(User guy, Game game) {
+        String baseErrorMessage = "It is not your Turn! dick";
+        if (!guy.getUserId().equals(game.getCurrentPlayer().getPlayerId())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, baseErrorMessage);
+        }
+        return game.getCurrentPlayer();
+    }
+
+
+
 
 
 }

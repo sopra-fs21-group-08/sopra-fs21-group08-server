@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.GameEntities;
 
 
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Round;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.PlayerGroup;
@@ -77,6 +78,13 @@ public class Game {
         return this.playerGroup.getCurrentPlayer();
     }
 
+    public Move createMoveForCurrentPlayer(Move move){
+        Move playerMove = getCurrentPlayer().useMoveAndTicket(move);
+        this.getCurrentRound().addMove(playerMove);
+        move.setRound(currentRound);
+        return playerMove;
+    }
+
     public void successfullTurn(){
         this.playerGroup.incrementPlayerTurn();
         if(currentRound.isRoundOver()){
@@ -87,9 +95,7 @@ public class Game {
     private void successfullRound(){
         if(currentRound.isRoundOver()){
             Round newRound = new Round();
-            newRound.setRoundNumber(currentRound.incrementRoundNumber());
-            newRound.setMaxMoves(currentRound.getMaxMoves());
-            newRound.setMrXVisible();
+            newRound.createNextRound(currentRound);
 
             //TODO: save old round
 

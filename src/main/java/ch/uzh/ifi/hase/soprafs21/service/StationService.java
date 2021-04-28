@@ -97,4 +97,8 @@ public class StationService {
         List<Station> stationList = this.getStations();
         return stationList.get(rand.nextInt(stationList.size()));
     }
+
+    public Station getStationById(long to) {
+        return stationRepository.findByStationId(to);
+    }
 }
