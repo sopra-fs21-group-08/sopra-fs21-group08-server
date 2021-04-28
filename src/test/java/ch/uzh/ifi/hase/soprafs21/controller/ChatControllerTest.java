@@ -5,11 +5,13 @@ import ch.uzh.ifi.hase.soprafs21.entity.Chat;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.Message;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
+import ch.uzh.ifi.hase.soprafs21.rest.ChatDTO.ReceivedMessageDTO;
 import ch.uzh.ifi.hase.soprafs21.service.LobbyService;
 import ch.uzh.ifi.hase.soprafs21.service.UserService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -98,5 +100,22 @@ public class ChatControllerTest {
                 .andExpect(jsonPath("$[0].message", is("test")));
     }
 
+    @Test
+    public void writeMessage_validInput_messagePosted() throws Exception{
+        Long gameId = 1L;
 
+        ReceivedMessageDTO receivedMessageDTO = new ReceivedMessageDTO();
+        receivedMessageDTO.setToken(testUser1.getToken());
+        receivedMessageDTO.setUserId(testUser1.getUserId());
+        receivedMessageDTO.setMessage(testMessage.getMessage());
+
+        when(userService.findUserByEntity(Mockito.any())).thenReturn(testUser1);
+
+        MockHttpServletRequestBuilder postRequest = post("/games/{gameID}/chats", gameId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(receivedMessageDTO));
+
+        mockMvc.perform(postRequest)
+                .andExpect(status().isOk());
+    }
 }
