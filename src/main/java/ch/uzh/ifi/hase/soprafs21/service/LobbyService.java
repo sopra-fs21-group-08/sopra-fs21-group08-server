@@ -60,6 +60,9 @@ public class LobbyService {
         checkIfLobbyExists(lobbyId);
         Lobby foundLobby = this.lobbyRepository.findByLobbyId(lobbyId);
 
+        if (foundLobby.getSize() >= foundLobby.getMaxSize()){
+            throw new IllegalStateException("Lobby is already full");
+        }
         // adds the user to the lobby with the matching LobbyID
         foundLobby.addUser(userToJoin);
         return foundLobby;
@@ -80,7 +83,6 @@ public class LobbyService {
 
     private void checkIfLobbyAlreadyExists(Lobby lobbyToCreate) {
         // does nothing so far
-        // will check if the chosen username is taken
     }
 
     public void removeUser(User userToRemove, long lobbyId){

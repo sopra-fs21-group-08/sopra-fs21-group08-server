@@ -26,6 +26,9 @@ public class Lobby {
     @OneToOne(cascade = CascadeType.ALL)
     private Chat chat;
 
+    @Transient
+    private final int maxSize = 6;
+
     public Long getLobbyId() {
         return lobbyId;
     }
@@ -69,6 +72,10 @@ public class Lobby {
 
     public boolean didGameStart(){
         return game != null;
+    }
+
+    public int getMaxSize() {
+        return maxSize;
     }
 }
 
