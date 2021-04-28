@@ -1,30 +1,46 @@
 package ch.uzh.ifi.hase.soprafs21.rest.WalletDTO;
 
 public class WalletGetDTO {
-    private int train;
-    private int tram;
-    private int bus;
+    private int TRAIN;
+    private int TRAM;
+    private int BUS;
+    private int BLACK;
+    private int DOUBLE;
 
 
 
-    public int getTrain() {
-        return train;
+    public int getTRAIN() {
+        return TRAIN;
     }
-    public void setTrain(int train) {
-        this.train = train;
-    }
-
-    public int getTram() {
-        return tram;
-    }
-    public void setTram(int tram) {
-        this.tram = tram;
+    public void setTRAIN(int TRAIN) {
+        this.TRAIN = TRAIN;
     }
 
-    public int getBus() {
-        return bus;
+    public int getTRAM() {
+        return TRAM;
     }
-    public void setBus(int bus) {
-        this.bus = bus;
+    public void setTRAM(int TRAM) {
+        this.TRAM = TRAM;
+    }
+
+    public int getBUS() {
+        return BUS;
+    }
+    public void setBUS(int BUS) {
+        this.BUS = BUS;
+    }
+
+    public int getBLACK() {
+        return BLACK;
+    }
+    public void setBLACK(int BLACK) {
+        this.BLACK = BLACK;
+    }
+
+    public int getDOUBLE() {
+        return DOUBLE;
+    }
+    public void setDOUBLE(int DOUBLE) {
+        this.DOUBLE = DOUBLE;
     }
 }

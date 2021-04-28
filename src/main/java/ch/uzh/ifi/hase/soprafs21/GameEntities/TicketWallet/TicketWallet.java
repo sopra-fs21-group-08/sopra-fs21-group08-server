@@ -52,6 +52,21 @@ public class TicketWallet{
             return null;
     }
 
+    public int getTrain(){
+        return ticketMap.get(Ticket.TRAIN);
+    }
+    public int getTram(){
+        return ticketMap.get(Ticket.TRAM);
+    }
+    public int getBus(){
+        return ticketMap.get(Ticket.BUS);
+    }
+    public int getBlack(){
+        return ticketMap.get(Ticket.BLACK);
+    }
+    public int getDouble(){
+        return ticketMap.get(Ticket.DOUBLE);
+    }
 
     public void setId(Long id) {
         this.id = id;
