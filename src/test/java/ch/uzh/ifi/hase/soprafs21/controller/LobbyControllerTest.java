@@ -51,9 +51,6 @@ class LobbyControllerTest {
     @MockBean
     private UserService userService;
 
-    @Mock
-    private UserRepository userRepository;
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -133,13 +130,17 @@ class LobbyControllerTest {
         testUser1.setCurrentLobby(testLobby);
 
         when(lobbyService.getUsers(testLobby.getLobbyId())).thenReturn(userList);
+        when(lobbyService.findLobbyById(testLobby.getLobbyId())).thenReturn(testLobby);
 
         MockHttpServletRequestBuilder getRequest = get("/lobbies/{lobbyId}", testLobby.getLobbyId())
                 .contentType(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(getRequest)
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].username", is(testUser1.getUsername())));
+                .andExpect(jsonPath("$.lobbyId", is(testLobby.getLobbyId().intValue())))
+                .andExpect(jsonPath("$.lobbyName", is(testLobby.getLobbyName())))
+                .andExpect(jsonPath("$.gameStarted", is(testLobby.didGameStart())))
+                .andExpect(jsonPath("$.users[0].userId", is(testUser1.getUserId().intValue())));
     }
 
     @Test
