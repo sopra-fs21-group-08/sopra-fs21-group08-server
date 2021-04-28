@@ -16,8 +16,6 @@ public interface GameDTOMapper {
 
     GameDTOMapper INSTANCE = Mappers.getMapper(GameDTOMapper.class);
 
-    //TODO: from currentPlayer everything gets mapped correctly except the stationId which is a mystery.
-    // since it gets mapped properly when using the playerDTOMapper itself.
     @Mapping(source = "gameId", target = "gameId")
     @Mapping(source = "playerGroup.currentPlayer", target = "currentPlayer")
     @Mapping(source = "gameOver", target = "gameOver")

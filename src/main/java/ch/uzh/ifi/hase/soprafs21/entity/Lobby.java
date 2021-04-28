@@ -1,8 +1,6 @@
 package ch.uzh.ifi.hase.soprafs21.entity;
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
-import ch.uzh.ifi.hase.soprafs21.network.Network;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,8 +67,8 @@ public class Lobby {
     public Chat getChat(){return this.chat;}
     public void setChat(Chat chat){this.chat = chat;}
 
-    public int getNumberOfPlayers() {
-        return this.users.size();
+    public boolean didGameStart(){
+        return game != null;
     }
 }
 

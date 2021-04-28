@@ -44,7 +44,8 @@ public class ChatController {
     @PostMapping("/games/{gameID}/chats")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public void writeChatMessage(@RequestBody ReceivedMessageDTO receivedMessageDTO, @PathVariable("gameID") long gameID){
+    public void writeChatMessage(@RequestBody ReceivedMessageDTO receivedMessageDTO,
+                                 @PathVariable("gameID") long gameID){
         Message msg = ChatDTOMapper.INSTANCE.convertReceivedMessageDTOtoMessage(receivedMessageDTO);
 
         //find issuing User

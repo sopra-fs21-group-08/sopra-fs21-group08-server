@@ -2,8 +2,11 @@ package ch.uzh.ifi.hase.soprafs21.rest.mapper;
 
 
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
+import ch.uzh.ifi.hase.soprafs21.entity.User;
+import ch.uzh.ifi.hase.soprafs21.rest.LobbyDTO.GetAllLobbiesDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.LobbyDTO.LobbyGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.LobbyDTO.LobbyPostDTO;
+import ch.uzh.ifi.hase.soprafs21.rest.UserDTO.UserGetDTO;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
@@ -14,8 +17,21 @@ public interface LobbyDTOMapper {
     @Mapping(source = "lobbyName", target = "lobbyName")
     Lobby covertLobbyPostDTOToEntity(LobbyPostDTO lobbyPostDTO);
 
-    //TODO: add conversion to USER
+
     @Mapping(source = "lobbyId", target = "lobbyId")
+    @Mapping(source = "lobbyName", target = "lobbyName")
+    @Mapping(expression = "java(lobby.getSize())", target = "amountOfUsers")
+    @Mapping(expression = "java(lobby.didGameStart())", target = "gameStarted")
+    GetAllLobbiesDTO convertEntityToGetAllDTO(Lobby lobby);
+
+
+    //TODO: add conversion to USER [id, name, user1, user2, user3]
+    @Mapping(source = "lobbyId", target = "lobbyId")
+    @Mapping(source = "lobbyName", target = "lobbyName")
+    @Mapping(expression = "java(lobby.didGameStart())", target = "gameStarted")
     LobbyGetDTO convertEntityToLobbyGetDTO(Lobby lobby);
+
+
+
 
 }

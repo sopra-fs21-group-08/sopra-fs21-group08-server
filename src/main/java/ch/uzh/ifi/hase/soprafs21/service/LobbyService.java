@@ -7,6 +7,7 @@ import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.Message;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.repository.LobbyRepository;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,10 @@ public class LobbyService {
     public LobbyService(@Qualifier("lobbyRepository") LobbyRepository lobbyRepository) {
 
         this.lobbyRepository = lobbyRepository;
+    }
+
+    public List<Lobby> getLobbies() {
+        return this.lobbyRepository.findAll();
     }
 
     public Lobby createLobby(Lobby lobbyToCreate, User issuingUser){
@@ -83,7 +88,9 @@ public class LobbyService {
         targetLobby.removeUser(userToRemove);
 
         //in case the lobby is now empty, it should delete the lobby
+        //TODO: make the lobby delete everything (CHAT GAME ETC)
         if (targetLobby.isEmpty()){
+            targetLobby.getChat();
             lobbyRepository.delete(targetLobby);
         }
     }

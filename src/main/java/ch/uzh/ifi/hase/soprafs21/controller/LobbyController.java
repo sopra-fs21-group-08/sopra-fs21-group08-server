@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs21.controller;
 
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
+import ch.uzh.ifi.hase.soprafs21.rest.LobbyDTO.GetAllLobbiesDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.LobbyDTO.LobbyGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.LobbyDTO.LobbyPostDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.UserDTO.UserGetDTO;
@@ -76,19 +77,26 @@ public class LobbyController {
     @GetMapping("/lobbies/{lobbyId}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<UserGetDTO> getAllUsersInLobby(@PathVariable("lobbyId") long lobbyId) {
+    public LobbyGetDTO getLobbyDetails(@PathVariable("lobbyId") long lobbyId) {
 
-
-        //TODO: change DTO to include more lobby information
-        //find the user by lobbyId
+        // find the user by lobbyId
         List<User> users = lobbyService.getUsers(lobbyId);
+
+        // find the lobby
+        Lobby foundLobby = lobbyService.findLobbyById(lobbyId);
+
+        // convert lobby to DTO (lobbyId, lobbyName, gameStarted, list<user>
+        LobbyGetDTO lobbyGetDTO = LobbyDTOMapper.INSTANCE.convertEntityToLobbyGetDTO(foundLobby);
         List<UserGetDTO> userGetDTOs = new ArrayList<>();
 
         // convert each user to the API representation
         for (User user : users) {
             userGetDTOs.add(UserDTOMapper.INSTANCE.convertEntityToUserGetDTO(user));
         }
-        return userGetDTOs;
+
+        lobbyGetDTO.setUsers(userGetDTOs);
+
+        return lobbyGetDTO;
     }
 
     @DeleteMapping("/lobbies/{lobbyId}")
@@ -101,6 +109,22 @@ public class LobbyController {
         userService.removeCurrentLobby(userToRemove);
 
         lobbyService.removeUser(userToRemove, lobbyId);
+    }
+
+    @GetMapping("/lobbies")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<GetAllLobbiesDTO> getAllLobbies() {
+
+        // get all lobbies
+        List<Lobby> lobbies = lobbyService.getLobbies();
+        List<GetAllLobbiesDTO> getAllLobbiesDTO = new ArrayList<>();
+
+        // convert each user to the API representation
+        for (Lobby lobby : lobbies) {
+            getAllLobbiesDTO.add(LobbyDTOMapper.INSTANCE.convertEntityToGetAllDTO(lobby));
+        }
+        return getAllLobbiesDTO;
     }
 
 }
