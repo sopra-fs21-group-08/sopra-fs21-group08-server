@@ -1,5 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.network;
 
+import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.Ticket;
+
 import javax.persistence.*;
 
 import java.io.Serializable;
@@ -86,4 +88,15 @@ public class Station implements Serializable{
         return reachable_by_tram;
     }
 
+    public List<Long> get_reachable_by_ticket(Ticket ticket){
+        if (ticket == Ticket.BUS){
+            return get_reachable_by_bus();
+        }
+        else if (ticket == Ticket.TRAM){
+            return get_reachable_by_tram();
+        }
+        else {
+            throw new UnsupportedOperationException("No such ticket");
+        }
+    }
 }

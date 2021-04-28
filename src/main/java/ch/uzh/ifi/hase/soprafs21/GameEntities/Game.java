@@ -26,11 +26,11 @@ public class Game {
     @OneToOne(cascade = CascadeType.ALL)
     private PlayerGroup playerGroup;
 
-     @OneToOne(cascade = CascadeType.ALL)
-     @JoinColumn(name = "roundId")
-     private Round currentRound;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "roundId")
+    private Round currentRound;
 
-     private boolean isGameOver = false;
+    private boolean isGameOver = false;
 
 
     public void addToPlayerGroup(Player player){

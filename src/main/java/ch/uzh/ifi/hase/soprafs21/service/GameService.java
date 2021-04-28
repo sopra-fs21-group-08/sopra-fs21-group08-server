@@ -184,7 +184,11 @@ public class GameService {
         return game.getCurrentPlayer();
     }
 
-
+    // no implementation of special ticket
+    public boolean isMovePossible(Move move){
+        return move.getFrom().get_reachable_by_ticket(move.getTicket())
+                .contains(move.getTo().getStationId());
+    }
 
 
 
