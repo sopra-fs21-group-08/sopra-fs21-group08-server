@@ -83,12 +83,15 @@ public class Game {
             successfullRound();
         }
     }
-    private void successfullRound(){
 
+    private void successfullRound(){
         if(currentRound.isRoundOver()){
             Round newRound = new Round();
             newRound.setRoundNumber(currentRound.incrementRoundNumber());
             newRound.setMaxMoves(currentRound.getMaxMoves());
+            newRound.setMrXVisible();
+
+            //TODO: save old round
 
             setCurrentRound(newRound);
         }

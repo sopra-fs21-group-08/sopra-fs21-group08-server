@@ -20,9 +20,10 @@ public class Round implements Iterable<Move>{
     private Game game;
 
     @OneToMany
-    private List<Move> moves = new ArrayList();
+    private List<Move> moves = new ArrayList<>();
 
     private int roundNumber;
+    private boolean isMrXVisible;
 
     //information to determine if the round is over
     private boolean isRoundOver = false;
@@ -80,6 +81,13 @@ public class Round implements Iterable<Move>{
     }
     public void setMaxMoves(int maxMoves) {
         this.maxMoves = maxMoves;
+    }
+
+    public boolean isMrXVisible() {
+        return isMrXVisible;
+    }
+    public void setMrXVisible() {
+        isMrXVisible = (roundNumber % 4 == 0);
     }
 
     @Override
