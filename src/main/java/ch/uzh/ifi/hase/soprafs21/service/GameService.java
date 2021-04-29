@@ -103,6 +103,20 @@ public class GameService {
     public PlayerGroup getPlayerGroupByGameId(long gameId){
         return this.gameRepository.findByGameId(gameId).getPlayerGroup();
     }
+
+    public Player getPlayerByGameUserEntities(Game game, User user){
+        return game.findCorrespondingPlayer(user);
+    }
+
+    public Player getMrXByGameEntity(Game game){
+        for (Player player : game.getPlayerGroup()){
+            if (player.getPlayerClass() == PlayerClass.MRX){
+                return player;
+            }
+        }
+        throw new IllegalStateException("The game doesn't seem to have a MrX!");
+    }
+
     /**
      *
      * @param users

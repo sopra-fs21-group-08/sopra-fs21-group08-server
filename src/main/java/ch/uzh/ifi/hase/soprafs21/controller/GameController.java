@@ -46,7 +46,7 @@ public class GameController {
     @ResponseStatus(HttpStatus.CREATED)
     public GameStatusGetDTO createGame(@PathVariable("lobbyId") long lobbyId) {
 
-        //find coresponding lobby
+        //find corresponding lobby
         Lobby foundLobby = this.lobbyService.findLobbyById(lobbyId);
 
         //initializing game
@@ -84,7 +84,13 @@ public class GameController {
                                   @PathVariable("userId") long userId,
                                   @RequestHeader("Authorization") String token){
 
-        return new PlayerGetDTO();
+        // TODO : Authentification as always
+
+        Game foundGame = gameService.getGameByGameId(gameId);
+        User foundUser = userService.getUserById(userId);
+        Player foundPlayer = gameService.getPlayerByGameUserEntities(foundGame, foundUser);
+
+        return PlayerDTOMapper.INSTANCE.convertPlayerToGetDTO(foundPlayer);
     }
 
 
@@ -94,7 +100,12 @@ public class GameController {
     public PlayerGetDTO getMrX(@PathVariable("gameId") long gameId,
                                @RequestHeader("Authorization") String token){
 
-        return new PlayerGetDTO();
+        // TODO : Authentication as always
+
+        Game foundGame = gameService.getGameByGameId(gameId);
+        Player foundPlayer = gameService.getMrXByGameEntity(foundGame);
+
+        return PlayerDTOMapper.INSTANCE.convertPlayerToGetDTO(foundPlayer);
     }
 
     @GetMapping("/games/{gameId}/moves/validate/{userId}")
@@ -104,7 +115,7 @@ public class GameController {
                                              @PathVariable("userId") long userId,
                                              @RequestHeader("Authorization") String token){
 
-        // TODO : Authentification as always
+        // TODO : Authentication as always
 
         Game foundGame = gameService.getGameByGameId(gameId);
         User foundUser = userService.getUserById(userId);
