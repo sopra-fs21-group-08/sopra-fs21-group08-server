@@ -5,6 +5,7 @@ import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Round;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.PlayerGroup;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.Ticket;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.TicketWallet;
 import ch.uzh.ifi.hase.soprafs21.constant.PlayerClass;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
@@ -190,6 +191,22 @@ public class GameService {
                 .contains(move.getTo().getStationId());
     }
 
+    public List<Station> possibleStations(Game game, User user, Ticket ticket){
 
+        List<Station> possibleStationList = new ArrayList<>();
+
+        Player foundPlayer = game.findCorrespondingPlayer(user);
+        if (foundPlayer.getWallet().isTicketAvaiable(ticket)){
+            List<Long> possibleStationIdList = foundPlayer.getCurrentStation().get_reachable_by_ticket(ticket);
+            for (Long l : possibleStationIdList){
+                possibleStationList.add(stationRepository.findByStationId(l));
+            }
+        }
+        else{
+            return possibleStationList;
+        }
+
+        return possibleStationList;
+    }
 
 }

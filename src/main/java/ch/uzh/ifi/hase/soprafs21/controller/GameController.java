@@ -5,8 +5,10 @@ import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.PlayerGroup;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.Ticket;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
+import ch.uzh.ifi.hase.soprafs21.network.Station;
 import ch.uzh.ifi.hase.soprafs21.rest.GameStatusDTO.GameStatusGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.MoveDTO.MoveDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.PlayerDTO.PlayerGetDTO;
@@ -14,6 +16,7 @@ import ch.uzh.ifi.hase.soprafs21.rest.StationDTO.StationDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.TicketDTO.TicketDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.GameDTOMapper;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.PlayerDTOMapper;
+import ch.uzh.ifi.hase.soprafs21.rest.mapper.StationDTOMapper;
 import ch.uzh.ifi.hase.soprafs21.service.GameService;
 import ch.uzh.ifi.hase.soprafs21.service.LobbyService;
 import ch.uzh.ifi.hase.soprafs21.service.StationService;
@@ -101,7 +104,21 @@ public class GameController {
                                              @PathVariable("userId") long userId,
                                              @RequestHeader("Authorization") String token){
 
-        return new ArrayList<>();
+        // TODO : Authentification as always
+
+        Game foundGame = gameService.getGameByGameId(gameId);
+        User foundUser = userService.getUserById(userId);
+
+        List<Station> possibleStationList = gameService.possibleStations(foundGame, foundUser,
+                ticketDTO.getTicketType());
+
+        List<StationDTO> possibleStationDTOList = new ArrayList<>();
+
+        for (Station station : possibleStationList){
+            possibleStationDTOList.add(StationDTOMapper.INSTANCE.convertEntitytoStationDTO(station));
+        }
+
+        return possibleStationDTOList;
     }
 
     @PostMapping("/games/{gameId}/moves/{userId}")
