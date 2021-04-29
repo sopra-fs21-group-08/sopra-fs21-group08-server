@@ -86,17 +86,23 @@ public class StationService {
     }
     */
 
+    /*
     public Network getNetwork(){
         Network network = new Network();
         network.setStationList(this.getStations());
         return network;
     }
+    */
 
+
+    /*
     public Station getRandomStation(){
         Random rand = new Random();
         List<Station> stationList = this.getStations();
         return stationList.get(rand.nextInt(stationList.size()));
     }
+    */
+
 
     public Station getStationById(long to) {
         return stationRepository.findByStationId(to);

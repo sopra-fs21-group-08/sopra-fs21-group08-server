@@ -20,10 +20,10 @@ public class Station implements Serializable{
     @Column(nullable = false, unique = true)
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     private List<Station> stations_reachable_by_bus = new ArrayList<Station>();
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     private List<Station> stations_reachable_by_tram = new ArrayList<Station>();
 
     @Column(nullable = false)
