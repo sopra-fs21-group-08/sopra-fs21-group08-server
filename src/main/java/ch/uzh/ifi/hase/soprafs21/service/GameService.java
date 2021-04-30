@@ -193,9 +193,13 @@ public class GameService {
     }
 
     // no implementation of special ticket
-    public boolean isMovePossible(Move move){
-        return move.getFrom().get_reachable_by_ticket(move.getTicket())
-                .contains(move.getTo().getStationId());
+    public void isMovePossible(Move move){
+
+        String baseErrorMessage = "Move isn't possible, Sorry";
+        if (!move.getFrom().get_reachable_by_ticket(move.getTicket())
+                .contains(move.getTo().getStationId())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, baseErrorMessage);
+        }
     }
 
     public List<Station> possibleStations(Game game, User user, Ticket ticket){
@@ -210,7 +214,10 @@ public class GameService {
             }
         }
         else{
-            return possibleStationList;
+            String baseErrorMessage = "User doesn't have this ticket anymore";
+
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, baseErrorMessage);
+
         }
 
         return possibleStationList;
