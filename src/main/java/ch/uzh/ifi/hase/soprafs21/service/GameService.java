@@ -53,6 +53,9 @@ public class GameService {
         // move is updated with currentPlayer and which Round it belongs to
         Move finishedMove = theGame.createMoveForCurrentPlayer(issuedMove);
 
+        // check if move is possible
+        isMovePossible(finishedMove);
+
         //wrap up the Turn
         finishedMove.executeMove();
         theGame.successfullTurn();
@@ -61,8 +64,6 @@ public class GameService {
 
         return currentPlayer;
     }
-
-
 
     public Game initializeGame(Lobby lobby){
 
@@ -108,14 +109,6 @@ public class GameService {
         return game.findCorrespondingPlayer(user);
     }
 
-    public Player getMrXByGameEntity(Game game){
-        for (Player player : game.getPlayerGroup()){
-            if (player.getPlayerClass() == PlayerClass.MRX){
-                return player;
-            }
-        }
-        throw new IllegalStateException("The game doesn't seem to have a MrX!");
-    }
 
     /**
      *

@@ -85,13 +85,16 @@ public class Game {
         return playerMove;
     }
 
+    public Player getMrX(){
+        return this.playerGroup.getMrX();
+    }
+
     public void successfullTurn(){
         this.playerGroup.incrementPlayerTurn();
         if(currentRound.isRoundOver()){
             successfullRound();
         }
     }
-
     private void successfullRound(){
         if(currentRound.isRoundOver()){
             Round newRound = new Round();

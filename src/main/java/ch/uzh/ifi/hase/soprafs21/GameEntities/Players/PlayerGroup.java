@@ -102,6 +102,10 @@ public class PlayerGroup implements Iterable<Player>{
         }
     }
 
+    public Player getMrX(){
+        return this.getPlayers().get(0);
+    }
+
     @Override
     public PlayerGroupIterator iterator() {
         return new PlayerGroupIterator(this);

@@ -81,10 +81,10 @@ public class Player {
     public Move useMoveAndTicket(Move move){
 
         move.setPlayer(this);
+        move.setFrom(this.currentStation);
 
         this.getWallet().useTicket(move.getTicket());
 
         return move;
-
     }
 }

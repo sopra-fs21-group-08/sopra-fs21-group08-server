@@ -102,10 +102,7 @@ public class GameController {
 
         // TODO : Authentication as always
 
-        Game foundGame = gameService.getGameByGameId(gameId);
-        Player foundPlayer = gameService.getMrXByGameEntity(foundGame);
-
-        return PlayerDTOMapper.INSTANCE.convertPlayerToGetDTO(foundPlayer);
+        return PlayerDTOMapper.INSTANCE.convertPlayerToGetDTO(gameService.getGameByGameId(gameId).getMrX());
     }
 
     @GetMapping("/games/{gameId}/moves/validate/{userId}")
