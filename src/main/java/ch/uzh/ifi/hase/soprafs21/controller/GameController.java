@@ -4,8 +4,6 @@ package ch.uzh.ifi.hase.soprafs21.controller;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
-import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.PlayerGroup;
-import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.Ticket;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.network.Station;
@@ -117,8 +115,9 @@ public class GameController {
         Game foundGame = gameService.getGameByGameId(gameId);
         User foundUser = userService.getUserById(userId);
 
+        //TODO: check if user is in the game
         List<Station> possibleStationList = gameService.possibleStations(foundGame, foundUser,
-                ticketDTO.getTicketType());
+                ticketDTO.getTicket());
 
         List<StationDTO> possibleStationDTOList = new ArrayList<>();
 

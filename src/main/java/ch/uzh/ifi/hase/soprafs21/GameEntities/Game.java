@@ -79,10 +79,10 @@ public class Game {
     }
 
     public Move createMoveForCurrentPlayer(Move move){
-        Move playerMove = getCurrentPlayer().useMoveAndTicket(move);
-        this.getCurrentRound().addMove(playerMove);
+        move = getCurrentPlayer().setPlayersLocationAndUseTicket(move);
+        this.getCurrentRound().addMove(move);
         move.setRound(currentRound);
-        return playerMove;
+        return move;
     }
 
     public Player getMrX(){

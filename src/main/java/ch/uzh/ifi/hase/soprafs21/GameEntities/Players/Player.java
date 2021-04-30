@@ -78,7 +78,7 @@ public class Player {
         this.wallet = wallet;
     }
 
-    public Move useMoveAndTicket(Move move){
+    public Move setPlayersLocationAndUseTicket(Move move){
 
         move.setPlayer(this);
         move.setFrom(this.currentStation);
