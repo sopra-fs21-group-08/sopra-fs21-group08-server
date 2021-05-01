@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.service;
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Blackboard;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Round;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
@@ -72,17 +73,21 @@ public class GameService {
         //transforming user list into a player list
         PlayerGroup pg = createPlayerGroup(lobby.getUsers());
         pg.setGame(game);
-        pg.resetPlayerTurn();       // this is an int that will give determine which players turn it is.
+
 
         // initializing the first round
         Round newRound = new Round();
         newRound.setRoundNumber(1);
         newRound.setMaxMoves(lobby.getSize());
 
+        // initializing the Blackboard
+        Blackboard blackboard = new Blackboard();
+
         // setting all the preparations to the game
         game.setPlayerGroup(pg);
         game.setCurrentRound(newRound);
         game.setLobby(lobby);
+        game.setBlackboard(blackboard);
 
         game = gameRepository.save(game);
         gameRepository.flush();
@@ -105,7 +110,6 @@ public class GameService {
     public Player getPlayerByGameUserEntities(Game game, User user){
         return game.findCorrespondingPlayer(user);
     }
-
 
     /**
      *
@@ -140,7 +144,7 @@ public class GameService {
                 // DETECTIVE
                 newPlayer.setPlayerClass(PlayerClass.DETECTIVE);
 
-                //AGENT TicketWallet
+                // DETECTIVE TicketWallet
                 TicketWallet wallet = new TicketWallet();
                 wallet.createDetectiveWallet();
                 newPlayer.setWallet(wallet);
@@ -151,9 +155,12 @@ public class GameService {
 
         //change order of pg so that MrX is always first in the list
         pg.moveMRXToTopOfList();
+        pg.resetPlayerTurn();       // this is an int that will give determine which players turn it is.
         return pg;
 
     }
+
+
     /**
      *
      * @param totalStations
@@ -220,4 +227,7 @@ public class GameService {
         return possibleStationList;
     }
 
+    public List<Ticket> getBlackboard(long gameId) {
+        return gameRepository.findByGameId(gameId).getBlackboard().getTickets();
+    }
 }

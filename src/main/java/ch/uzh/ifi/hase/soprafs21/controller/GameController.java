@@ -3,6 +3,7 @@ package ch.uzh.ifi.hase.soprafs21.controller;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.Ticket;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.network.Station;
@@ -123,7 +124,6 @@ public class GameController {
         for (Station station : possibleStationList){
             possibleStationDTOList.add(StationDTOMapper.INSTANCE.convertEntitytoStationDTO(station));
         }
-
         return possibleStationDTOList;
     }
 
@@ -133,7 +133,6 @@ public class GameController {
                            @PathVariable("gameId") long gameId,
                            @PathVariable("userId") long userId,
                            @RequestHeader("Authorization") String token){
-
 
         Move issuedMove = new Move();
         issuedMove.setTicket(moveDTO.getTicket());
@@ -151,10 +150,17 @@ public class GameController {
 
     @GetMapping("/games/{gameId}/moves/blackboards")
     @ResponseStatus(HttpStatus.OK)
-    public List<MoveDTO> getBlackboard(@PathVariable("gameId") long gameId,
-                                       @RequestHeader("Authorization") String token){
+    public List<TicketDTO> getBlackboard(@PathVariable("gameId") long gameId,
+                                      @RequestHeader("Authorization") String token){
+        List<TicketDTO> blackboard = new ArrayList<>();
 
-        return new ArrayList<>();
+        for(Ticket ticket :gameService.getBlackboard(gameId)){
+            TicketDTO ticketDTO = new TicketDTO();
+            ticketDTO.setTicket(ticket);
+            blackboard.add(ticketDTO);
+        }
+
+        return blackboard;
     }
 
     @GetMapping("/games/{gameId}/status")

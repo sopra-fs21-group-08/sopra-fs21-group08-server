@@ -2,7 +2,7 @@ package ch.uzh.ifi.hase.soprafs21.GameEntities.Movement;
 
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
-import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.Ticket;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -88,6 +88,10 @@ public class Round implements Iterable<Move>{
     }
     private void setMrXVisible() {
         isMrXVisible = (roundNumber % 4 == 0);
+    }
+
+    public Ticket getMrXTicket(){
+        return this.moves.get(0).getTicket();
     }
 
 

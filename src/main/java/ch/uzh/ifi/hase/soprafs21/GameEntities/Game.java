@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.GameEntities;
 
 
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Blackboard;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Round;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
@@ -27,10 +28,16 @@ public class Game {
     private PlayerGroup playerGroup;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "roundId")
     private Round currentRound;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Blackboard myBlackboard;
+
+
+
     private boolean isGameOver = false;
+
+
 
 
     public void addToPlayerGroup(Player player){
@@ -74,6 +81,13 @@ public class Game {
         isGameOver = gameOver;
     }
 
+    public Blackboard getBlackboard() {
+        return myBlackboard;
+    }
+    public void setBlackboard(Blackboard blackboard) {
+        this.myBlackboard = blackboard;
+    }
+
     public Player getCurrentPlayer(){
         return this.playerGroup.getCurrentPlayer();
     }
@@ -96,14 +110,14 @@ public class Game {
         }
     }
     private void successfullRound(){
-        if(currentRound.isRoundOver()){
-            Round newRound = new Round();
-            newRound.createNextRound(currentRound);
+        myBlackboard.addTicket(currentRound.getMrXTicket());
 
-            //TODO: save old round
+        Round newRound = new Round();
+        newRound.createNextRound(currentRound);
+        //TODO: save old round
 
-            setCurrentRound(newRound);
-        }
+        setCurrentRound(newRound);
+
 
     }
 }
