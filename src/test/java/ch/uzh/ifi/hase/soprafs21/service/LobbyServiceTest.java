@@ -85,4 +85,9 @@ public class LobbyServiceTest {
         assertEquals(joinedLobby.getUsers(), testUserList);
 
     }
+
+    @Test
+    public void postMessage_validInput_messagePosted() throws Exception{
+
+    }
 }
