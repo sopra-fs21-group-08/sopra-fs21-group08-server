@@ -184,13 +184,13 @@ public class GameControllerTest {
         when(gameService.possibleStations(testGame, testUser1, ticketDTO.getTicket()))
                 .thenReturn(testStationList);
 
-        MockHttpServletRequestBuilder getRequest = get("/games/{gameId}/moves/validate/{userId}",
+        MockHttpServletRequestBuilder postRequest = post("/games/{gameId}/moves/validate/{userId}",
                 testGame.getGameId(), testUser1.getUserId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(ticketDTO))
                 .header("Authorization", testUser1.getToken());
 
-        mockMvc.perform(getRequest)
+        mockMvc.perform(postRequest)
                 .andExpect(status().isOk());
     }
 
