@@ -152,10 +152,11 @@ public class GameControllerTest {
     @Test
     public void getMrX_validInput_MrXReceived() throws Exception{
 
+        testPlayerGroup.add(testPlayer1);
+        testGame.setPlayerGroup(testPlayerGroup);
+
         when(gameService.getGameByGameId(testGame.getGameId()))
                 .thenReturn(testGame);
-        when(gameService.getMrXByGameEntity(testGame))
-                .thenReturn(testPlayer1);
 
 
         MockHttpServletRequestBuilder getRequest = get("/games/{gameId}/mrX",
@@ -171,7 +172,7 @@ public class GameControllerTest {
     public void getPossibleMoves_validInput_movesReceived() throws Exception{
 
         TicketDTO ticketDTO = new TicketDTO();
-        ticketDTO.setTicketType(Ticket.TRAM);
+        ticketDTO.setTicket(Ticket.TRAM);
 
         List<Station> testStationList = new ArrayList<>();
         testStationList.add(testStation1);
@@ -180,7 +181,7 @@ public class GameControllerTest {
                 .thenReturn(testGame);
         when(userService.getUserById(testUser1.getUserId()))
                 .thenReturn(testUser1);
-        when(gameService.possibleStations(testGame, testUser1, ticketDTO.getTicketType()))
+        when(gameService.possibleStations(testGame, testUser1, ticketDTO.getTicket()))
                 .thenReturn(testStationList);
 
         MockHttpServletRequestBuilder getRequest = get("/games/{gameId}/moves/validate/{userId}",

@@ -103,7 +103,7 @@ public class GameController {
         return PlayerDTOMapper.INSTANCE.convertPlayerToGetDTO(gameService.getGameByGameId(gameId).getMrX());
     }
 
-    @PostMapping("/games/{gameId}/moves/validate/{userId}")
+    @GetMapping("/games/{gameId}/moves/validate/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public List<StationDTO> getPossibleMoves(@RequestBody TicketDTO ticketDTO,
                                              @PathVariable("gameId") long gameId,
