@@ -1,6 +1,5 @@
 package ch.uzh.ifi.hase.soprafs21.controller;
 
-
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
@@ -147,12 +146,7 @@ public class GameController {
 
         Player movedPlayer = gameService.playerIssuesMove(issuingUser, issuedMove, gameId);
 
-        PlayerGetDTO playerGetDTO = PlayerDTOMapper.INSTANCE.convertPlayerToGetDTO(movedPlayer);
-
-        return playerGetDTO;
-
-
-
+        return PlayerDTOMapper.INSTANCE.convertPlayerToGetDTO(movedPlayer);
     }
 
     @GetMapping("/games/{gameId}/moves/blackboards")

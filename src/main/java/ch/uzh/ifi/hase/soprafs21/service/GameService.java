@@ -69,7 +69,6 @@ public class GameService {
 
         Game game = new Game();
 
-
         //transforming user list into a player list
         PlayerGroup pg = createPlayerGroup(lobby.getUsers());
         pg.setGame(game);
@@ -80,12 +79,10 @@ public class GameService {
         newRound.setRoundNumber(1);
         newRound.setMaxMoves(lobby.getSize());
 
-
         // setting all the preparations to the game
         game.setPlayerGroup(pg);
         game.setCurrentRound(newRound);
         game.setLobby(lobby);
-
 
         game = gameRepository.save(game);
         gameRepository.flush();

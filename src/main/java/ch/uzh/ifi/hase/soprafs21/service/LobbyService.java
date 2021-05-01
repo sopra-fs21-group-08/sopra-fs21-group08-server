@@ -38,6 +38,7 @@ public class LobbyService {
     }
 
     public Lobby createLobby(Lobby lobbyToCreate, User issuingUser){
+
         checkIfLobbyAlreadyExists(lobbyToCreate);
         Lobby newLobby = lobbyRepository.save(lobbyToCreate);
 
