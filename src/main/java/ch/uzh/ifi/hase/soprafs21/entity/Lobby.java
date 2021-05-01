@@ -17,7 +17,7 @@ public class Lobby {
     @Column
     private String lobbyName;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.REFRESH)
     private List<User> users = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
