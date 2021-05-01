@@ -53,6 +53,9 @@ public class GameService {
         // move is updated with currentPlayer and which Round it belongs to
         Move finishedMove = theGame.createMoveForCurrentPlayer(issuedMove);
 
+        // check if move is possible
+        isMovePossible(finishedMove);
+
         //wrap up the Turn
         finishedMove.executeMove();
         theGame.successfullTurn();
@@ -61,8 +64,6 @@ public class GameService {
 
         return currentPlayer;
     }
-
-
 
     public Game initializeGame(Lobby lobby){
 
@@ -108,14 +109,6 @@ public class GameService {
         return game.findCorrespondingPlayer(user);
     }
 
-    public Player getMrXByGameEntity(Game game){
-        for (Player player : game.getPlayerGroup()){
-            if (player.getPlayerClass() == PlayerClass.MRX){
-                return player;
-            }
-        }
-        throw new IllegalStateException("The game doesn't seem to have a MrX!");
-    }
 
     /**
      *
@@ -200,9 +193,13 @@ public class GameService {
     }
 
     // no implementation of special ticket
-    public boolean isMovePossible(Move move){
-        return move.getFrom().get_reachable_by_ticket(move.getTicket())
-                .contains(move.getTo().getStationId());
+    public void isMovePossible(Move move){
+
+        String baseErrorMessage = "Move isn't possible, Sorry";
+        if (!move.getFrom().get_reachable_by_ticket(move.getTicket())
+                .contains(move.getTo().getStationId())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, baseErrorMessage);
+        }
     }
 
     public List<Station> possibleStations(Game game, User user, Ticket ticket){
@@ -217,7 +214,10 @@ public class GameService {
             }
         }
         else{
-            return possibleStationList;
+            String baseErrorMessage = "User doesn't have this ticket anymore";
+
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, baseErrorMessage);
+
         }
 
         return possibleStationList;

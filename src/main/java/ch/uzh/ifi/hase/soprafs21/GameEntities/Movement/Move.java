@@ -24,6 +24,10 @@ public class Move {
     private Player player;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "From_stationId")
+    private Station from;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "to_stationId")
     private Station to;
 
@@ -51,7 +55,10 @@ public class Move {
     }
 
     public Station getFrom() {
-        return player.getCurrentStation();
+        return this.from;
+    }
+    public void setFrom(Station from) {
+        this.from = from;
     }
 
     public Station getTo() {

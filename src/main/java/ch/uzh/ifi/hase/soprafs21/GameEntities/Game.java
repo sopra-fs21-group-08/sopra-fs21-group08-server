@@ -79,10 +79,14 @@ public class Game {
     }
 
     public Move createMoveForCurrentPlayer(Move move){
-        Move playerMove = getCurrentPlayer().useMoveAndTicket(move);
-        this.getCurrentRound().addMove(playerMove);
+        move = getCurrentPlayer().setPlayersLocationAndUseTicket(move);
+        this.getCurrentRound().addMove(move);
         move.setRound(currentRound);
-        return playerMove;
+        return move;
+    }
+
+    public Player getMrX(){
+        return this.playerGroup.getMrX();
     }
 
     public void successfullTurn(){
@@ -91,7 +95,6 @@ public class Game {
             successfullRound();
         }
     }
-
     private void successfullRound(){
         if(currentRound.isRoundOver()){
             Round newRound = new Round();

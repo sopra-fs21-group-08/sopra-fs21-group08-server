@@ -4,8 +4,6 @@ package ch.uzh.ifi.hase.soprafs21.controller;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
-import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.PlayerGroup;
-import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.Ticket;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.network.Station;
@@ -102,13 +100,10 @@ public class GameController {
 
         // TODO : Authentication as always
 
-        Game foundGame = gameService.getGameByGameId(gameId);
-        Player foundPlayer = gameService.getMrXByGameEntity(foundGame);
-
-        return PlayerDTOMapper.INSTANCE.convertPlayerToGetDTO(foundPlayer);
+        return PlayerDTOMapper.INSTANCE.convertPlayerToGetDTO(gameService.getGameByGameId(gameId).getMrX());
     }
 
-    @GetMapping("/games/{gameId}/moves/validate/{userId}")
+    @PostMapping("/games/{gameId}/moves/validate/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public List<StationDTO> getPossibleMoves(@RequestBody TicketDTO ticketDTO,
                                              @PathVariable("gameId") long gameId,
@@ -120,8 +115,9 @@ public class GameController {
         Game foundGame = gameService.getGameByGameId(gameId);
         User foundUser = userService.getUserById(userId);
 
+        //TODO: check if user is in the game
         List<Station> possibleStationList = gameService.possibleStations(foundGame, foundUser,
-                ticketDTO.getTicketType());
+                ticketDTO.getTicket());
 
         List<StationDTO> possibleStationDTOList = new ArrayList<>();
 
