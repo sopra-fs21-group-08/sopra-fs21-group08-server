@@ -98,10 +98,6 @@ public class GameService {
         return game;
     }
 
-    /*
-    public Game getGameByEntity(Game game) {
-        return this.gameRepository.findByGameId(game.getGameId());
-    }*/
 
     public Game getGameByGameId(long gameId) {
         return this.gameRepository.findByGameId(gameId);

@@ -134,7 +134,7 @@ public class LobbyServiceTest {
 
         lobbyService.postMessageToChat(testMessage, testLobby1.getLobbyId());
 
-        assertEquals(testLobby1.getChat().messages.get(0).getMessage(), testMessage.getMessage());
+        assertEquals(testLobby1.getChat().messages.get(0), testMessage);
 
     }
 }

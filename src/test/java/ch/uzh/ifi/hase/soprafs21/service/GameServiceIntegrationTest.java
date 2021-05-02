@@ -1,25 +1,34 @@
 package ch.uzh.ifi.hase.soprafs21.service;
 
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.Ticket;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
-import ch.uzh.ifi.hase.soprafs21.entity.Message;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
+import ch.uzh.ifi.hase.soprafs21.network.Station;
 import ch.uzh.ifi.hase.soprafs21.repository.GameRepository;
 import ch.uzh.ifi.hase.soprafs21.repository.LobbyRepository;
 import ch.uzh.ifi.hase.soprafs21.repository.UserRepository;
-import org.apache.tomcat.util.buf.UEncoder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import javax.transaction.Transactional;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@Transactional
 @WebAppConfiguration
 @SpringBootTest
 public class GameServiceIntegrationTest {
-/*
+
     // given
     private Lobby testLobby1;
     private User testUser1;
@@ -86,10 +95,48 @@ public class GameServiceIntegrationTest {
     @Test
     public void initializeGame_validInput_gameCreated(){
 
-        gameService.initializeGame(testLobby1);
+        Game createdGame = gameService.initializeGame(testLobby1);
 
+        assertEquals(gameRepository.findByGameId(createdGame.getGameId()), createdGame);
+        assertEquals(createdGame.getLobby(), testLobby1);
+        assertEquals(createdGame.getCurrentRound().getRoundNumber(), 1);
+        assertNotNull(createdGame.getBlackboard());
+        assertEquals(createdGame.getMrX(), createdGame.getCurrentPlayer());
+        assertEquals(createdGame.getPlayerGroup().findCorrespondingPlayer(testUser1).getUser(), testUser1);
+        assertEquals(createdGame.getPlayerGroup().findCorrespondingPlayer(testUser2).getUser(), testUser2);
+        assertEquals(createdGame.getPlayerGroup().findCorrespondingPlayer(testUser3).getUser(), testUser3);
 
     }
 
- */
+    @Test
+    public void playerIssuesMove_validInput_playerMoved(){
+
+        Game createdGame = gameService.initializeGame(testLobby1);
+        Player currPlayer = createdGame.getCurrentPlayer();
+        User currUser = currPlayer.getUser();
+
+        Move testMove = new Move();
+
+        // get a possible station to move to
+        List<Station> possibleTramStations = gameService.possibleStations(createdGame, currUser, Ticket.TRAM);
+        List<Station> possibleBusStations = gameService.possibleStations(createdGame, currUser, Ticket.BUS);
+        if (!possibleTramStations.isEmpty()){
+            testMove.setTicket(Ticket.TRAM);
+            testMove.setTo(possibleTramStations.get(0));
+        } else{
+            testMove.setTicket(Ticket.BUS);
+            testMove.setTo(possibleBusStations.get(0));
+        }
+
+        gameService.playerIssuesMove(currUser, testMove, createdGame.getGameId());
+
+        assertEquals(currPlayer.getCurrentStation(), testMove.getTo());
+        assertNotEquals(createdGame.getCurrentPlayer(), currPlayer);
+
+    }
+
+
+
+
+
 }
