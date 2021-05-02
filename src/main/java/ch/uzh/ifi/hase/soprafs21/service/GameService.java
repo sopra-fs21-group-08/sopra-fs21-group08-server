@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -36,6 +37,8 @@ public class GameService {
 
     private final GameRepository gameRepository;
     private final StationRepository stationRepository;
+
+    private Random rand = new Random();
 
     @Autowired
     public GameService(@Qualifier("gameRepository") GameRepository gameRepository,
@@ -168,7 +171,7 @@ public class GameService {
      * @return a list of stations of size totalStations without repeats
      */
     private List<Station> getNRandomDifferentStations(int totalStations){
-        Random rand = new Random();
+
 
         // create a temporary list for storing
         // selected element
