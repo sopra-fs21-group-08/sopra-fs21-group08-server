@@ -3,6 +3,7 @@ package ch.uzh.ifi.hase.soprafs21.GameEntities.Players;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
 import ch.uzh.ifi.hase.soprafs21.constant.PlayerClass;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
+import ch.uzh.ifi.hase.soprafs21.network.Station;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -111,4 +112,12 @@ public class PlayerGroup implements Iterable<Player>{
         return new PlayerGroupIterator(this);
     }
 
+    public List<Station> getPlayerLocations() {
+        List<Station> list = new ArrayList<>();
+
+        for(Player player : players){
+            list.add(player.getCurrentStation());
+        }
+        return list;
+    }
 }

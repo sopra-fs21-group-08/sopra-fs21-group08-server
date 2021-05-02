@@ -53,6 +53,7 @@ public class LobbyService {
         //flush lobby
         lobbyRepository.flush();
         return newLobby;
+
     }
 
 
@@ -93,8 +94,8 @@ public class LobbyService {
         //in case the lobby is now empty, it should delete the lobby
         //TODO: make the lobby delete everything (CHAT GAME ETC)
         if (targetLobby.isEmpty()){
-            targetLobby.getChat();
             lobbyRepository.delete(targetLobby);
+            lobbyRepository.flush();
         }
     }
 

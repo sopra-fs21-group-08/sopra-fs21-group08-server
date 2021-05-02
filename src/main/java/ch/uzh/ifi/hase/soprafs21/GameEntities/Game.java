@@ -8,8 +8,10 @@ import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.PlayerGroup;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
+import ch.uzh.ifi.hase.soprafs21.network.Station;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -36,7 +38,7 @@ public class Game {
 
 
     private boolean isGameOver = false;
-
+    private final int turnsPerGame = 20;
 
 
 
@@ -78,6 +80,9 @@ public class Game {
         return isGameOver;
     }
     public void gameOver (boolean gameOver) {
+
+        // include concluding operations for games
+
         isGameOver = gameOver;
     }
 
@@ -104,12 +109,27 @@ public class Game {
     }
 
     public void successfullTurn(){
+        checkWinCondition();
         this.playerGroup.incrementPlayerTurn();
         if(currentRound.isRoundOver()){
             successfullRound();
         }
     }
+
+    private void checkWinCondition() {
+        List<Station> positions = this.playerGroup.getPlayerLocations();
+        Station mrx = positions.get(0);
+        for (int i=1; i<positions.size(); i++){
+            if (mrx.getStationId().equals(positions.get(i).getStationId())){
+                this.gameOver(true);
+            }
+        }
+    }
+
     private void successfullRound(){
+        if(currentRound.getRoundNumber() == turnsPerGame) {
+            this.gameOver(true);
+        }
         myBlackboard.addTicket(currentRound.getMrXTicket());
 
         Round newRound = new Round();
@@ -120,4 +140,5 @@ public class Game {
 
 
     }
+
 }
