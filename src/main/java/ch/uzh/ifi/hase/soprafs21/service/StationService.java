@@ -1,8 +1,6 @@
 package ch.uzh.ifi.hase.soprafs21.service;
 
 
-import ch.uzh.ifi.hase.soprafs21.entity.User;
-import ch.uzh.ifi.hase.soprafs21.network.Network;
 import ch.uzh.ifi.hase.soprafs21.network.Station;
 import ch.uzh.ifi.hase.soprafs21.repository.StationRepository;
 import ch.uzh.ifi.hase.soprafs21.rest.StationDTO.StationDTO;
@@ -18,10 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @Service
 @Transactional
@@ -76,33 +72,6 @@ public class StationService {
     public List<Station> getStations() {
         return this.stationRepository.findAll();
     }
-
-    /* redundant because of StationDTOMapper
-    public StationDTO convertEntityToDTO(Station station){
-        StationDTO stationDTO = StationDTOMapper.INSTANCE.convertEntitytoStationDTO(station);
-        stationDTO.setReachable_by_bus(station.get_reachable_by_bus());
-        stationDTO.setReachable_by_tram(station.get_reachable_by_tram());
-        return stationDTO;
-    }
-    */
-
-    /*
-    public Network getNetwork(){
-        Network network = new Network();
-        network.setStationList(this.getStations());
-        return network;
-    }
-    */
-
-
-    /*
-    public Station getRandomStation(){
-        Random rand = new Random();
-        List<Station> stationList = this.getStations();
-        return stationList.get(rand.nextInt(stationList.size()));
-    }
-    */
-
 
     public Station getStationById(long to) {
         return stationRepository.findByStationId(to);

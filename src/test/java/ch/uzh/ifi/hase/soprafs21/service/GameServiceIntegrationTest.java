@@ -1,38 +1,34 @@
 package ch.uzh.ifi.hase.soprafs21.service;
 
-import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
-import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Blackboard;
-import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Round;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
+import ch.uzh.ifi.hase.soprafs21.entity.Message;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.repository.GameRepository;
 import ch.uzh.ifi.hase.soprafs21.repository.LobbyRepository;
 import ch.uzh.ifi.hase.soprafs21.repository.UserRepository;
+import org.apache.tomcat.util.buf.UEncoder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.util.concurrent.BlockingDeque;
-
-public class GameServiceTest {
+@WebAppConfiguration
+@SpringBootTest
+public class GameServiceIntegrationTest {
 /*
     // given
     private Lobby testLobby1;
     private User testUser1;
     private User testUser2;
     private User testUser3;
-    private Game testGame;
 
-    @Mock
+    @Qualifier("gameRepository")
+    @Autowired
     private GameRepository gameRepository;
-
-    @InjectMocks
-    private GameService gameService;
-
 
     @Qualifier("userRepository")
     @Autowired
@@ -42,6 +38,8 @@ public class GameServiceTest {
     @Autowired
     private LobbyRepository lobbyRepository;
 
+    @Autowired
+    private GameService gameService;
 
     @Autowired
     private LobbyService lobbyService;
@@ -72,11 +70,6 @@ public class GameServiceTest {
         testLobby1 = lobbyService.createLobby(testLobby1, testUser1);
         lobbyService.joinLobby(testUser2, testLobby1.getLobbyId());
         lobbyService.joinLobby(testUser3, testLobby1.getLobbyId());
-
-        testGame = new Game();
-        testGame.setLobby(testLobby1);
-        testGame.setCurrentRound(new Round());
-        testGame.setBlackboard(new Blackboard());
     }
 
     @AfterEach
@@ -88,17 +81,15 @@ public class GameServiceTest {
         testUser1 = null;
         testUser2 = null;
         testUser3 = null;
-        testGame = null;
     }
 
     @Test
     public void initializeGame_validInput_gameCreated(){
 
-        //gameService.initializeGame(testLobby1);
+        gameService.initializeGame(testLobby1);
 
 
     }
 
  */
 }
-

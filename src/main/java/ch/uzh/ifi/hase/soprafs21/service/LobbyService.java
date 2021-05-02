@@ -118,10 +118,5 @@ public class LobbyService {
         lobby.setGame(game);
     }
 
-/*
-    public Player getPlayer(User user, Game game){
-        Game foundGame = findLobbyById(game.getGameId()).getGame();
-        return foundGame.findCorrespondingPlayer(user);
-    }
-    */
+
 }
