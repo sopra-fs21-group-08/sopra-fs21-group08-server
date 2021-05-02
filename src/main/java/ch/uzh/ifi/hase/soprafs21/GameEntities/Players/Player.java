@@ -19,7 +19,11 @@ public class Player {
     @Id
     private Long playerId;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER,
+            cascade = {
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH
+            })
     @JoinColumn(name = "userId")
     @MapsId
     private User user;
