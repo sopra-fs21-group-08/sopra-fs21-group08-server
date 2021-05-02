@@ -7,7 +7,6 @@ import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.Message;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.repository.LobbyRepository;
-import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,8 +86,11 @@ public class LobbyService {
         // does nothing so far
     }
 
-    public void removeUser(User userToRemove, long lobbyId){
+    public void removeUser(User userToRemove, long lobbyId) {
         Lobby targetLobby = lobbyRepository.findByLobbyId(lobbyId);
+        if (!targetLobby.getUsers().contains(userToRemove)){
+            throw new IllegalStateException("This user is not in this Lobby!");
+        }
         targetLobby.removeUser(userToRemove);
 
         //in case the lobby is now empty, it should delete the lobby

@@ -9,6 +9,7 @@ import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.network.Station;
 import ch.uzh.ifi.hase.soprafs21.repository.GameRepository;
 import ch.uzh.ifi.hase.soprafs21.repository.LobbyRepository;
+import ch.uzh.ifi.hase.soprafs21.repository.StationRepository;
 import ch.uzh.ifi.hase.soprafs21.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 
@@ -39,6 +41,10 @@ public class GameServiceIntegrationTest {
     @Autowired
     private GameRepository gameRepository;
 
+    @Qualifier("stationRepository")
+    @Autowired
+    private StationRepository stationRepository;
+
     @Qualifier("userRepository")
     @Autowired
     private UserRepository userRepository;
@@ -55,6 +61,7 @@ public class GameServiceIntegrationTest {
 
     @Autowired
     private UserService userService;
+
 
     @BeforeEach
     public void setUp(){
@@ -102,9 +109,9 @@ public class GameServiceIntegrationTest {
         assertEquals(createdGame.getCurrentRound().getRoundNumber(), 1);
         assertNotNull(createdGame.getBlackboard());
         assertEquals(createdGame.getMrX(), createdGame.getCurrentPlayer());
-        assertEquals(createdGame.getPlayerGroup().findCorrespondingPlayer(testUser1).getUser(), testUser1);
-        assertEquals(createdGame.getPlayerGroup().findCorrespondingPlayer(testUser2).getUser(), testUser2);
-        assertEquals(createdGame.getPlayerGroup().findCorrespondingPlayer(testUser3).getUser(), testUser3);
+        assertEquals(createdGame.findCorrespondingPlayer(testUser1).getUser(), testUser1);
+        assertEquals(createdGame.findCorrespondingPlayer(testUser2).getUser(), testUser2);
+        assertEquals(createdGame.findCorrespondingPlayer(testUser3).getUser(), testUser3);
 
     }
 
@@ -114,6 +121,65 @@ public class GameServiceIntegrationTest {
         Game createdGame = gameService.initializeGame(testLobby1);
         Player currPlayer = createdGame.getCurrentPlayer();
         User currUser = currPlayer.getUser();
+
+        final int busTicket = currPlayer.getWallet().getBus();
+        final int tramTicket = currPlayer.getWallet().getTram();
+
+        Move testMove = createValidMove(createdGame, currUser);
+
+        gameService.playerIssuesMove(currUser, testMove, createdGame.getGameId());
+
+        assertEquals(currPlayer.getCurrentStation(), testMove.getTo());
+        if (testMove.getTicket() == Ticket.TRAM){
+            assertEquals(tramTicket, currPlayer.getWallet().getTram() + 1);
+        }else{
+            assertEquals(busTicket, currPlayer.getWallet().getBus() + 1);
+        }
+        assertNotEquals(createdGame.getCurrentPlayer(), currPlayer);
+
+
+    }
+
+
+    @Test
+    public void playerIssuesMove_invalidInput_invalidStation(){
+
+        Game createdGame = gameService.initializeGame(testLobby1);
+        Player currPlayer = createdGame.getCurrentPlayer();
+        User currUser = currPlayer.getUser();
+
+
+        Move testMove = createValidMove(createdGame, currUser);
+        gameService.playerIssuesMove(currUser, testMove, createdGame.getGameId());
+        testMove = createValidMove(createdGame, currUser);
+
+        Move finalTestMove = testMove;
+        assertThrows(ResponseStatusException.class,
+                () -> gameService.playerIssuesMove(currUser, finalTestMove, createdGame.getGameId()));
+
+    }
+
+    @Test
+    public void playerIssuesMove_validInput_gameTerminated_MrXSuicide(){
+
+        Game createdGame = gameService.initializeGame(testLobby1);
+        Player currPlayer = createdGame.getCurrentPlayer();
+        User currUser = currPlayer.getUser();
+
+        gameService.hack(createdGame.getGameId());
+
+        Move testMove = new Move();
+        testMove.setTicket(Ticket.TRAM);
+        testMove.setTo(stationRepository.findByStationId(237L));
+
+        gameService.playerIssuesMove(currUser, testMove, createdGame.getGameId());
+
+        assertEquals(createdGame.isGameOver(), true);
+
+    }
+
+
+    private Move createValidMove(Game createdGame, User currUser){
 
         Move testMove = new Move();
 
@@ -128,15 +194,6 @@ public class GameServiceIntegrationTest {
             testMove.setTo(possibleBusStations.get(0));
         }
 
-        gameService.playerIssuesMove(currUser, testMove, createdGame.getGameId());
-
-        assertEquals(currPlayer.getCurrentStation(), testMove.getTo());
-        assertNotEquals(createdGame.getCurrentPlayer(), currPlayer);
-
+        return testMove;
     }
-
-
-
-
-
 }

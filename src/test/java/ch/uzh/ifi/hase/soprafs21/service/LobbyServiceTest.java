@@ -12,13 +12,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.context.annotation.Bean;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class LobbyServiceTest {
 
@@ -64,7 +64,7 @@ public class LobbyServiceTest {
     }
 
     @Test
-    public void createLobbyTest_validInput_lobbyCreated() throws Exception{
+    public void createLobbyTest_validInput_lobbyCreated() {
 
         when(lobbyRepository.save(Mockito.any())).thenReturn(testLobby1);
 
@@ -84,13 +84,27 @@ public class LobbyServiceTest {
     }
 
     @Test
-    public void joinLobbyTest_validInput_lobbyJoined() throws Exception{
+    public void joinLobbyTest_validInput_lobbyJoined() {
 
         when(this.lobbyRepository.findByLobbyId(testLobby1.getLobbyId())).thenReturn(testLobby1);
 
         Lobby joinedLobby = lobbyService.joinLobby(testUser1, testLobby1.getLobbyId());
 
         assertEquals(joinedLobby.getUsers(), testUserList);
+
+    }
+    @Test
+    public void joinLobbyTest_invalidInput_lobbyFull() {
+
+        testLobby1.addUser(new User());
+        testLobby1.addUser(new User());
+        testLobby1.addUser(new User());
+        testLobby1.addUser(new User());
+        testLobby1.addUser(new User());
+        testLobby1.addUser(new User());
+        when(this.lobbyRepository.findByLobbyId(testLobby1.getLobbyId())).thenReturn(testLobby1);
+
+        assertThrows(IllegalStateException.class, () -> lobbyService.joinLobby(testUser1, testLobby1.getLobbyId()));
 
     }
 
@@ -123,10 +137,21 @@ public class LobbyServiceTest {
         Mockito.verify(lobbyRepository, Mockito.times(1)).delete(Mockito.any());
 
         assertNull(testUser1.getCurrentLobby());
+        assertNotNull(testLobby1);
     }
 
     @Test
-    public void postMessage_validInput_messagePosted() throws Exception{
+    public void removeUser_invalidInput_userNotInLobby(){
+
+        assertEquals(testLobby1.getSize(), 0);
+
+        when(this.lobbyRepository.findByLobbyId(testLobby1.getLobbyId())).thenReturn(testLobby1);
+
+        assertThrows(IllegalStateException.class, () -> lobbyService.removeUser(testUser1, testLobby1.getLobbyId()));
+    }
+
+    @Test
+    public void postMessage_validInput_messagePosted() {
 
         testLobby1.setChat(new Chat());
 

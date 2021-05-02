@@ -30,7 +30,7 @@ class StationServiceIntegrationTest {
     private StationService stationService;
 
     @Test
-    void testStationInitialization() throws Exception{
+    void testStationInitialization() {
         List<Station> allStations = stationService.getStations();
         testStation = allStations.get(0);
 
