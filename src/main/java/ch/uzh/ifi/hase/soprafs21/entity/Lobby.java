@@ -20,10 +20,10 @@ public class Lobby {
     @OneToMany(cascade = CascadeType.REFRESH)
     private List<User> users = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Game game;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Chat chat;
 
     @Transient

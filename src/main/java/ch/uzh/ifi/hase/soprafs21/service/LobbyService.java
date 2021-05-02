@@ -94,6 +94,7 @@ public class LobbyService {
         //in case the lobby is now empty, it should delete the lobby
         //TODO: make the lobby delete everything (CHAT GAME ETC)
         if (targetLobby.isEmpty()){
+            targetLobby.setChat(null);
             lobbyRepository.delete(targetLobby);
             lobbyRepository.flush();
         }
