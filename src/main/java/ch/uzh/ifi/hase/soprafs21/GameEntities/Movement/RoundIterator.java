@@ -3,6 +3,7 @@ package ch.uzh.ifi.hase.soprafs21.GameEntities.Movement;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class RoundIterator implements Iterator<Move> {
 
@@ -22,6 +23,9 @@ public class RoundIterator implements Iterator<Move> {
 
     @Override
     public Move next() {
+        if(!hasNext()){
+            throw new NoSuchElementException();
+        }
         Move move = moves.getMoves().get(i);
         i++;
         return move;

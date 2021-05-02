@@ -4,6 +4,7 @@ import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.Ticket;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class BlackboardIterator implements Iterator {
 
@@ -22,6 +23,9 @@ public class BlackboardIterator implements Iterator {
 
     @Override
     public Ticket next() {
+        if(!hasNext()){
+            throw new NoSuchElementException();
+        }
         Ticket ticket = blackboard.get(i);
         i++;
         return ticket;

@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.GameEntities.Players;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class PlayerGroupIterator implements Iterator<Player> {
 
@@ -19,6 +20,9 @@ public class PlayerGroupIterator implements Iterator<Player> {
 
     @Override
     public Player next() {
+        if(!hasNext()){
+            throw new NoSuchElementException();
+        }
         Player player = players.getPlayers().get(i);
         i++;
         return player;
