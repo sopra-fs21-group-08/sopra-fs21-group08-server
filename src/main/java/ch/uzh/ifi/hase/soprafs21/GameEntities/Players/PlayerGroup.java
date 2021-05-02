@@ -7,9 +7,7 @@ import ch.uzh.ifi.hase.soprafs21.network.Station;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.function.Consumer;
 
 @Entity
 @Table(name = "PLAYERGROUP")

@@ -1,7 +1,5 @@
 package ch.uzh.ifi.hase.soprafs21.GameEntities.Movement;
 
-import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 

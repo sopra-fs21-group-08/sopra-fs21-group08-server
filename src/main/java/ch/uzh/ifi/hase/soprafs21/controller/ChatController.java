@@ -2,10 +2,8 @@ package ch.uzh.ifi.hase.soprafs21.controller;
 
 
 import ch.uzh.ifi.hase.soprafs21.entity.Chat;
-import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.Message;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
-import ch.uzh.ifi.hase.soprafs21.rest.ChatDTO.ChatGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.ChatDTO.MessageGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.ChatDTO.ReceivedMessageDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.ChatDTOMapper;

@@ -1,4 +1,4 @@
-package ch.uzh.ifi.hase.soprafs21.rest.PlayerDTO;
+/*package ch.uzh.ifi.hase.soprafs21.rest.PlayerDTO;
 
 public class PlayerGetPositionDTO {
 
@@ -19,4 +19,4 @@ public class PlayerGetPositionDTO {
     public void setLocationId(Long locationId) {
         this.locationId = locationId;
     }
-}
+}*/

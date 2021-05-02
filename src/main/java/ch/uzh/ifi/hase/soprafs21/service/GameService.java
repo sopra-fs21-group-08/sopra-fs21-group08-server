@@ -230,4 +230,29 @@ public class GameService {
     public List<Ticket> getBlackboard(long gameId) {
         return gameRepository.findByGameId(gameId).getBlackboard().getTickets();
     }
+
+    /**
+     * This is the hack function we will call from the hackendpoint to show a smooth game
+     * @param gameId
+     */
+    public void hack(long gameId) {
+
+        Game hackGame = gameRepository.findByGameId(gameId);
+        ArrayList<Long> stationList = new ArrayList<>();
+
+        stationList.add(115L);
+        stationList.add(67L);
+        stationList.add(237L);
+        stationList.add(182L);
+        stationList.add(117L);
+        int i = 0;
+
+
+        for (Player player : hackGame.getPlayerGroup()){
+            player.setCurrentStation(stationRepository.findByStationId(stationList.get(i)));
+            i++;
+        }
+
+
+    }
 }

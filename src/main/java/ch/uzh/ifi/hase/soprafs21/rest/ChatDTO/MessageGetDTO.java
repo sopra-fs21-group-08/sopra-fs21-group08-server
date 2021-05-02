@@ -1,7 +1,5 @@
 package ch.uzh.ifi.hase.soprafs21.rest.ChatDTO;
 
-import ch.uzh.ifi.hase.soprafs21.entity.Message;
-
 public class MessageGetDTO {
 
     public String username;

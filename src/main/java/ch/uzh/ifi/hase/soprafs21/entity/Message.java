@@ -2,7 +2,6 @@ package ch.uzh.ifi.hase.soprafs21.entity;
 
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.time.LocalTime;
 
 @Entity

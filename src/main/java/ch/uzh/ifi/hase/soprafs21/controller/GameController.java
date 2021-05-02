@@ -171,5 +171,13 @@ public class GameController {
         return GameDTOMapper.INSTANCE.convertEntityToGameStatusGetDTO(gameService.getGameByGameId(gameId));
     }
 
+    @PostMapping("/games/{gameId}/hack")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void hack(@PathVariable("gameId") long gameId,
+                     @RequestHeader("Authorization") String token){
+
+        gameService.hack(gameId);
+    }
+
 
 }

@@ -7,7 +7,6 @@ import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.TicketWallet;
 import ch.uzh.ifi.hase.soprafs21.constant.PlayerClass;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.network.Station;
-import ch.uzh.ifi.hase.soprafs21.rest.PlayerDTO.PlayerGetDTO;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
