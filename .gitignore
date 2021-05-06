@@ -42,3 +42,7 @@ local.properties
 .context.json
 .vscode/launch.json
 bin/main/application.properties
+data_mining_stations/routes.txt
+data_mining_stations/stops.txt
+data_mining_stations/trips.txt
+data_mining_stations/stop_times.txt
