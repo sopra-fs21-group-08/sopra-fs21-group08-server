@@ -8,6 +8,7 @@ public class StationDTO {
     private String name;
     private List<Long> reachable_by_bus;
     private List<Long> reachable_by_tram;
+    private List<Long> reachable_by_train;
     private float stop_lat;
     private float stop_lon;
 
@@ -38,6 +39,14 @@ public class StationDTO {
     public void setReachable_by_tram(List<Long> reachable_by_tram) {
         this.reachable_by_tram = reachable_by_tram;
     }
+
+    public List<Long> getReachable_by_train() {
+        return this.reachable_by_train;
+    }
+    public void setReachable_by_train(List<Long> reachable_by_train) {
+        this.reachable_by_train = reachable_by_train;
+    }
+
 
     public float getStop_lat() {
         return stop_lat;

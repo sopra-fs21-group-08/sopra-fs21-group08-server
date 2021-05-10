@@ -26,6 +26,9 @@ public class Station implements Serializable{
     @ManyToMany(fetch=FetchType.LAZY)
     private List<Station> stations_reachable_by_tram = new ArrayList<Station>();
 
+    @ManyToMany(fetch=FetchType.LAZY)
+    private List<Station> stations_reachable_by_train = new ArrayList<Station>();
+
     @Column(nullable = false)
     private float stop_lat;
 
@@ -72,6 +75,15 @@ public class Station implements Serializable{
         this.stations_reachable_by_tram.add(station);
     }
 
+    public void appendTrainStation(Station station){
+        this.stations_reachable_by_train.add(station);
+    }
+
+    public void removeBusStation(Station station){ this.stations_reachable_by_bus.remove(station); }
+
+    public void removeTramStation(Station station){ this.stations_reachable_by_tram.remove(station); }
+
+
     public List<Long> get_reachable_by_bus(){
         List<Long> reachable_by_bus = new ArrayList<>();
         for (Station station : stations_reachable_by_bus){
@@ -88,12 +100,23 @@ public class Station implements Serializable{
         return reachable_by_tram;
     }
 
+    public List<Long> get_reachable_by_train(){
+        List<Long> reachable_by_train = new ArrayList<>();
+        for (Station station : stations_reachable_by_train){
+            reachable_by_train.add(station.getStationId());
+        }
+        return reachable_by_train;
+    }
+
     public List<Long> get_reachable_by_ticket(Ticket ticket){
         if (ticket == Ticket.BUS){
             return get_reachable_by_bus();
         }
         else if (ticket == Ticket.TRAM){
             return get_reachable_by_tram();
+        }
+        else if (ticket == Ticket.TRAIN){
+            return get_reachable_by_train();
         }
         else {
             throw new UnsupportedOperationException("No such ticket");

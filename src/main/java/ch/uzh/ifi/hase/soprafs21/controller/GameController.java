@@ -122,7 +122,7 @@ public class GameController {
         List<StationDTO> possibleStationDTOList = new ArrayList<>();
 
         for (Station station : possibleStationList){
-            possibleStationDTOList.add(StationDTOMapper.INSTANCE.convertEntitytoStationDTO(station));
+            possibleStationDTOList.add(StationDTOMapper.INSTANCE.convertEntityToStationDTO(station));
         }
         return possibleStationDTOList;
     }

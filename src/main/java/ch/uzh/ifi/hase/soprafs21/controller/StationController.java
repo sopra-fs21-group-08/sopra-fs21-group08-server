@@ -33,17 +33,15 @@ public class StationController {
 
         // convert each user to the API representation
         for (Station station : stations) {
-            stationDTOs.add(StationDTOMapper.INSTANCE.convertEntitytoStationDTO(station));
+            stationDTOs.add(StationDTOMapper.INSTANCE.convertEntityToStationDTO(station));
         }
         return stationDTOs;
     }
 
     @PostConstruct
-    //@PostMapping("/stations")
-    //@ResponseStatus(HttpStatus.NO_CONTENT)
-    //@ResponseBody
     public void postAllStations() {
         stationService.initialiseStationsFromJSON();
+        stationService.refineStations();
     }
 
 }

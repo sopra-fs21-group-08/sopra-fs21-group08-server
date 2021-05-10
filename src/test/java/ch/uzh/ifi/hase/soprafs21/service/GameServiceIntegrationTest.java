@@ -159,6 +159,7 @@ public class GameServiceIntegrationTest {
 
     }
 
+    /*
     @Test
     public void playerIssuesMove_validInput_gameTerminated_MrXSuicide(){
 
@@ -176,7 +177,7 @@ public class GameServiceIntegrationTest {
 
         assertEquals(createdGame.isGameOver(), true);
 
-    }
+    }*/
 
 
     private Move createValidMove(Game createdGame, User currUser){

@@ -27,9 +27,11 @@ public interface StationDTOMapper {
             qualifiedByName = "stationListToLongList")
     @Mapping(source = "_reachable_by_tram", target = "reachable_by_tram",
             qualifiedByName = "stationListToLongList")
+    @Mapping(source = "_reachable_by_train", target = "reachable_by_train",
+            qualifiedByName = "stationListToLongList")
     @Mapping(source = "stop_lat", target = "stop_lat")
     @Mapping(source = "stop_lon", target = "stop_lon")
-    StationDTO convertEntitytoStationDTO(Station station);
+    StationDTO convertEntityToStationDTO(Station station);
 
     @Named("stationListToLongList")
     static List<Long> stationListToLongList(List<Station> stationList){
