@@ -54,6 +54,7 @@ public class GameService {
         // checks if its users turn
         Player currentPlayer = isUsersTurn(issuingUser, theGame); // because its his turn we get the player form game
 
+        // TODO: BUG if the move is not possible does the ticket still get used????
         // move is updated with currentPlayer and which Round it belongs to
         Move finishedMove = theGame.createMoveForCurrentPlayer(issuedMove);
 

@@ -42,6 +42,7 @@ public class StationController {
     public void postAllStations() {
         stationService.initialiseStationsFromJSON();
         stationService.refineStations();
+        //stationService.resetIndices();
     }
 
 }

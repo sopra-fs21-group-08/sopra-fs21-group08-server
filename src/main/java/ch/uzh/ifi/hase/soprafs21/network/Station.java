@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -69,14 +70,17 @@ public class Station implements Serializable{
 
     public void appendBusStation(Station station){
         this.stations_reachable_by_bus.add(station);
+        this.stations_reachable_by_bus.sort(new IdComparator());
     }
 
     public void appendTramStation(Station station){
         this.stations_reachable_by_tram.add(station);
+        this.stations_reachable_by_tram.sort(new IdComparator());
     }
 
     public void appendTrainStation(Station station){
         this.stations_reachable_by_train.add(station);
+        this.stations_reachable_by_train.sort(new IdComparator());
     }
 
     public void removeBusStation(Station station){ this.stations_reachable_by_bus.remove(station); }
@@ -120,6 +124,12 @@ public class Station implements Serializable{
         }
         else {
             throw new UnsupportedOperationException("No such ticket");
+        }
+    }
+
+    class IdComparator implements Comparator<Station>{
+        public int compare(Station stationA, Station stationB){
+            return stationA.stationId.compareTo(stationB.stationId);
         }
     }
 }

@@ -78,6 +78,7 @@ public class StationService {
 
     public void refineStations(){
         while (trimBranches());
+        while (removeRedundantMiddleStations());
     }
 
     private boolean trimBranches(){
@@ -107,7 +108,7 @@ public class StationService {
                     throw new IllegalStateException("Something went terribly wrong");
                 }
             }
-            if (getTotalNumberOfAdjacentStations(station) == 2 && HasSameBusTramStations(station)){
+            if (getTotalNumberOfAdjacentStations(station) == 2 && hasSameBusTramStations(station)){
                 adjacentStationId = station.get_reachable_by_tram().get(0);
                 adjacentStation = stationRepository.findByStationId(adjacentStationId);
                 adjacentStation.removeTramStation(station);
@@ -120,13 +121,95 @@ public class StationService {
         return false;
     }
 
+    public boolean removeRedundantMiddleStations(){
+        List<Station> allStations = this.stationRepository.findAll();
+        for (Station station : allStations){
+            Long adjacentStationIdA;
+            Station adjacentStationA;
+            Long adjacentStationIdB;
+            Station adjacentStationB;
+            if (getTotalNumberOfAdjacentStations(station) == 2){
+                if (station.get_reachable_by_tram().size() == 2){
+                    adjacentStationIdA = station.get_reachable_by_tram().get(0);
+                    adjacentStationIdB = station.get_reachable_by_tram().get(1);
+
+                    adjacentStationA = stationRepository.findByStationId(adjacentStationIdA);
+                    adjacentStationB = stationRepository.findByStationId(adjacentStationIdB);
+
+                    adjacentStationA.removeTramStation(station);
+                    adjacentStationB.removeTramStation(station);
+
+                    stationRepository.delete(station);
+                    stationRepository.flush();
+
+                    adjacentStationA.appendTramStation(adjacentStationB);
+                    adjacentStationB.appendTramStation(adjacentStationA);
+
+                    return true;
+                }
+                if (station.get_reachable_by_bus().size() == 2){
+                    adjacentStationIdA = station.get_reachable_by_bus().get(0);
+                    adjacentStationIdB = station.get_reachable_by_bus().get(1);
+
+                    adjacentStationA = stationRepository.findByStationId(adjacentStationIdA);
+                    adjacentStationB = stationRepository.findByStationId(adjacentStationIdB);
+
+                    adjacentStationA.removeBusStation(station);
+                    adjacentStationB.removeBusStation(station);
+
+                    stationRepository.delete(station);
+                    stationRepository.flush();
+
+                    adjacentStationA.appendBusStation(adjacentStationB);
+                    adjacentStationB.appendBusStation(adjacentStationA);
+
+                    return true;
+                }
+            }
+            if (getTotalNumberOfAdjacentStations(station) == 4 && hasSameBusTramStations(station)
+            && station.get_reachable_by_train().size() == 0){
+                adjacentStationIdA = station.get_reachable_by_tram().get(0);
+                adjacentStationIdB = station.get_reachable_by_tram().get(1);
+
+                adjacentStationA = stationRepository.findByStationId(adjacentStationIdA);
+                adjacentStationB = stationRepository.findByStationId(adjacentStationIdB);
+
+                adjacentStationA.removeTramStation(station);
+                adjacentStationB.removeTramStation(station);
+                adjacentStationA.removeBusStation(station);
+                adjacentStationB.removeBusStation(station);
+
+                stationRepository.delete(station);
+                stationRepository.flush();
+
+                adjacentStationA.appendTramStation(adjacentStationB);
+                adjacentStationB.appendTramStation(adjacentStationA);
+                adjacentStationA.appendBusStation(adjacentStationB);
+                adjacentStationB.appendBusStation(adjacentStationA);
+
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void resetIndices(){
+        List<Station> allStations = this.stationRepository.findAll();
+        Long index = 1L;
+        for (Station station : allStations){
+            station.setStationId(index);
+            index += 1L;
+            stationRepository.flush();
+        }
+    }
+
     private int getTotalNumberOfAdjacentStations(Station station){
         return station.get_reachable_by_bus().size()
                 + station.get_reachable_by_tram().size()
                 + station.get_reachable_by_train().size();
     }
 
-    private boolean HasSameBusTramStations(Station station){
+    private boolean hasSameBusTramStations(Station station){
         return station.get_reachable_by_tram().equals(station.get_reachable_by_bus());
     }
 

@@ -124,6 +124,7 @@ public class GameServiceIntegrationTest {
 
         final int busTicket = currPlayer.getWallet().getBus();
         final int tramTicket = currPlayer.getWallet().getTram();
+        final int trainTicket = currPlayer.getWallet().getTrain();
 
         Move testMove = createValidMove(createdGame, currUser);
 
@@ -132,8 +133,12 @@ public class GameServiceIntegrationTest {
         assertEquals(currPlayer.getCurrentStation(), testMove.getTo());
         if (testMove.getTicket() == Ticket.TRAM){
             assertEquals(tramTicket, currPlayer.getWallet().getTram() + 1);
-        }else{
+        }else if (testMove.getTicket() == Ticket.BUS){
             assertEquals(busTicket, currPlayer.getWallet().getBus() + 1);
+        }else if (testMove.getTicket() == Ticket.TRAIN){
+            assertEquals(trainTicket, currPlayer.getWallet().getTrain() + 1);
+        } else{
+            throw new IllegalStateException("Something went terribly wrong while testing.");
         }
         assertNotEquals(createdGame.getCurrentPlayer(), currPlayer);
 
@@ -187,12 +192,18 @@ public class GameServiceIntegrationTest {
         // get a possible station to move to
         List<Station> possibleTramStations = gameService.possibleStations(createdGame, currUser, Ticket.TRAM);
         List<Station> possibleBusStations = gameService.possibleStations(createdGame, currUser, Ticket.BUS);
+        List<Station> possibleTrainStations = gameService.possibleStations(createdGame, currUser, Ticket.TRAIN);
         if (!possibleTramStations.isEmpty()){
             testMove.setTicket(Ticket.TRAM);
             testMove.setTo(possibleTramStations.get(0));
-        } else{
+        } else if(!possibleBusStations.isEmpty()){
             testMove.setTicket(Ticket.BUS);
             testMove.setTo(possibleBusStations.get(0));
+        } else if (!possibleTrainStations.isEmpty()){
+            testMove.setTicket(Ticket.TRAIN);
+            testMove.setTo(possibleTrainStations.get(0));
+        } else{
+            throw new IllegalStateException("Something went terribly wrong while testing!");
         }
 
         return testMove;
