@@ -35,7 +35,8 @@ public class Game {
     @OneToOne(cascade = CascadeType.ALL)
     private Blackboard myBlackboard;
 
-
+    @Transient
+    private Player oldMrX;
 
     private boolean isGameOver = false;
     private final int turnsPerGame = 20;

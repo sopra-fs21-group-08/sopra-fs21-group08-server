@@ -38,12 +38,12 @@ public class TicketWallet{
     }
     
 
-    public boolean isTicketAvaiable(Ticket ticket){
+    public boolean isTicketAvailable(Ticket ticket){
         return this.ticketMap.get(ticket)>0;
     }
 
     public Ticket useTicket(Ticket ticket){
-            if(this.isTicketAvaiable(ticket)){
+            if(this.isTicketAvailable(ticket)){
                 int amount = this.ticketMap.get(ticket);
                 amount--;
                 this.ticketMap.put(ticket, amount);

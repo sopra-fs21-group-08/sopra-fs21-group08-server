@@ -7,6 +7,7 @@ import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.Ticket;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.network.Station;
+import ch.uzh.ifi.hase.soprafs21.repository.UserRepository;
 import ch.uzh.ifi.hase.soprafs21.rest.GameStatusDTO.GameStatusGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.MoveDTO.MoveDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.PlayerDTO.PlayerGetDTO;
@@ -55,20 +56,17 @@ public class GameController {
     }
 
 
-
-
     @GetMapping("/games/{gameId}/players")
     @ResponseStatus(HttpStatus.OK)
     public List<PlayerGetDTO> getPlayers(@PathVariable("gameId") long gameId,
                                          @RequestHeader("Authorization") String token){
 
-        //TODO: why is authentication here required? anyone should be able to see which people are playing in a certain game
-
-        // finds the game in the repository
+        User foundUser = userService.findUserByToken(token);
+        gameService.verifyUserViaToken(gameId, foundUser);
 
         List<PlayerGetDTO> playerGetDTOS = new ArrayList<>();
 
-        for (Player player : gameService.getPlayerGroupByGameId(gameId)){
+        for (Player player : gameService.getPlayerDisplay(gameId, foundUser)){
             playerGetDTOS.add(PlayerDTOMapper.INSTANCE.convertPlayerToGetDTO(player));
         }
 

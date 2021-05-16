@@ -5,10 +5,7 @@ import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.Ticket;
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
+import java.util.*;
 
 
 @Entity
@@ -125,6 +122,15 @@ public class Station implements Serializable{
         else {
             throw new UnsupportedOperationException("No such ticket");
         }
+    }
+
+
+    public Set<Long> get_reachable_distinct(){
+        Set<Long> reachableStationIdSet = new HashSet<>();
+        reachableStationIdSet.addAll(get_reachable_by_bus());
+        reachableStationIdSet.addAll(get_reachable_by_tram());
+        reachableStationIdSet.addAll(get_reachable_by_train());
+        return reachableStationIdSet;
     }
 
     class IdComparator implements Comparator<Station>{

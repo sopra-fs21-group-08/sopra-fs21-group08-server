@@ -87,6 +87,10 @@ public class UserService {
         return this.userRepository.findByUserId(userId);
     }
 
+    public User findUserByToken(String token) {
+        return userRepository.findByUserToken(token);
+    }
+
     private User checkIfUserExists(User userToBeCreated) {
         User userByUsername = userRepository.findByUsername(userToBeCreated.getUsername());
 
