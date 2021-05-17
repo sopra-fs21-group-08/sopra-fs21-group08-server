@@ -61,7 +61,7 @@ public class GameController {
                                          @RequestHeader("Authorization") String token){
 
         User foundUser = userService.findUserByToken(token);
-        gameService.verifyUserViaToken(gameId, foundUser);
+        gameService.isUserInGame(gameId, foundUser);
 
         List<PlayerGetDTO> playerGetDTOS = new ArrayList<>();
 

@@ -116,7 +116,7 @@ public class Game {
     public void successfullTurn(){
         checkWinCondition();
         this.playerGroup.incrementPlayerTurn();
-        if(currentRound.getRoundNumber() % 5 == 3){
+        if(currentRound.isMrXVisible()){
             updateMrXDisplay();
         }
         if(currentRound.isRoundOver()){
