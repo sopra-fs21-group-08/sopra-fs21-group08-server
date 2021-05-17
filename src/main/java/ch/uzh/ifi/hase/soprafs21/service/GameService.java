@@ -62,7 +62,7 @@ public class GameService {
 
         //wrap up the Turn
         finishedMove.executeMove();
-        theGame.successfullTurn();
+        theGame.successfulTurn();
 
         gameRepository.flush();
 
