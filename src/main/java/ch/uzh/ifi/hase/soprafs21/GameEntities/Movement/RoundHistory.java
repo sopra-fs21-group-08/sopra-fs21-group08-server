@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs21.GameEntities.Movement;
 
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
 import ch.uzh.ifi.hase.soprafs21.network.Station;
 
 import javax.persistence.*;
@@ -14,8 +15,10 @@ public class RoundHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roundHistoryId;
 
+    @OneToOne(mappedBy = "roundHistory")
+    private Game game;
 
-    @OneToMany(mappedBy = "roundHistory")
+    @OneToMany()
     private List<Round> pastRounds = new ArrayList<>();
 
     public void addRound(Round round){
