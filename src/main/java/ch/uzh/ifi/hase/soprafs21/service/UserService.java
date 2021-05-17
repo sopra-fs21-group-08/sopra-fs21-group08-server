@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -88,7 +89,12 @@ public class UserService {
     }
 
     public User findUserByToken(String token) {
-        return userRepository.findByUserToken(token);
+        User foundUser = userRepository.findByToken(token.substring(6));
+        if (Objects.isNull(foundUser)){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
+                    "You don't have permission to get this information!");
+        }
+        return foundUser;
     }
 
     private User checkIfUserExists(User userToBeCreated) {

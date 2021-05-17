@@ -119,6 +119,11 @@ public class Station implements Serializable{
         else if (ticket == Ticket.TRAIN){
             return get_reachable_by_train();
         }
+        else if (ticket == Ticket.BLACK){
+            List<Long> get_reachable_by_black = new ArrayList<>();
+            get_reachable_by_black.addAll(get_reachable_distinct());
+            return get_reachable_by_black;
+        }
         else {
             throw new UnsupportedOperationException("No such ticket");
         }

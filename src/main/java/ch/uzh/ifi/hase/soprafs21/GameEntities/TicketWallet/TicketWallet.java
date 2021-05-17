@@ -8,7 +8,7 @@ import java.util.Map;
 
 @Entity
 @Table(name = "TICKETWALLET")
-public class TicketWallet{
+public class TicketWallet {
 
 
     @Id

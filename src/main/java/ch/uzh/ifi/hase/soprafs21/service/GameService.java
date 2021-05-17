@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
@@ -103,6 +102,7 @@ public class GameService {
         game.setCurrentRound(newRound);
         game.setLobby(lobby);
         game.setBlackboard(blackboard);
+        game.updateMrXDisplay();
 
         game = gameRepository.save(game);
         gameRepository.flush();
@@ -121,7 +121,15 @@ public class GameService {
 
     public List<Player> getPlayerDisplay(long gameId, User user){
         List<Player> playerList = new ArrayList<>();
+        Game foundGame = getGameByGameId(gameId);
 
+        for (Player player : getPlayerGroupByGameId(gameId)){
+            if (player.isMrX() && !getPlayerByGameUserEntities(foundGame, user).isMrX()){
+                playerList.add(foundGame.getMrXDisplay());
+            } else {
+                playerList.add(player);
+            }
+        }
         return playerList;
     }
 

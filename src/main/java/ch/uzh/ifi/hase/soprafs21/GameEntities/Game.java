@@ -36,7 +36,7 @@ public class Game {
     private Blackboard myBlackboard;
 
     @Transient
-    private Player oldMrX;
+    private Player mrXDisplay = new Player();
 
     private boolean isGameOver = false;
     private final int turnsPerGame = 20;
@@ -109,12 +109,24 @@ public class Game {
         return this.playerGroup.getMrX();
     }
 
+    public Player getMrXDisplay() {
+        return mrXDisplay;
+    }
+
     public void successfullTurn(){
         checkWinCondition();
         this.playerGroup.incrementPlayerTurn();
+        if(currentRound.getRoundNumber() % 5 == 3){
+            updateMrXDisplay();
+        }
         if(currentRound.isRoundOver()){
             successfullRound();
         }
+    }
+
+    public void updateMrXDisplay(){
+        mrXDisplay.setCurrentStation(getMrX().getCurrentStation());
+        mrXDisplay.setWallet(getMrX().getWallet());
     }
 
     private void checkWinCondition() {
@@ -141,5 +153,7 @@ public class Game {
 
 
     }
+
+
 
 }
