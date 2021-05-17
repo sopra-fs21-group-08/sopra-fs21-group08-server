@@ -3,6 +3,7 @@ package ch.uzh.ifi.hase.soprafs21.GameEntities.Movement;
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.Ticket;
+import ch.uzh.ifi.hase.soprafs21.network.Station;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -95,7 +96,6 @@ public class Round implements Iterable<Move>{
     }
 
 
-
     public Round createNextRound(Round lastRound) {
 
         this.setRoundNumber(lastRound.incrementRoundNumber());
@@ -103,6 +103,10 @@ public class Round implements Iterable<Move>{
         this.setMrXVisible();
 
         return this;
+    }
+
+    public Station getMrXStation(){
+        return this.moves.get(0).getTo();
     }
 
     @Override

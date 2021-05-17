@@ -4,6 +4,7 @@ package ch.uzh.ifi.hase.soprafs21.GameEntities;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Blackboard;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Round;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.RoundHistory;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.PlayerGroup;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
@@ -41,7 +42,8 @@ public class Game {
     private boolean isGameOver = false;
     private final int turnsPerGame = 20;
 
-
+    @OneToOne(cascade = CascadeType.ALL)
+    private RoundHistory roundHistory;
 
     public void addToPlayerGroup(Player player){
         playerGroup.add(player);
@@ -113,14 +115,14 @@ public class Game {
         return mrXDisplay;
     }
 
-    public void successfullTurn(){
+    public void successfulTurn(){
         checkWinCondition();
         this.playerGroup.incrementPlayerTurn();
         if(currentRound.getRoundNumber() % 5 == 3){
             updateMrXDisplay();
         }
         if(currentRound.isRoundOver()){
-            successfullRound();
+            successfulRound();
         }
     }
 
@@ -139,7 +141,7 @@ public class Game {
         }
     }
 
-    private void successfullRound(){
+    private void successfulRound(){
         if(currentRound.getRoundNumber() == turnsPerGame) {
             this.gameOver(true);
         }
@@ -147,7 +149,9 @@ public class Game {
 
         Round newRound = new Round();
         newRound.createNextRound(currentRound);
-        //TODO: save old round
+
+        //old round gets saved to history
+        this.roundHistory.addRound(currentRound);
 
         setCurrentRound(newRound);
 
