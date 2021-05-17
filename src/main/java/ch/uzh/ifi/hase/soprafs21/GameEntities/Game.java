@@ -4,7 +4,6 @@ package ch.uzh.ifi.hase.soprafs21.GameEntities;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Blackboard;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Round;
-import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.RoundHistory;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.PlayerGroup;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
@@ -118,9 +117,6 @@ public class Game {
     public void successfulTurn(){
         checkWinCondition();
         this.playerGroup.incrementPlayerTurn();
-        if(currentRound.getRoundNumber() % 5 == 3){
-            updateMrXDisplay();
-        }
         if(currentRound.isRoundOver()){
             successfulRound();
         }
@@ -157,7 +153,5 @@ public class Game {
 
 
     }
-
-
 
 }

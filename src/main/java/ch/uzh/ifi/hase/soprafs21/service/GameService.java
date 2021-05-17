@@ -20,13 +20,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
-import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
@@ -47,6 +45,19 @@ public class GameService {
         this.stationRepository = stationRepository;
     }
 
+    public void verifyUserViaToken(long gameId, User foundUser){
+        Game foundGame = gameRepository.findByGameId(gameId);
+        if (Objects.isNull(foundGame)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "The corresponding game was not found");
+        }
+        Player foundPlayer = foundGame.getPlayerGroup().findCorrespondingPlayer(foundUser);
+        if (Objects.isNull(foundPlayer)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Player is not in the game!");
+        }
+    }
+
     public Player playerIssuesMove(User issuingUser, Move issuedMove, long gameId){
 
         Game theGame = gameRepository.findByGameId(gameId);
@@ -54,6 +65,7 @@ public class GameService {
         // checks if its users turn
         Player currentPlayer = isUsersTurn(issuingUser, theGame); // because its his turn we get the player form game
 
+        // TODO: BUG if the move is not possible does the ticket still get used????
         // move is updated with currentPlayer and which Round it belongs to
         Move finishedMove = theGame.createMoveForCurrentPlayer(issuedMove);
 
@@ -92,6 +104,9 @@ public class GameService {
         game.setLobby(lobby);
         game.setBlackboard(blackboard);
 
+        // WTF?
+        game.updateMrXDisplay();
+
         game = gameRepository.save(game);
         gameRepository.flush();
         // the game gets saved to the lobby after this return
@@ -105,6 +120,20 @@ public class GameService {
 
     public PlayerGroup getPlayerGroupByGameId(long gameId){
         return this.gameRepository.findByGameId(gameId).getPlayerGroup();
+    }
+
+    public List<Player> getPlayerDisplay(long gameId, User user){
+        List<Player> playerList = new ArrayList<>();
+        Game foundGame = getGameByGameId(gameId);
+
+        for (Player player : getPlayerGroupByGameId(gameId)){
+            if (player.isMrX() && !getPlayerByGameUserEntities(foundGame, user).isMrX()){
+                playerList.add(foundGame.getMrXDisplay());
+            } else {
+                playerList.add(player);
+            }
+        }
+        return playerList;
     }
 
     public Player getPlayerByGameUserEntities(Game game, User user){
@@ -168,7 +197,6 @@ public class GameService {
      */
     private List<Station> getNRandomDifferentStations(int totalStations){
 
-
         // create a temporary list for storing
         // selected element
         List<Station> randomStations = new ArrayList<>();
@@ -197,12 +225,19 @@ public class GameService {
     }
 
     // no implementation of special ticket
-    public void isMovePossible(Move move){
+    public void isMovePossible(Move move) {
 
         String baseErrorMessage = "Move isn't possible, Sorry";
-        if (!move.getFrom().get_reachable_by_ticket(move.getTicket())
-                .contains(move.getTo().getStationId())) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, baseErrorMessage);
+        if (move.getTicket() == Ticket.DOUBLE) {
+            if (!possibleStationsDoubleTicket(move.getPlayer())
+                    .contains(move.getTo().getStationId())) {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, baseErrorMessage);
+            }
+        } else {
+            if (!move.getFrom().get_reachable_by_ticket(move.getTicket())
+                    .contains(move.getTo().getStationId())) {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, baseErrorMessage);
+            }
         }
     }
 
@@ -212,7 +247,14 @@ public class GameService {
 
         Player foundPlayer = game.findCorrespondingPlayer(user);
         if (foundPlayer.getWallet().isTicketAvailable(ticket)){
-            List<Long> possibleStationIdList = foundPlayer.getCurrentStation().get_reachable_by_ticket(ticket);
+
+            List<Long> possibleStationIdList;
+
+            if (ticket == Ticket.DOUBLE){
+                possibleStationIdList = possibleStationsDoubleTicket(foundPlayer);
+            } else {
+                possibleStationIdList = foundPlayer.getCurrentStation().get_reachable_by_ticket(ticket);
+                }
             for (Long l : possibleStationIdList){
                 possibleStationList.add(stationRepository.findByStationId(l));
             }
@@ -229,6 +271,23 @@ public class GameService {
 
     public List<Ticket> getBlackboard(long gameId) {
         return gameRepository.findByGameId(gameId).getBlackboard().getTickets();
+    }
+
+    private List<Long> possibleStationsDoubleTicket(Player player){
+
+        List<Long> possibleStationIdList = new ArrayList<>();
+        Set<Long> possibleStationIdSet = new HashSet<>();
+
+        Set<Long> intermediateStationIdList = player.getCurrentStation().get_reachable_distinct();
+
+        for (Long stationId : intermediateStationIdList){
+            Station foundStation = stationRepository.findByStationId(stationId);
+            possibleStationIdSet.addAll(foundStation.get_reachable_distinct());
+        }
+
+        possibleStationIdList.addAll(possibleStationIdSet);
+
+        return possibleStationIdList;
     }
 
     /**
