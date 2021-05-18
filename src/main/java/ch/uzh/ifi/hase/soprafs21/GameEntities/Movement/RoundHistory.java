@@ -26,12 +26,14 @@ public class RoundHistory {
     }
 
     public Station getLastVisibleStation(){
-        for(int i = pastRounds.size(); i==0; i--){
-            Round round = pastRounds.get(i);
-            if(round.isMrXVisible()){
-                 return round.getMrXStation();
-            }
+        if(!pastRounds.isEmpty()){
+            for(int i = pastRounds.size()-1; i>=0; i--){
+                Round round = pastRounds.get(i);
+                if(round.isMrXVisible()){
+                     return round.getMrXStation();
+                }
 
+            }
         }
         return null;
     }

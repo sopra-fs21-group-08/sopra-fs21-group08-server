@@ -89,7 +89,7 @@ public class UserService {
     }
 
     public User findUserByToken(String token) {
-        User foundUser = userRepository.findByToken(token.substring(6));
+        User foundUser = userRepository.findByToken(token);
         if (Objects.isNull(foundUser)){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
                     "You don't have permission to get this information!");
