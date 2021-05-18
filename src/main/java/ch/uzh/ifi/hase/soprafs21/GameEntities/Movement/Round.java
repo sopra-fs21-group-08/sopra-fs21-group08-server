@@ -88,7 +88,7 @@ public class Round implements Iterable<Move>{
         return isMrXVisible;
     }
     private void setMrXVisible() {
-        isMrXVisible = (roundNumber % 4 == 0);
+        isMrXVisible = ((roundNumber + 2) % 5 == 0);
     }
 
     public Ticket getMrXTicket(){
