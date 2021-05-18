@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.service;
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.GameSummary;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Blackboard;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Round;
@@ -45,16 +46,18 @@ public class GameService {
         this.stationRepository = stationRepository;
     }
 
+
+    //TODO: make private and use in every action where player issues command to change game state
     public void isUserInGame(long gameId, User foundUser){
         Game foundGame = gameRepository.findByGameId(gameId);
         if (Objects.isNull(foundGame)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "The corresponding game was not found");
+                    "The game was not found");
         }
         Player foundPlayer = foundGame.getPlayerGroup().findCorrespondingPlayer(foundUser);
         if (Objects.isNull(foundPlayer)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Player is not in the game!");
+                    "User is not in this game");
         }
     }
 
@@ -89,7 +92,6 @@ public class GameService {
         PlayerGroup pg = createPlayerGroup(lobby.getUsers());
         pg.setGame(game);
 
-
         // initializing the first round
         Round newRound = new Round();
         newRound.setRoundNumber(1);
@@ -98,14 +100,12 @@ public class GameService {
         // initializing the Blackboard
         Blackboard blackboard = new Blackboard();
 
-        // setting all the preparations to the game
+        // giving the game all its support entities
         game.setPlayerGroup(pg);
         game.setCurrentRound(newRound);
         game.setLobby(lobby);
         game.setBlackboard(blackboard);
 
-        // WTF?
-        game.updateMrXDisplay();
 
         game = gameRepository.save(game);
         gameRepository.flush();
@@ -122,17 +122,46 @@ public class GameService {
         return this.gameRepository.findByGameId(gameId).getPlayerGroup();
     }
 
-    public List<Player> getPlayerDisplay(long gameId, User user){
+    public List<Player> getPlayerPositions(long gameId, User issuingUser){
         List<Player> playerList = new ArrayList<>();
-        Game foundGame = getGameByGameId(gameId);
+        Game currentGame = getGameByGameId(gameId);
+        PlayerGroup playerGroup = getPlayerGroupByGameId(gameId);
 
-        for (Player player : getPlayerGroupByGameId(gameId)){
-            if (player.isMrX() && !getPlayerByGameUserEntities(foundGame, user).isMrX()){
-                playerList.add(foundGame.getMrXDisplay());
-            } else {
-                playerList.add(player);
-            }
+        Player mrxReal = playerGroup.getMrX();
+
+        //find the player that issues the request
+        Player issuingPlayer = playerGroup.findCorrespondingPlayer(issuingUser);
+
+        //depending on issuingPlayers PlayerClass it will change MRX current Station
+        if(issuingPlayer.isMrX()){
+            playerList.add(mrxReal);
+        } else {
+
+            //filling up the requirements for DTO
+            Player mrxDouble = new Player();
+
+            mrxDouble.setUser(mrxReal.getUser());
+            mrxDouble.setWallet(mrxReal.getWallet());
+            mrxDouble.setPlayerClass(mrxReal.getPlayerClass());
+
+            //last visible position or null
+            mrxDouble.setCurrentStation(currentGame.getRoundHistory().getLastVisibleStation());
+
+            //add MrX to the list
+            playerList.add(mrxDouble);
         }
+
+        //fills up the list with players
+        for(Player player: playerGroup){
+            if(player.isMrX()){
+                continue;
+            }
+            playerList.add(player);
+        }
+
+
+
+
         return playerList;
     }
 
@@ -191,7 +220,7 @@ public class GameService {
 
 
     /**
-     *
+     * give random stations for game init
      * @param totalStations
      * @return a list of stations of size totalStations without repeats
      */
@@ -216,8 +245,14 @@ public class GameService {
         return randomStations;
     }
 
+    /**
+     * Checks if
+     * @param guy
+     * @param game
+     * @return
+     */
     private Player isUsersTurn(User guy, Game game) {
-        String baseErrorMessage = "It is not your Turn! dick";
+        String baseErrorMessage = "It is not your Turn!";
         if (!guy.getUserId().equals(game.getCurrentPlayer().getPlayerId())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, baseErrorMessage);
         }
@@ -291,7 +326,7 @@ public class GameService {
     }
 
     /**
-     * This is the hack function we will call from the hackendpoint to show a smooth game
+     * This is the hack function we will call from the hack-endpoint to show a smooth game
      * @param gameId
      */
     public void hack(long gameId) {
@@ -313,5 +348,17 @@ public class GameService {
         }
 
 
+    }
+
+    public Game getGameStatusById(long gameId) {
+
+        Game game = this.gameRepository.findByGameId(gameId);
+
+        if(game.isGameOver()){
+            GameSummary gs = game.getGameSummary();
+            // Do game summary aftermath
+
+        }
+        return game;
     }
 }

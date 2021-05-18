@@ -4,8 +4,10 @@ package ch.uzh.ifi.hase.soprafs21.GameEntities;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Blackboard;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Round;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.RoundHistory;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.PlayerGroup;
+import ch.uzh.ifi.hase.soprafs21.constant.PlayerClass;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.network.Station;
@@ -35,14 +37,15 @@ public class Game {
     @OneToOne(cascade = CascadeType.ALL)
     private Blackboard myBlackboard;
 
-    @Transient
-    private Player mrXDisplay = new Player();
 
     private boolean isGameOver = false;
-    private final int turnsPerGame = 20;
+    private final int turnsPerGame = 22;
 
     @OneToOne(cascade = CascadeType.ALL)
     private RoundHistory roundHistory;
+
+    @OneToOne
+    private GameSummary gameSummary = null;
 
     public void addToPlayerGroup(Player player){
         playerGroup.add(player);
@@ -81,11 +84,27 @@ public class Game {
     public boolean isGameOver() {
         return isGameOver;
     }
-    public void gameOver (boolean gameOver) {
+    public void gameOver (PlayerClass winner) {
 
-        // include concluding operations for games
+        createGameSummary(winner);
 
-        isGameOver = gameOver;
+        // setting all objects to null
+        currentRound = null;
+
+        isGameOver = true;
+    }
+
+    public void createGameSummary(PlayerClass winner) {
+        GameSummary summary = new GameSummary();
+        gameSummary.setSummaryId(this.gameId);
+
+        summary.setWinner(winner);
+        summary.setRoundsPlayed(this.currentRound.getRoundNumber());
+
+        this.gameSummary = summary;
+    }
+    public GameSummary getGameSummary() {
+        return gameSummary;
     }
 
     public Blackboard getBlackboard() {
@@ -110,39 +129,41 @@ public class Game {
         return this.playerGroup.getMrX();
     }
 
-    public Player getMrXDisplay() {
-        return mrXDisplay;
+    public RoundHistory getRoundHistory() {
+        return roundHistory;
+    }
+    public void setRoundHistory(RoundHistory roundHistory) {
+        this.roundHistory = roundHistory;
     }
 
     public void successfulTurn(){
         checkWinCondition();
         this.playerGroup.incrementPlayerTurn();
-        if(currentRound.getRoundNumber() % 5 == 3){
-            updateMrXDisplay();
-        }
         if(currentRound.isRoundOver()){
             successfulRound();
         }
     }
 
-    public void updateMrXDisplay(){
-        mrXDisplay.setCurrentStation(getMrX().getCurrentStation());
-        mrXDisplay.setWallet(getMrX().getWallet());
-    }
 
+    /**
+     * WinCondition #1 --> Detectives Win, MrX position is infiltrated by a Detective.
+     */
     private void checkWinCondition() {
         List<Station> positions = this.playerGroup.getPlayerLocations();
         Station mrx = positions.get(0);
+
+        //TODO: rework to use iterator of PlayerGroup instead of this approach.
         for (int i=1; i<positions.size(); i++){
             if (mrx.getStationId().equals(positions.get(i).getStationId())){
-                this.gameOver(true);
+                this.gameOver(PlayerClass.DETECTIVE);
             }
         }
     }
 
     private void successfulRound(){
         if(currentRound.getRoundNumber() == turnsPerGame) {
-            this.gameOver(true);
+            //WinCondition #2 --> MrX Wins, MrX escaped for 22 Rounds.
+            this.gameOver(PlayerClass.MRX);
         }
         myBlackboard.addTicket(currentRound.getMrXTicket());
 
@@ -153,8 +174,6 @@ public class Game {
         this.roundHistory.addRound(currentRound);
 
         setCurrentRound(newRound);
-
-
     }
 
 

@@ -3,10 +3,7 @@ package ch.uzh.ifi.hase.soprafs21.GameEntities;
 
 import ch.uzh.ifi.hase.soprafs21.constant.PlayerClass;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,14 +15,12 @@ import java.util.List;
 @Table(name = "GAMESUMMARY")
 public class GameSummary {
 
-
     @Id
     private Long summaryId;
 
-    public PlayerClass winners;
+    public PlayerClass winner;
 
-    @Transient
-    public List<List<Integer>> moves = new ArrayList<>();
+    public int roundsPlayed;
 
     public void setSummaryId(Long summaryId) {
         this.summaryId = summaryId;
@@ -34,7 +29,17 @@ public class GameSummary {
         return summaryId;
     }
 
-    public void addLocation(Integer integer, Integer pos){
-        this.moves.get(pos).add(integer);
+    public PlayerClass getWinner() {
+        return winner;
+    }
+    public void setWinner(PlayerClass winners) {
+        this.winner = winners;
+    }
+
+    public int getRoundsPlayed() {
+        return roundsPlayed;
+    }
+    public void setRoundsPlayed(int roundsPlayed) {
+        this.roundsPlayed = roundsPlayed;
     }
 }

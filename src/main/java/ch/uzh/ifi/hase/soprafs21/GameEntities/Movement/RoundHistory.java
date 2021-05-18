@@ -25,7 +25,7 @@ public class RoundHistory {
         this.pastRounds.add(round);
     }
 
-    public Station getLastVisible(){
+    public Station getLastVisibleStation(){
         for(int i = pastRounds.size(); i==0; i--){
             Round round = pastRounds.get(i);
             if(round.isMrXVisible()){

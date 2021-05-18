@@ -60,12 +60,17 @@ public class GameController {
     public List<PlayerGetDTO> getPlayers(@PathVariable("gameId") long gameId,
                                          @RequestHeader("Authorization") String token){
 
+        //TODO: change this method ("findUserbyToken()") to throw exception if token isnt found,
+        // this will be our authentication, if token is found user is allowed to manipulate entities
+
         User foundUser = userService.findUserByToken(token);
+
+        //TODO: remove and add to every method that changes game state
         gameService.isUserInGame(gameId, foundUser);
 
         List<PlayerGetDTO> playerGetDTOS = new ArrayList<>();
 
-        for (Player player : gameService.getPlayerDisplay(gameId, foundUser)){
+        for (Player player : gameService.getPlayerPositions(gameId, foundUser)){
             playerGetDTOS.add(PlayerDTOMapper.INSTANCE.convertPlayerToGetDTO(player));
         }
 
@@ -165,7 +170,7 @@ public class GameController {
     public GameStatusGetDTO getStatus(@PathVariable("gameId") long gameId,
                                       @RequestHeader("Authorization") String token){
 
-        return GameDTOMapper.INSTANCE.convertEntityToGameStatusGetDTO(gameService.getGameByGameId(gameId));
+        return GameDTOMapper.INSTANCE.convertEntityToGameStatusGetDTO(gameService.getGameStatusById(gameId));
     }
 
     @PostMapping("/games/{gameId}/hack")
