@@ -5,6 +5,7 @@ import ch.uzh.ifi.hase.soprafs21.GameEntities.GameSummary;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Blackboard;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Round;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.RoundHistory;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.PlayerGroup;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.Ticket;
@@ -100,11 +101,15 @@ public class GameService {
         // initializing the Blackboard
         Blackboard blackboard = new Blackboard();
 
+        // init RoundHistory
+        RoundHistory rh = new RoundHistory();
+
         // giving the game all its support entities
         game.setPlayerGroup(pg);
         game.setCurrentRound(newRound);
         game.setLobby(lobby);
         game.setBlackboard(blackboard);
+        game.setRoundHistory(rh);
 
 
         game = gameRepository.save(game);
@@ -334,11 +339,12 @@ public class GameService {
         Game hackGame = gameRepository.findByGameId(gameId);
         ArrayList<Long> stationList = new ArrayList<>();
 
-        stationList.add(115L);
-        stationList.add(67L);
-        stationList.add(237L);
-        stationList.add(182L);
-        stationList.add(117L);
+        stationList.add(232L);
+        stationList.add(194L);
+        stationList.add(16L);
+        stationList.add(188L);
+        stationList.add(288L);
+        stationList.add(206L);
         int i = 0;
 
 

@@ -23,18 +23,18 @@ public class Game {
     @Id
     private Long gameId;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "lobbyId")
     @MapsId
     private Lobby lobby;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private PlayerGroup playerGroup;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Round currentRound;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Blackboard myBlackboard;
 
 
@@ -44,8 +44,8 @@ public class Game {
     @OneToOne(cascade = CascadeType.ALL)
     private RoundHistory roundHistory;
 
-    @OneToOne
-    private GameSummary gameSummary = null;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private GameSummary gameSummary;
 
     public void addToPlayerGroup(Player player){
         playerGroup.add(player);
@@ -88,15 +88,14 @@ public class Game {
 
         createGameSummary(winner);
 
-        // setting all objects to null
-        currentRound = null;
+        //TODO: add game over stuff like, no more rounds, no more nextPlayer etc.
 
         isGameOver = true;
     }
 
     public void createGameSummary(PlayerClass winner) {
         GameSummary summary = new GameSummary();
-        gameSummary.setSummaryId(this.gameId);
+        summary.setSummaryId(this.gameId);
 
         summary.setWinner(winner);
         summary.setRoundsPlayed(this.currentRound.getRoundNumber());
@@ -137,18 +136,18 @@ public class Game {
     }
 
     public void successfulTurn(){
-        checkWinCondition();
+        if (!checkWinCondition()) {
         this.playerGroup.incrementPlayerTurn();
         if(currentRound.isRoundOver()){
             successfulRound();
-        }
+        }}
     }
 
 
     /**
      * WinCondition #1 --> Detectives Win, MrX position is infiltrated by a Detective.
      */
-    private void checkWinCondition() {
+    private boolean checkWinCondition() {
         List<Station> positions = this.playerGroup.getPlayerLocations();
         Station mrx = positions.get(0);
 
@@ -156,8 +155,10 @@ public class Game {
         for (int i=1; i<positions.size(); i++){
             if (mrx.getStationId().equals(positions.get(i).getStationId())){
                 this.gameOver(PlayerClass.DETECTIVE);
+                return true;
             }
         }
+        return false;
     }
 
     private void successfulRound(){
