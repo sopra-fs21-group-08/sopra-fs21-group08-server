@@ -45,7 +45,7 @@ public class GameService {
         this.stationRepository = stationRepository;
     }
 
-    public void verifyUserViaToken(long gameId, User foundUser){
+    public void isUserInGame(long gameId, User foundUser){
         Game foundGame = gameRepository.findByGameId(gameId);
         if (Objects.isNull(foundGame)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
