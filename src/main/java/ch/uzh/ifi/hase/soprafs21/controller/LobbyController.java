@@ -70,7 +70,6 @@ public class LobbyController {
     }
 
 
-    //TODO: add field, isGameStarted boolean
     @GetMapping("/lobbies/{lobbyId}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

@@ -31,7 +31,7 @@ public class Game {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private PlayerGroup playerGroup;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL)
     private Round currentRound;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

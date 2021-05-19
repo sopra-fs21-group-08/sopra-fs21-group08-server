@@ -96,13 +96,11 @@ public class Round implements Iterable<Move>{
     }
 
 
-    public Round createNextRound(Round lastRound) {
+    public void createNextRound(Round lastRound) {
 
         this.setRoundNumber(lastRound.incrementRoundNumber());
         this.setMaxMoves(lastRound.getMaxMoves());
         this.setMrXVisible();
-
-        return this;
     }
 
     public Station getMrXStation(){
