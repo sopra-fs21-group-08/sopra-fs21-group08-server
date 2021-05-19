@@ -150,7 +150,11 @@ public class GameService {
             mrxDouble.setPlayerClass(mrxReal.getPlayerClass());
 
             //last visible position or null
-            mrxDouble.setCurrentStation(currentGame.getRoundHistory().getLastVisibleStation());
+            if(currentGame.getCurrentRound().isMrXVisible()){
+                mrxDouble.setCurrentStation(mrxReal.getCurrentStation());
+            } else {
+                mrxDouble.setCurrentStation(currentGame.getRoundHistory().getLastVisibleStation());
+            }
 
             //add MrX to the list
             playerList.add(mrxDouble);

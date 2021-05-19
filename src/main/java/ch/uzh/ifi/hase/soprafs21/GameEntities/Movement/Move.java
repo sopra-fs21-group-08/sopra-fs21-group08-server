@@ -23,11 +23,11 @@ public class Move {
     @JoinColumn(name = "playerId")
     private Player player;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "From_stationId")
     private Station from;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "to_stationId")
     private Station to;
 
