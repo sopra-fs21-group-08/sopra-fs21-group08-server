@@ -2,11 +2,9 @@ package ch.uzh.ifi.hase.soprafs21.service;
 
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
-import ch.uzh.ifi.hase.soprafs21.entity.Chat;
-import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
-import ch.uzh.ifi.hase.soprafs21.entity.Message;
-import ch.uzh.ifi.hase.soprafs21.entity.User;
+import ch.uzh.ifi.hase.soprafs21.entity.*;
 import ch.uzh.ifi.hase.soprafs21.repository.LobbyRepository;
+import ch.uzh.ifi.hase.soprafs21.repository.NextLobbyRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,17 +23,27 @@ public class LobbyService {
     private final Logger log = LoggerFactory.getLogger(LobbyService.class);
 
     private final LobbyRepository lobbyRepository;
+    private final NextLobbyRepository nextLobbyRepository;
+
 
     @Autowired
-    public LobbyService(@Qualifier("lobbyRepository") LobbyRepository lobbyRepository) {
+    public LobbyService(@Qualifier("lobbyRepository") LobbyRepository lobbyRepository,
+                        @Qualifier("nextLobbyRepository") NextLobbyRepository nextLobbyRepository) {
 
         this.lobbyRepository = lobbyRepository;
+        this.nextLobbyRepository = nextLobbyRepository;
     }
 
     public List<Lobby> getLobbies() {
         return this.lobbyRepository.findAll();
     }
 
+    /**
+     * Creates a brand new lobby
+     * @param lobbyToCreate
+     * @param issuingUser
+     * @return
+     */
     public Lobby createLobby(Lobby lobbyToCreate, User issuingUser){
 
         checkIfLobbyAlreadyExists(lobbyToCreate);
@@ -45,6 +53,32 @@ public class LobbyService {
         Chat newChat = new Chat();
         newLobby.setChat(newChat);
         newChat.setLobby(newLobby);
+
+        // add issuing user to lobby
+        newLobby.addUser(issuingUser);
+
+        //flush lobby
+        lobbyRepository.flush();
+        return newLobby;
+
+    }
+
+    /**
+     * Creates a lobby from an old lobby by taking the chat and reusing it.
+     * @param lobbyToCreate
+     * @param issuingUser
+     * @param lastChat
+     * @return
+     */
+    public Lobby createLobby(Lobby lobbyToCreate, User issuingUser, Chat lastChat){
+
+        checkIfLobbyAlreadyExists(lobbyToCreate);
+        Lobby newLobby = lobbyRepository.save(lobbyToCreate);
+
+        /*add old chat
+        newLobby.setChat(lastChat);
+        lastChat.setLobby(newLobby);
+        */
 
         // add issuing user to lobby
         newLobby.addUser(issuingUser);
@@ -70,6 +104,44 @@ public class LobbyService {
 
     }
 
+    /**
+     * Used when players jump from one lobby to the next with the Play Again function
+     * @param lobbyId
+     */
+    public void playAgain(long lobbyId, User issuingUser) {
+
+        //check it the lobby exits
+        checkIfLobbyExists(lobbyId);
+        //finds the lobby
+        Lobby currentLobby = lobbyRepository.findByLobbyId(lobbyId);
+
+        //firstly leaves the last lobby
+        leaveLobby(issuingUser, currentLobby.getLobbyId());
+
+        //finds a potential next lobby through the connector
+        LobbyConnector lobbyConnector = this.nextLobbyRepository.findByLastLobbyId(lobbyId);
+
+        //case 1: there is no next lobby yet
+        if(lobbyConnector == null){
+
+            //create the new connection
+            lobbyConnector = new LobbyConnector();
+            lobbyConnector.setLastLobbyId(lobbyId);
+
+            Lobby nextLobby = this.createLobby(currentLobby, issuingUser);
+
+        }
+        //case 2: there already is a next lobby
+        else{
+
+        }
+
+
+
+
+
+    }
+
     public List<User> getUsers(long lobbyId) {
         return this.lobbyRepository.findByLobbyId(lobbyId).getUsers();
     }
@@ -86,7 +158,7 @@ public class LobbyService {
         // does nothing so far
     }
 
-    public void removeUser(User userToRemove, long lobbyId) {
+    public void leaveLobby(User userToRemove, long lobbyId) {
         Lobby targetLobby = lobbyRepository.findByLobbyId(lobbyId);
         if (!targetLobby.getUsers().contains(userToRemove)){
             throw new IllegalStateException("This user is not in this Lobby!");
@@ -120,6 +192,5 @@ public class LobbyService {
     public void setLobbyGame(Lobby lobby, Game game) {
         lobby.setGame(game);
     }
-
 
 }

@@ -104,7 +104,7 @@ public class LobbyController {
 
         userService.removeCurrentLobby(userToRemove);
 
-        lobbyService.removeUser(userToRemove, lobbyId);
+        lobbyService.leaveLobby(userToRemove, lobbyId);
     }
 
     @GetMapping("/lobbies")
@@ -123,4 +123,14 @@ public class LobbyController {
         return getAllLobbiesDTO;
     }
 
+
+    @PostMapping("/lobbies/{lobbyId}/replay")
+    @ResponseStatus(HttpStatus.OK)
+    public void nextLobby(@PathVariable("lobbyId") long lobbyId,
+                          @RequestHeader("Authorization") String token){
+
+        User issuingUser = userService.findUserByToken(token);
+
+        lobbyService.playAgain(lobbyId, issuingUser);
+    }
 }

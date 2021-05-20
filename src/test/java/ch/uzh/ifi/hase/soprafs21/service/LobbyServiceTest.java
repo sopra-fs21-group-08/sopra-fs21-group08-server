@@ -118,7 +118,7 @@ public class LobbyServiceTest {
 
         when(this.lobbyRepository.findByLobbyId(testLobby1.getLobbyId())).thenReturn(testLobby1);
 
-        lobbyService.removeUser(testUser1, testLobby1.getLobbyId());
+        lobbyService.leaveLobby(testUser1, testLobby1.getLobbyId());
 
         assertEquals(testLobby1.getSize(), 1);
     }
@@ -132,7 +132,7 @@ public class LobbyServiceTest {
 
         when(this.lobbyRepository.findByLobbyId(testLobby1.getLobbyId())).thenReturn(testLobby1);
 
-        lobbyService.removeUser(testUser1, testLobby1.getLobbyId());
+        lobbyService.leaveLobby(testUser1, testLobby1.getLobbyId());
 
         Mockito.verify(lobbyRepository, Mockito.times(1)).delete(Mockito.any());
 
@@ -147,7 +147,7 @@ public class LobbyServiceTest {
 
         when(this.lobbyRepository.findByLobbyId(testLobby1.getLobbyId())).thenReturn(testLobby1);
 
-        assertThrows(IllegalStateException.class, () -> lobbyService.removeUser(testUser1, testLobby1.getLobbyId()));
+        assertThrows(IllegalStateException.class, () -> lobbyService.leaveLobby(testUser1, testLobby1.getLobbyId()));
     }
 
     @Test
