@@ -12,7 +12,6 @@ public class LobbyConnector {
     @Id
     private Long lastLobbyId;
 
-
     @OneToOne
     private Lobby next;
 

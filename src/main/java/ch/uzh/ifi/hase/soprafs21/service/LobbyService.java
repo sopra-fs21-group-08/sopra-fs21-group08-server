@@ -77,10 +77,10 @@ public class LobbyService {
         checkIfLobbyAlreadyExists(lobbyToCreate);
         Lobby newLobby = lobbyRepository.save(lobbyToCreate);
 
-        /*add old chat
+
         newLobby.setChat(lastChat);
         lastChat.setLobby(newLobby);
-        */
+        
 
         // add issuing user to lobby
         newLobby.addUser(issuingUser);

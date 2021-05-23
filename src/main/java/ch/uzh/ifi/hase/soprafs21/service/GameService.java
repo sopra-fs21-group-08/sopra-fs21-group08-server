@@ -88,6 +88,7 @@ public class GameService {
     public Game initializeGame(Lobby lobby){
 
         Game game = new Game();
+        game.setGameId(lobby.getLobbyId());
 
         //transforming user list into a player list
         PlayerGroup pg = createPlayerGroup(lobby.getUsers());
@@ -107,7 +108,6 @@ public class GameService {
         // giving the game all its support entities
         game.setPlayerGroup(pg);
         game.setCurrentRound(newRound);
-        game.setLobby(lobby);
         game.setBlackboard(blackboard);
         game.setRoundHistory(rh);
 

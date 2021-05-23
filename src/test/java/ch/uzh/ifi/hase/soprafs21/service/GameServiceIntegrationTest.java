@@ -105,7 +105,6 @@ public class GameServiceIntegrationTest {
         Game createdGame = gameService.initializeGame(testLobby1);
 
         assertEquals(gameRepository.findByGameId(createdGame.getGameId()), createdGame);
-        assertEquals(createdGame.getLobby(), testLobby1);
         assertEquals(createdGame.getCurrentRound().getRoundNumber(), 1);
         assertNotNull(createdGame.getBlackboard());
         assertEquals(createdGame.getMrX(), createdGame.getCurrentPlayer());
