@@ -125,11 +125,13 @@ public class LobbyController {
 
 
     @PostMapping("/lobbies/{lobbyId}/replay")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public void nextLobby(@PathVariable("lobbyId") long lobbyId,
                           @RequestHeader("Authorization") String token){
 
         User issuingUser = userService.findUserByToken(token);
+
+        userService.leaveCurrentLobby(issuingUser);
 
         lobbyService.playAgain(lobbyId, issuingUser);
     }

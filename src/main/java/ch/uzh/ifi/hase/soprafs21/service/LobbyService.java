@@ -111,12 +111,12 @@ public class LobbyService {
     public void playAgain(long lobbyId, User issuingUser) {
 
         //check it the lobby exits
-        checkIfLobbyExists(lobbyId);
+        this.checkIfLobbyExists(lobbyId);
         //finds the lobby
         Lobby currentLobby = lobbyRepository.findByLobbyId(lobbyId);
 
         //firstly leaves the last lobby
-        leaveLobby(issuingUser, currentLobby.getLobbyId());
+        this.leaveLobby(issuingUser, currentLobby.getLobbyId());
 
         //finds a potential next lobby through the connector
         LobbyConnector lobbyConnector = this.lobbyConnectorRepository.findByLastLobbyId(lobbyId);
@@ -128,16 +128,15 @@ public class LobbyService {
             lobbyConnector = new LobbyConnector();
             lobbyConnector.setLastLobbyId(lobbyId);
 
-            Lobby nextLobby = this.createLobby(currentLobby, issuingUser);
+            //creating the new lobby, reusing the old chat
+            Lobby nextLobby = this.createLobby(currentLobby, issuingUser, currentLobby.getChat());
+            lobbyConnector.setNext(nextLobby);
 
         }
         //case 2: there already is a next lobby
-        else{
-
+        else {
+            this.joinLobby(issuingUser, lobbyConnector.getNext().getLobbyId());
         }
-
-
-
 
 
     }
@@ -172,6 +171,11 @@ public class LobbyService {
             targetLobby.setGame(null);
             lobbyRepository.delete(targetLobby);
             lobbyRepository.flush();
+
+            //deleting the connector that isn't used anymore
+            LobbyConnector connectorToDelete = lobbyConnectorRepository.findByLastLobbyId(lobbyId);
+            lobbyConnectorRepository.delete(connectorToDelete);
+            lobbyConnectorRepository.flush();
         }
     }
 
