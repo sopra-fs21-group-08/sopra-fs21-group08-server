@@ -102,7 +102,7 @@ public class LobbyController {
         User userToRemove = UserDTOMapper.INSTANCE.convertUserPutDTOtoEntity(userPutDTO);
         userToRemove = userService.getUserById(userToRemove.getUserId());
 
-        userService.removeCurrentLobby(userToRemove);
+        userService.leaveCurrentLobby(userToRemove);
 
         lobbyService.leaveLobby(userToRemove, lobbyId);
     }

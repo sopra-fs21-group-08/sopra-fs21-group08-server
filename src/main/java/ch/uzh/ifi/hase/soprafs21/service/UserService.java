@@ -162,7 +162,7 @@ public class UserService {
         user.setCurrentLobby(lobby);
     }
 
-    public void removeCurrentLobby(User user){
+    public void leaveCurrentLobby(User user){
         user.removeCurrentLobby();
     }
 

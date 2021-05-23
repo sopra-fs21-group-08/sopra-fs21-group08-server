@@ -371,4 +371,10 @@ public class GameService {
         }
         return game;
     }
+/*
+    public void deleteGame(long lobbyId) {
+        Game gameToDelete = gameRepository.findByGameId(lobbyId);
+        gameRepository.delete(gameToDelete);
+        gameRepository.flush();
+    }*/
 }

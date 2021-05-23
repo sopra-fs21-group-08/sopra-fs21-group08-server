@@ -161,7 +161,7 @@ public class LobbyService {
     public void leaveLobby(User userToRemove, long lobbyId) {
         Lobby targetLobby = lobbyRepository.findByLobbyId(lobbyId);
         if (!targetLobby.getUsers().contains(userToRemove)){
-            throw new IllegalStateException("This user is not in this Lobby!");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User isn't in this lobby");
         }
         targetLobby.removeUser(userToRemove);
 
@@ -169,6 +169,7 @@ public class LobbyService {
         //TODO: make the lobby delete everything (CHAT GAME ETC)
         if (targetLobby.isEmpty()){
             targetLobby.setChat(null);
+            targetLobby.setGame(null);
             lobbyRepository.delete(targetLobby);
             lobbyRepository.flush();
         }

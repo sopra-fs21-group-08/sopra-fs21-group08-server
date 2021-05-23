@@ -12,7 +12,7 @@ public class Chat {
     @Id
     private Long chatId;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "lobbyId")
     @MapsId
     private Lobby lobby;
