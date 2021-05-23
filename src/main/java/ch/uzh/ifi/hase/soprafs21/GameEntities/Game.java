@@ -23,12 +23,6 @@ public class Game {
     @Id
     private Long gameId;
 
-    /*
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "lobbyId")
-    @MapsId
-    private Lobby lobby;
-    */
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private PlayerGroup playerGroup;
 
@@ -60,14 +54,7 @@ public class Game {
     public void setPlayerGroup(PlayerGroup playerGroup) {
         this.playerGroup = playerGroup;
     }
- /*
-    public Lobby getLobby() {
-        return lobby;
-    }
-    public void setLobby(Lobby lobby) {
-        this.lobby = lobby;
-    }
-*/
+
     public Long getGameId() {
         return gameId;
     }
