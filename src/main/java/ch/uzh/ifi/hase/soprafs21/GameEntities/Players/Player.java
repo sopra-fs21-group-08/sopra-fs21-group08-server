@@ -27,7 +27,7 @@ public class Player {
     @MapsId
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Station currentStation;
 
     @Enumerated(EnumType.STRING)

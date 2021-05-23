@@ -52,7 +52,6 @@ public class LobbyService {
         //created new chat
         Chat newChat = new Chat();
         newLobby.setChat(newChat);
-        newChat.setLobby(newLobby);
 
         // add issuing user to lobby
         newLobby.addUser(issuingUser);
@@ -79,8 +78,6 @@ public class LobbyService {
 
 
         newLobby.setChat(lastChat);
-        lastChat.setLobby(newLobby);
-        
 
         // add issuing user to lobby
         newLobby.addUser(issuingUser);

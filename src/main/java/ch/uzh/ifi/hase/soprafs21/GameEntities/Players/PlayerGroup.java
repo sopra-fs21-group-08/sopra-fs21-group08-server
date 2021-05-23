@@ -21,7 +21,7 @@ public class PlayerGroup implements Iterable<Player>{
     @JoinColumn(name = "gameId")
     private Game game;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Player> players = new ArrayList<>();
 
     // how many turns have been made by players, this will descide which players turn it is.
