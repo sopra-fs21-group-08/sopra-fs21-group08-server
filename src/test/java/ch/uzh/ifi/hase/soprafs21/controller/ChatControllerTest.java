@@ -53,7 +53,6 @@ public class ChatControllerTest {
 
         testChat = new Chat();
         testChat.setChatId(1L);
-        testChat.setLobby(testLobby);
 
         testLobby = new Lobby();
         testLobby.setLobbyId(1L);

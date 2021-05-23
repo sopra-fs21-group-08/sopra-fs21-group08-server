@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +77,6 @@ public class LobbyServiceTest {
         assertEquals(createdLobby.getSize(), 1);
         assertEquals(createdLobby.getUsers(), testUserList);
         assertFalse(createdLobby.didGameStart());
-        assertEquals(createdLobby.getChat().getLobby(), createdLobby);
         assertNull(createdLobby.getGame());
         assertFalse(createdLobby.isEmpty());
         assertNotNull(createdLobby.getChat());
@@ -147,7 +147,7 @@ public class LobbyServiceTest {
 
         when(this.lobbyRepository.findByLobbyId(testLobby1.getLobbyId())).thenReturn(testLobby1);
 
-        assertThrows(IllegalStateException.class, () -> lobbyService.leaveLobby(testUser1, testLobby1.getLobbyId()));
+        assertThrows(ResponseStatusException.class, () -> lobbyService.leaveLobby(testUser1, testLobby1.getLobbyId()));
     }
 
     @Test
