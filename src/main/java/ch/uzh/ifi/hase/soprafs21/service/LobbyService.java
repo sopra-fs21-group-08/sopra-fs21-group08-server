@@ -4,7 +4,7 @@ package ch.uzh.ifi.hase.soprafs21.service;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
 import ch.uzh.ifi.hase.soprafs21.entity.*;
 import ch.uzh.ifi.hase.soprafs21.repository.LobbyRepository;
-import ch.uzh.ifi.hase.soprafs21.repository.NextLobbyRepository;
+import ch.uzh.ifi.hase.soprafs21.repository.LobbyConnectorRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +23,15 @@ public class LobbyService {
     private final Logger log = LoggerFactory.getLogger(LobbyService.class);
 
     private final LobbyRepository lobbyRepository;
-    private final NextLobbyRepository nextLobbyRepository;
+    private final LobbyConnectorRepository lobbyConnectorRepository;
 
 
     @Autowired
     public LobbyService(@Qualifier("lobbyRepository") LobbyRepository lobbyRepository,
-                        @Qualifier("nextLobbyRepository") NextLobbyRepository nextLobbyRepository) {
+                        @Qualifier("lobbyConnectorRepository") LobbyConnectorRepository lobbyConnectorRepository) {
 
         this.lobbyRepository = lobbyRepository;
-        this.nextLobbyRepository = nextLobbyRepository;
+        this.lobbyConnectorRepository = lobbyConnectorRepository;
     }
 
     public List<Lobby> getLobbies() {
@@ -70,6 +70,8 @@ public class LobbyService {
      * @param lastChat
      * @return
      */
+
+
     public Lobby createLobby(Lobby lobbyToCreate, User issuingUser, Chat lastChat){
 
         checkIfLobbyAlreadyExists(lobbyToCreate);
@@ -88,6 +90,7 @@ public class LobbyService {
         return newLobby;
 
     }
+
 
 
     public Lobby joinLobby(User userToJoin, long lobbyId){
@@ -119,7 +122,7 @@ public class LobbyService {
         leaveLobby(issuingUser, currentLobby.getLobbyId());
 
         //finds a potential next lobby through the connector
-        LobbyConnector lobbyConnector = this.nextLobbyRepository.findByLastLobbyId(lobbyId);
+        LobbyConnector lobbyConnector = this.lobbyConnectorRepository.findByLastLobbyId(lobbyId);
 
         //case 1: there is no next lobby yet
         if(lobbyConnector == null){

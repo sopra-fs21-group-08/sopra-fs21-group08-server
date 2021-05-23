@@ -75,10 +75,10 @@ public class LobbyServiceTest {
         assertEquals(createdLobby.getLobbyName(), testLobby1.getLobbyName());
         assertEquals(createdLobby.getSize(), 1);
         assertEquals(createdLobby.getUsers(), testUserList);
-        assertEquals(createdLobby.didGameStart(), false);
+        assertFalse(createdLobby.didGameStart());
         assertEquals(createdLobby.getChat().getLobby(), createdLobby);
-        assertEquals(createdLobby.getGame(), null);
-        assertEquals(createdLobby.isEmpty(), false);
+        assertNull(createdLobby.getGame());
+        assertFalse(createdLobby.isEmpty());
         assertNotNull(createdLobby.getChat());
 
     }

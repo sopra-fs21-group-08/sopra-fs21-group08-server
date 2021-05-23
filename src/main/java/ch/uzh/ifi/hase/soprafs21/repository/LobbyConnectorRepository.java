@@ -4,9 +4,9 @@ import ch.uzh.ifi.hase.soprafs21.entity.LobbyConnector;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository("nextLobbyRepository")
-public interface NextLobbyRepository extends JpaRepository<LobbyConnector, Long> {
-    LobbyConnector findByLastLobbyId(long id);
+@Repository("LobbyConnectorRepository")
+public interface LobbyConnectorRepository extends JpaRepository<LobbyConnector, Long> {
 
+    LobbyConnector findByLastLobbyId(long id);
     Boolean existsByLastLobbyId(long id);
 }
