@@ -83,7 +83,7 @@ public class Game {
 
     public void createGameSummary(PlayerClass winner) {
         GameSummary summary = new GameSummary();
-        summary.setSummaryId(this.gameId);
+        summary.setSummaryId(this.getGameId());
 
         summary.setWinner(winner);
         summary.setRoundsPlayed(this.currentRound.getRoundNumber());

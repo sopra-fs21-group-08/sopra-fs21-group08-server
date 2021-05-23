@@ -2,9 +2,11 @@ package ch.uzh.ifi.hase.soprafs21.rest.mapper;
 
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.GameSummary;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.TicketWallet;
 import ch.uzh.ifi.hase.soprafs21.rest.GameStatusDTO.GameStatusGetDTO;
+import ch.uzh.ifi.hase.soprafs21.rest.GameStatusDTO.GameSummaryDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.PlayerDTO.PlayerGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.WalletDTO.WalletGetDTO;
 import org.mapstruct.Mapper;
@@ -36,4 +38,10 @@ public interface GameDTOMapper {
     @Mapping(expression = "java(s.getBlack())", target = "BLACK")
     @Mapping(expression = "java(s.getDouble())", target = "DOUBLE")
     WalletGetDTO convertEntitiyToDTO(TicketWallet s);
+
+
+    @Mapping(source = "summaryId", target = "summaryId")
+    @Mapping(source = "winner", target = "winner")
+    @Mapping(source = "roundsPlayed", target = "roundsPlayed")
+    GameSummaryDTO convertEntityToDTO(GameSummary gameSummary);
 }

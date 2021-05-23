@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.controller;
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.GameSummary;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.Ticket;
@@ -8,6 +9,7 @@ import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.network.Station;
 import ch.uzh.ifi.hase.soprafs21.rest.GameStatusDTO.GameStatusGetDTO;
+import ch.uzh.ifi.hase.soprafs21.rest.GameStatusDTO.GameSummaryDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.MoveDTO.MoveDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.PlayerDTO.PlayerGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.StationDTO.StationDTO;
@@ -171,6 +173,16 @@ public class GameController {
                                       @RequestHeader("Authorization") String token){
 
         return GameDTOMapper.INSTANCE.convertEntityToGameStatusGetDTO(gameService.getGameStatusById(gameId));
+    }
+
+    @GetMapping("/games/{gameId}/summary")
+    @ResponseStatus(HttpStatus.OK)
+    public GameSummaryDTO getSummary(@PathVariable("gameId") long gameId,
+                                     @RequestHeader("Authorization") String token){
+
+        GameSummary gameSummary = gameService.getGameSummary(gameId);
+
+        return GameDTOMapper.INSTANCE.convertEntityToDTO(gameSummary);
     }
 
     @PostMapping("/games/{gameId}/hack")

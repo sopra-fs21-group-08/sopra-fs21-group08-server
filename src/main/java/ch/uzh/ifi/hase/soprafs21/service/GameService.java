@@ -15,6 +15,7 @@ import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.network.Station;
 import ch.uzh.ifi.hase.soprafs21.repository.GameRepository;
+import ch.uzh.ifi.hase.soprafs21.repository.GameSummaryRepository;
 import ch.uzh.ifi.hase.soprafs21.repository.StationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
@@ -37,14 +37,17 @@ public class GameService {
 
     private final GameRepository gameRepository;
     private final StationRepository stationRepository;
+    private final GameSummaryRepository gameSummaryRepository;
 
     private Random rand = new Random();
 
     @Autowired
     public GameService(@Qualifier("gameRepository") GameRepository gameRepository,
-                       @Qualifier("stationRepository") StationRepository stationRepository) {
+                       @Qualifier("stationRepository") StationRepository stationRepository,
+                       @Qualifier("gameSummaryRepository") GameSummaryRepository gameSummaryRepository) {
         this.gameRepository = gameRepository;
         this.stationRepository = stationRepository;
+        this.gameSummaryRepository = gameSummaryRepository;
     }
 
 
@@ -371,10 +374,9 @@ public class GameService {
         }
         return game;
     }
-/*
-    public void deleteGame(long lobbyId) {
-        Game gameToDelete = gameRepository.findByGameId(lobbyId);
-        gameRepository.delete(gameToDelete);
-        gameRepository.flush();
-    }*/
+
+    public GameSummary getGameSummary(long gameId) {
+        return this.gameSummaryRepository.findBySummaryId(gameId);
+    }
+
 }
