@@ -75,8 +75,7 @@ public class UserController {
     @GetMapping("users/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public UserGetDTO getUser(@PathVariable("id") long id,
-                              @RequestHeader("Authorization") String token) {
+    public UserGetDTO getUser(@PathVariable("id") long id) {
 
 
 

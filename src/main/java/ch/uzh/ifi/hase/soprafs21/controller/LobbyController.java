@@ -126,13 +126,15 @@ public class LobbyController {
 
     @PostMapping("/lobbies/{lobbyId}/replay")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void nextLobby(@PathVariable("lobbyId") long lobbyId,
+    public LobbyGetDTO nextLobby(@PathVariable("lobbyId") long lobbyId,
                           @RequestHeader("Authorization") String token){
 
         User issuingUser = userService.findUserByToken(token);
 
         userService.leaveCurrentLobby(issuingUser);
 
-        lobbyService.playAgain(lobbyId, issuingUser);
+        Lobby nextLobby = lobbyService.playAgain(lobbyId, issuingUser);
+
+        return LobbyDTOMapper.INSTANCE.convertEntityToLobbyGetDTO(nextLobby);
     }
 }

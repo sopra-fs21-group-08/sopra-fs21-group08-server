@@ -108,7 +108,7 @@ public class LobbyService {
      * Used when players jump from one lobby to the next with the Play Again function
      * @param lobbyId
      */
-    public void playAgain(long lobbyId, User issuingUser) {
+    public Lobby playAgain(long lobbyId, User issuingUser) {
 
         //check it the lobby exits
         this.checkIfLobbyExists(lobbyId);
@@ -131,11 +131,12 @@ public class LobbyService {
             //creating the new lobby, reusing the old chat
             Lobby nextLobby = this.createLobby(currentLobby, issuingUser, currentLobby.getChat());
             lobbyConnector.setNext(nextLobby);
+            return nextLobby;
 
         }
         //case 2: there already is a next lobby
         else {
-            this.joinLobby(issuingUser, lobbyConnector.getNext().getLobbyId());
+            return this.joinLobby(issuingUser, lobbyConnector.getNext().getLobbyId());
         }
 
 
