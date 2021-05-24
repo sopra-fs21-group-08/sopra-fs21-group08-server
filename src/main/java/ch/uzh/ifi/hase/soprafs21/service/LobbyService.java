@@ -174,8 +174,10 @@ public class LobbyService {
 
             //deleting the connector that isn't used anymore
             LobbyConnector connectorToDelete = lobbyConnectorRepository.findByLastLobbyId(lobbyId);
-            lobbyConnectorRepository.delete(connectorToDelete);
-            lobbyConnectorRepository.flush();
+            if(connectorToDelete!=null){
+                lobbyConnectorRepository.delete(connectorToDelete);
+                lobbyConnectorRepository.flush();
+            }
         }
     }
 

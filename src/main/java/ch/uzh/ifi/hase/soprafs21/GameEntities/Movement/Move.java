@@ -19,7 +19,7 @@ public class Move {
     @JoinColumn(name = "roundId")
     private Round round;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "playerId")
     private Player player;
 
