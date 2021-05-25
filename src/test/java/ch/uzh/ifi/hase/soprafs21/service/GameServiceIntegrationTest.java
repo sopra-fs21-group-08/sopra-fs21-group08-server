@@ -14,6 +14,7 @@ import ch.uzh.ifi.hase.soprafs21.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -125,7 +126,7 @@ public class GameServiceIntegrationTest {
         final int tramTicket = currPlayer.getWallet().getTram();
         final int trainTicket = currPlayer.getWallet().getTrain();
 
-        Move testMove = createValidMove(createdGame, currUser);
+        Move testMove = gameService.createValidMove(createdGame, currUser);
 
         gameService.playerIssuesMove(currUser, testMove, createdGame.getGameId());
 
@@ -139,6 +140,7 @@ public class GameServiceIntegrationTest {
         } else{
             throw new IllegalStateException("Something went terribly wrong while testing.");
         }
+        assertEquals(currPlayer.getCurrentStation(), testMove.getTo());
         assertNotEquals(createdGame.getCurrentPlayer(), currPlayer);
 
 
@@ -153,9 +155,9 @@ public class GameServiceIntegrationTest {
         User currUser = currPlayer.getUser();
 
 
-        Move testMove = createValidMove(createdGame, currUser);
+        Move testMove = gameService.createValidMove(createdGame, currUser);
         gameService.playerIssuesMove(currUser, testMove, createdGame.getGameId());
-        testMove = createValidMove(createdGame, currUser);
+        testMove = gameService.createValidMove(createdGame, currUser);
 
         Move finalTestMove = testMove;
         assertThrows(ResponseStatusException.class,
@@ -163,7 +165,7 @@ public class GameServiceIntegrationTest {
 
     }
 
-    /*
+
     @Test
     public void playerIssuesMove_validInput_gameTerminated_MrXSuicide(){
 
@@ -175,36 +177,13 @@ public class GameServiceIntegrationTest {
 
         Move testMove = new Move();
         testMove.setTicket(Ticket.TRAM);
-        testMove.setTo(stationRepository.findByStationId(237L));
+        testMove.setTo(stationRepository.findByStationId(194L));
 
         gameService.playerIssuesMove(currUser, testMove, createdGame.getGameId());
 
         assertEquals(createdGame.isGameOver(), true);
 
-    }*/
-
-
-    private Move createValidMove(Game createdGame, User currUser){
-
-        Move testMove = new Move();
-
-        // get a possible station to move to
-        List<Station> possibleTramStations = gameService.possibleStations(createdGame, currUser, Ticket.TRAM);
-        List<Station> possibleBusStations = gameService.possibleStations(createdGame, currUser, Ticket.BUS);
-        List<Station> possibleTrainStations = gameService.possibleStations(createdGame, currUser, Ticket.TRAIN);
-        if (!possibleTramStations.isEmpty()){
-            testMove.setTicket(Ticket.TRAM);
-            testMove.setTo(possibleTramStations.get(0));
-        } else if(!possibleBusStations.isEmpty()){
-            testMove.setTicket(Ticket.BUS);
-            testMove.setTo(possibleBusStations.get(0));
-        } else if (!possibleTrainStations.isEmpty()){
-            testMove.setTicket(Ticket.TRAIN);
-            testMove.setTo(possibleTrainStations.get(0));
-        } else{
-            throw new IllegalStateException("Something went terribly wrong while testing!");
-        }
-
-        return testMove;
     }
+
+
 }
