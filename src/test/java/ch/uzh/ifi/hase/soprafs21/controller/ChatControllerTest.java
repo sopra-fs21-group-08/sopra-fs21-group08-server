@@ -6,6 +6,7 @@ import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.Message;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.rest.ChatDTO.ReceivedMessageDTO;
+import ch.uzh.ifi.hase.soprafs21.service.GameService;
 import ch.uzh.ifi.hase.soprafs21.service.LobbyService;
 import ch.uzh.ifi.hase.soprafs21.service.UserService;
 import org.junit.jupiter.api.AfterEach;
@@ -24,6 +25,7 @@ import java.util.UUID;
 
 import static ch.uzh.ifi.hase.soprafs21.TestHelpers.TestHelpers.asJsonString;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -46,6 +48,8 @@ public class ChatControllerTest {
     private LobbyService lobbyService;
     @MockBean
     private UserService userService;
+    @MockBean
+    private GameService gameService;
 
     @BeforeEach
     void setUp() {
@@ -88,7 +92,6 @@ public class ChatControllerTest {
         Long gameId = 1L;
 
         when(this.lobbyService.findLobbyById(gameId)).thenReturn(testLobby);
-
 
         MockHttpServletRequestBuilder getRequest = get("/games/{gameID}/chats", gameId)
                 .contentType(MediaType.APPLICATION_JSON);

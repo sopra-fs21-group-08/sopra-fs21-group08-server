@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs21.entity;
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

@@ -7,6 +7,7 @@ import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.rest.ChatDTO.MessageGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.ChatDTO.ReceivedMessageDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.mapper.ChatDTOMapper;
+import ch.uzh.ifi.hase.soprafs21.service.GameService;
 import ch.uzh.ifi.hase.soprafs21.service.LobbyService;
 import ch.uzh.ifi.hase.soprafs21.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -20,10 +21,12 @@ public class ChatController {
 
     private final LobbyService lobbyService;
     private final UserService userService;
+    private final GameService gameService;
 
-    ChatController(LobbyService lobbyService, UserService userService) {
+    ChatController(LobbyService lobbyService, UserService userService, GameService gameService) {
         this.lobbyService = lobbyService;
         this.userService = userService;
+        this.gameService = gameService;
     }
 
     @GetMapping("/games/{gameID}/chats")
@@ -48,10 +51,10 @@ public class ChatController {
         //find issuing User
         User user = ChatDTOMapper.INSTANCE.convertReceivedMessageDTOtoUser(receivedMessageDTO);
 
-        //TODO: authenticate user
         User foundUser = userService.findUserByEntity(user);
+        gameService.isUserInGame(gameID, foundUser);
 
-        //add autheticated username to message
+        //add authenticated username to message
         msg.setUsername(foundUser.getUsername());
 
         lobbyService.postMessageToChat(msg, gameID);

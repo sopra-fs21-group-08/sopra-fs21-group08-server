@@ -62,13 +62,10 @@ public class GameController {
     public List<PlayerGetDTO> getPlayers(@PathVariable("gameId") long gameId,
                                          @RequestHeader("Authorization") String token){
 
-        //TODO: change this method ("findUserbyToken()") to throw exception if token isnt found,
-        // this will be our authentication, if token is found user is allowed to manipulate entities
+        User foundRequestingUser = userService.findUserByToken(token);
+        gameService.isUserInGame(gameId, foundRequestingUser);
 
-        User foundUser = userService.findUserByToken(token);
-
-        //TODO: remove and add to every method that changes game state
-        gameService.isUserInGame(gameId, foundUser);
+        User foundUser = foundRequestingUser;
 
         List<PlayerGetDTO> playerGetDTOS = new ArrayList<>();
 
@@ -86,7 +83,8 @@ public class GameController {
                                   @PathVariable("userId") long userId,
                                   @RequestHeader("Authorization") String token){
 
-        // TODO : Authentification as always
+        User foundRequestingUser = userService.findUserByToken(token);
+        gameService.isUserInGame(gameId, foundRequestingUser);
 
         Game foundGame = gameService.getGameByGameId(gameId);
         User foundUser = userService.getUserById(userId);
@@ -102,7 +100,8 @@ public class GameController {
     public PlayerGetDTO getMrX(@PathVariable("gameId") long gameId,
                                @RequestHeader("Authorization") String token){
 
-        // TODO : Authentication as always
+        User foundRequestingUser = userService.findUserByToken(token);
+        gameService.isUserInGame(gameId, foundRequestingUser);
 
         return PlayerDTOMapper.INSTANCE.convertPlayerToGetDTO(gameService.getGameByGameId(gameId).getMrX());
     }
@@ -114,12 +113,13 @@ public class GameController {
                                              @PathVariable("userId") long userId,
                                              @RequestHeader("Authorization") String token){
 
-        // TODO : Authentication as always
+        User foundRequestingUser = userService.findUserByToken(token);
+        gameService.isUserInGame(gameId, foundRequestingUser);
+        userService.authenticateToken(foundRequestingUser, userService.getUserById(userId));
 
         Game foundGame = gameService.getGameByGameId(gameId);
         User foundUser = userService.getUserById(userId);
 
-        //TODO: check if user is in the game
         List<Station> possibleStationList = gameService.possibleStations(foundGame, foundUser,
                 ticketDTO.getTicket());
 
@@ -138,14 +138,15 @@ public class GameController {
                            @PathVariable("userId") long userId,
                            @RequestHeader("Authorization") String token){
 
+        User foundRequestingUser = userService.findUserByToken(token);
+        gameService.isUserInGame(gameId, foundRequestingUser);
+        userService.authenticateToken(foundRequestingUser, userService.getUserById(userId));
+
         Move issuedMove = new Move();
         issuedMove.setTicket(moveDTO.getTicket());
         issuedMove.setTo(stationService.getStationById(moveDTO.getTo()));
 
-                //MoverDTOMapper.INSTANCE.convertDTOtoMove(moveDTO);
         User issuingUser = userService.getUserById(userId);
-
-        //TODO authenticate user
 
         Player movedPlayer = gameService.playerIssuesMove(issuingUser, issuedMove, gameId);
 
@@ -156,6 +157,10 @@ public class GameController {
     @ResponseStatus(HttpStatus.OK)
     public List<TicketDTO> getBlackboard(@PathVariable("gameId") long gameId,
                                       @RequestHeader("Authorization") String token){
+
+        User foundRequestingUser = userService.findUserByToken(token);
+        gameService.isUserInGame(gameId, foundRequestingUser);
+
         List<TicketDTO> blackboard = new ArrayList<>();
 
         for(Ticket ticket :gameService.getBlackboard(gameId)){
@@ -172,6 +177,9 @@ public class GameController {
     public GameStatusGetDTO getStatus(@PathVariable("gameId") long gameId,
                                       @RequestHeader("Authorization") String token){
 
+        User foundRequestingUser = userService.findUserByToken(token);
+        gameService.isUserInGame(gameId, foundRequestingUser);
+
         return GameDTOMapper.INSTANCE.convertEntityToGameStatusGetDTO(gameService.getGameStatusById(gameId));
     }
 
@@ -179,6 +187,9 @@ public class GameController {
     @ResponseStatus(HttpStatus.OK)
     public GameSummaryDTO getSummary(@PathVariable("gameId") long gameId,
                                      @RequestHeader("Authorization") String token){
+
+        User foundRequestingUser = userService.findUserByToken(token);
+        gameService.isUserInGame(gameId, foundRequestingUser);
 
         GameSummary gameSummary = gameService.getGameSummary(gameId);
 

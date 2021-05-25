@@ -51,7 +51,6 @@ public class GameService {
     }
 
 
-    //TODO: make private and use in every action where player issues command to change game state
     public void isUserInGame(long gameId, User foundUser){
         Game foundGame = gameRepository.findByGameId(gameId);
         if (Objects.isNull(foundGame)){

@@ -2,11 +2,14 @@ package ch.uzh.ifi.hase.soprafs21.controller;
 
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.GameSummary;
+import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Blackboard;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Round;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.PlayerGroup;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.Ticket;
+import ch.uzh.ifi.hase.soprafs21.constant.PlayerClass;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.network.Station;
@@ -44,11 +47,13 @@ public class GameControllerTest {
     // given
     private Lobby testLobby;
     private Game testGame;
-    private Round testRound;
     private PlayerGroup testPlayerGroup;
     private Player testPlayer1;
     private User testUser1;
     private Station testStation1;
+    private Move testMove;
+    private Blackboard testBlackboard;
+    private GameSummary testGameSummary;
 
     @Autowired
     private MockMvc mockMvc;
@@ -73,8 +78,6 @@ public class GameControllerTest {
         testGame = new Game();
         testGame.setGameId(1L);
 
-        testRound = new Round();
-
         testPlayerGroup = new PlayerGroup();
 
         testPlayer1 = new Player();
@@ -86,6 +89,17 @@ public class GameControllerTest {
 
         testStation1 = new Station();
         testStation1.setStationId(1L);
+
+        testMove = new Move();
+        testMove.setTicket(Ticket.TRAM);
+
+        testBlackboard = new Blackboard();
+        testBlackboard.addTicket(Ticket.TRAM);
+
+        testGameSummary = new GameSummary();
+        testGameSummary.setRoundsPlayed(3);
+        testGameSummary.setSummaryId(1L);
+        testGameSummary.setWinner(PlayerClass.DETECTIVE);
     }
 
     @AfterEach
@@ -93,7 +107,6 @@ public class GameControllerTest {
 
         testLobby = null;
         testGame = null;
-        testRound = null;
         testPlayerGroup = null;
         testPlayer1 = null;
 
@@ -223,11 +236,20 @@ public class GameControllerTest {
                 .andExpect(status().isCreated());
     }
 
-    /*
+
     @Test
     public void getBlackboard_validInput_blackboardReceived() throws Exception{
 
-    }*/
+        when(gameService.getBlackboard(testGame.getGameId())).thenReturn(testBlackboard.getTickets());
+
+        MockHttpServletRequestBuilder getRequest = get("/games/{gameId}/moves/blackboards",
+                testGame.getGameId(), testUser1.getUserId())
+                .header("Authorization", testUser1.getToken());;
+
+        mockMvc.perform(getRequest)
+                .andExpect(status().isOk());
+
+    }
 
     @Test
     public void getStatus_validInput_statusReceived() throws Exception{
@@ -240,5 +262,19 @@ public class GameControllerTest {
 
         mockMvc.perform(getRequest)
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void getSummary_validInput_summaryReceived() throws Exception{
+
+        when(gameService.getGameSummary(testGame.getGameId())).thenReturn(testGameSummary);
+
+        MockHttpServletRequestBuilder getRequest = get("/games/{gameId}/summary",
+                testGame.getGameId(), testUser1.getUserId())
+                .header("Authorization", testUser1.getToken());
+
+        mockMvc.perform(getRequest)
+                .andExpect(status().isOk());
+
     }
 }

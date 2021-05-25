@@ -203,7 +203,7 @@ public class UserService {
     }
 
     //TODO this function will expose internal behavior, fix at later point
-    private void authenticateToken(User subject, User target) {
+    public void authenticateToken(User subject, User target) {
 
         // checks if Tokens match
         String inputUserToken = subject.getToken();
