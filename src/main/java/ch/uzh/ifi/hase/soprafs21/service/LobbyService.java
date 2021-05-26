@@ -64,20 +64,21 @@ public class LobbyService {
 
     /**
      * Creates a lobby from an old lobby by taking the chat and reusing it.
-     * @param lobbyToCreate
-     * @param issuingUser
-     * @param lastChat
-     * @return
+     * @param lobbyToCreate is the lobby that needs to be created
+     * @param issuingUser: user who wants to create the lobby
+     * @param lastChat is the chat from the old lobby
+     * @return the next lobby
      */
-
-
     public Lobby createLobby(Lobby lobbyToCreate, User issuingUser, Chat lastChat){
 
-        checkIfLobbyAlreadyExists(lobbyToCreate);
-        Lobby newLobby = lobbyRepository.save(lobbyToCreate);
+        // creating a new lobby
+        Lobby newLobby = new Lobby();
+        newLobby.setLobbyName(lobbyToCreate.getLobbyName());
 
-
+        //set old chat
         newLobby.setChat(lastChat);
+
+        newLobby = lobbyRepository.save(lobbyToCreate);
 
         // add issuing user to lobby
         newLobby.addUser(issuingUser);
@@ -85,7 +86,6 @@ public class LobbyService {
         //flush lobby
         lobbyRepository.flush();
         return newLobby;
-
     }
 
 
@@ -112,14 +112,20 @@ public class LobbyService {
 
         //check it the lobby exits
         this.checkIfLobbyExists(lobbyId);
+
         //finds the lobby
         Lobby currentLobby = lobbyRepository.findByLobbyId(lobbyId);
 
-        //firstly leaves the last lobby
-        this.leaveLobby(issuingUser, currentLobby.getLobbyId());
+        //check if game is over
+        if(!currentLobby.getGame().isGameOver()){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Your Game isn't over yet!");
+        }
 
         //finds a potential next lobby through the connector
         LobbyConnector lobbyConnector = this.lobbyConnectorRepository.findByLastLobbyId(lobbyId);
+
+        //firstly leaves the last lobby
+        this.leaveLobby(issuingUser, currentLobby.getLobbyId());
 
         //case 1: there is no next lobby yet
         if(lobbyConnector == null){
@@ -150,7 +156,7 @@ public class LobbyService {
         // implement this in the future
         // checks if the id of the lobby is found
         if(lobbyRepository.findByLobbyId(id)==null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Lobby doesn't exist dude");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Lobby doesn't exist!");
         }
     }
 
