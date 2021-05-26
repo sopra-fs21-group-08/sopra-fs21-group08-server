@@ -65,15 +65,6 @@ public class PlayerGroup implements Iterable<Player>{
     }
 
     //not sure if needed
-    public Player getPlayerById(long id){
-        Player playerToReturn = null;
-        for(Player player : players) {
-            if (player.getPlayerId() == id){
-                playerToReturn = player;
-            }
-        }
-        return playerToReturn;
-    }
     public Player findCorrespondingPlayer(User user){
         for(Player player : players) {
             if (player.getUser() == user){
@@ -81,6 +72,17 @@ public class PlayerGroup implements Iterable<Player>{
             }
         }
         return null;
+    }
+
+    public void gameOverCredits(PlayerClass winner){
+        for(Player player: getPlayers()){
+            User user = player.getUser();
+            user.incrementGamesPlayed();
+            if(player.getPlayerClass() == winner){
+                user.incrementGamesWon();
+            }
+
+        }
     }
 
     public void moveMRXToTopOfList(){
