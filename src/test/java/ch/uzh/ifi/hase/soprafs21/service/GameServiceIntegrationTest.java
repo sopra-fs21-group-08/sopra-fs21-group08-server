@@ -102,12 +102,22 @@ public class GameServiceIntegrationTest {
         Game createdGame = gameService.initializeGame(testLobby1);
 
         assertEquals(gameRepository.findByGameId(createdGame.getGameId()), createdGame);
+        assertEquals(userRepository.findByUserId(testUser1.getUserId()),testUser1);
+        assertEquals(userRepository.findByUserId(testUser2.getUserId()),testUser2);
+        assertEquals(userRepository.findByUserId(testUser3.getUserId()),testUser3);
+
+        assertEquals(gameService.getGameByGameId(createdGame.getGameId()), createdGame);
+        assertEquals(gameService.getPlayerGroupByGameId(createdGame.getGameId()), createdGame.getPlayerGroup());
         assertEquals(createdGame.getCurrentRound().getRoundNumber(), 1);
         assertNotNull(createdGame.getBlackboard());
+        assertEquals(createdGame.getBlackboard().getTickets(), gameService.getBlackboard(createdGame.getGameId()));
         assertEquals(createdGame.getMrX(), createdGame.getCurrentPlayer());
         assertEquals(createdGame.findCorrespondingPlayer(testUser1).getUser(), testUser1);
         assertEquals(createdGame.findCorrespondingPlayer(testUser2).getUser(), testUser2);
         assertEquals(createdGame.findCorrespondingPlayer(testUser3).getUser(), testUser3);
+        assertDoesNotThrow(() -> gameService.isUserInGame(testLobby1.getLobbyId(),testUser1));
+        assertDoesNotThrow(() -> gameService.isUserInGame(testLobby1.getLobbyId(),testUser2));
+        assertDoesNotThrow(() -> gameService.isUserInGame(testLobby1.getLobbyId(),testUser3));
 
     }
 
@@ -149,15 +159,33 @@ public class GameServiceIntegrationTest {
         Game createdGame = gameService.initializeGame(testLobby1);
         Player currPlayer = createdGame.getCurrentPlayer();
         User currUser = currPlayer.getUser();
+        currPlayer.setCurrentStation(stationRepository.findByStationId(232));
 
+        Move testMove = new Move();
+        testMove.setTicket(Ticket.TRAM);
+        testMove.setFrom(stationRepository.findByStationId(232));
+        testMove.setTo(stationRepository.findByStationId(25));
 
-        Move testMove = gameService.createValidMove(createdGame, currUser);
-        gameService.playerIssuesMove(currUser, testMove, createdGame.getGameId());
-        testMove = gameService.createValidMove(createdGame, currUser);
-
-        Move finalTestMove = testMove;
         assertThrows(ResponseStatusException.class,
-                () -> gameService.playerIssuesMove(currUser, finalTestMove, createdGame.getGameId()));
+                () -> gameService.playerIssuesMove(currUser, testMove, createdGame.getGameId()));
+
+    }
+
+    @Test
+    public void playerIssuesMove_invalidInput_invalidTicket(){
+
+        Game createdGame = gameService.initializeGame(testLobby1);
+        Player currPlayer = createdGame.getCurrentPlayer();
+        User currUser = currPlayer.getUser();
+        currPlayer.setCurrentStation(stationRepository.findByStationId(232));
+
+        Move testMove = new Move();
+        testMove.setTicket(Ticket.BUS);
+        testMove.setFrom(stationRepository.findByStationId(232));
+        testMove.setTo(stationRepository.findByStationId(16));
+
+        assertThrows(ResponseStatusException.class,
+                () -> gameService.playerIssuesMove(currUser, testMove, createdGame.getGameId()));
 
     }
 

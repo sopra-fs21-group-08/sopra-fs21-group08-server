@@ -15,9 +15,6 @@ public class LobbyConnector {
     @OneToOne
     private Lobby next;
 
-    public Long getLastLobbyId() {
-        return lastLobbyId;
-    }
     public void setLastLobbyId(Long lastLobbyId) {
         this.lastLobbyId = lastLobbyId;
     }

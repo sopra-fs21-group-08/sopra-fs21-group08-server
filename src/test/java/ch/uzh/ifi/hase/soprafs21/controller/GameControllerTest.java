@@ -277,4 +277,16 @@ public class GameControllerTest {
                 .andExpect(status().isOk());
 
     }
+
+    @Test
+    public void hack_validInput_gameHacked() throws Exception{
+
+        MockHttpServletRequestBuilder postRequest = post("/games/{gameId}/hack",
+                testGame.getGameId(), testUser1.getUserId())
+                .header("Authorization", testUser1.getToken());
+
+        mockMvc.perform(postRequest)
+                .andExpect(status().isCreated());
+
+    }
 }

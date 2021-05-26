@@ -33,16 +33,10 @@ public class Move {
 
     private Ticket ticket;
 
-    public Long getMoveId() {
-        return moveId;
-    }
     public void setMoveId(Long moveId) {
         this.moveId = moveId;
     }
 
-    public Round getRound() {
-        return round;
-    }
     public void setRound(Round round) {
         this.round = round;
     }

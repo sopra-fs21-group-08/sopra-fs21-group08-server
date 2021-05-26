@@ -28,18 +28,8 @@ public class Blackboard implements Iterable<Ticket>{
     @OneToOne(mappedBy = "myBlackboard")
     private Game game;
 
-    public Long getBlackboardId() {
-        return blackboardId;
-    }
-    public void setBlackboardId(Long blackboardId) {
-        this.blackboardId = blackboardId;
-    }
-
     public List<Ticket> getTickets() {
         return blackboard;
-    }
-    public void setBlackboard(List<Ticket> blackboard) {
-        this.blackboard = blackboard;
     }
 
     @Override

@@ -19,9 +19,6 @@ public class Chat {
     public void setChatId(Long chatId) {
         this.chatId = chatId;
     }
-    public Long getChatId() {
-        return chatId;
-    }
 
     public void addMessage(Message msg){
         this.messages.add(msg);

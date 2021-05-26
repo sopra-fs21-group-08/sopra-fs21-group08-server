@@ -40,9 +40,7 @@ public class Round implements Iterable<Move>{
     protected List<Move> getMoves() {
         return moves;
     }
-    protected void setMoves(List<Move> moves) {
-        this.moves = moves;
-    }
+
     public void addMove(Move move){
         this.moves.add(move);
         if (maxMoves==getSize()){
@@ -53,12 +51,6 @@ public class Round implements Iterable<Move>{
         return moves.size();
     }
 
-    public void setRoundId(Long id) {
-        this.roundId = id;
-    }
-    public Long getRoundId() {
-        return roundId;
-    }
 
     public int getRoundNumber() {
         return roundNumber;
