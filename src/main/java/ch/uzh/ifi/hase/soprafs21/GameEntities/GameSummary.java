@@ -7,10 +7,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
-// this class might need to be created upon request and not stored in database
-
-
 @Entity
 @Table(name = "GAMESUMMARY")
 public class GameSummary {
@@ -18,6 +14,7 @@ public class GameSummary {
     @Id
     private Long summaryId;
 
+    @Enumerated(EnumType.STRING)
     public PlayerClass winner;
 
     public int roundsPlayed;

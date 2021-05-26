@@ -9,6 +9,8 @@ public class UserGetDTO {
     private UserStatus status;
     private String dob;
     private String creationDate;
+    private int gamesPlayed;
+    private int winrate;
 
     public String getCreationDate() {
         return creationDate;
@@ -43,5 +45,19 @@ public class UserGetDTO {
     }
     public void setStatus(UserStatus status) {
         this.status = status;
+    }
+
+    public int getGamesPlayed() {
+        return gamesPlayed;
+    }
+    public void setGamesPlayed(int gamesPlayed) {
+        this.gamesPlayed = gamesPlayed;
+    }
+
+    public int getWinrate() {
+        return winrate;
+    }
+    public void setWinrate(int winrate) {
+        this.winrate = winrate;
     }
 }

@@ -65,6 +65,17 @@ public class PlayerGroup implements Iterable<Player>{
         return null;
     }
 
+    public void gameOverCredits(PlayerClass winner){
+        for(Player player: getPlayers()){
+            User user = player.getUser();
+            user.incrementGamesPlayed();
+            if(player.getPlayerClass() == winner){
+                user.incrementGamesWon();
+            }
+
+        }
+    }
+
     public void moveMRXToTopOfList(){
         int i = 0;
         for (Player p: this){

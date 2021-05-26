@@ -15,7 +15,7 @@ public class Move {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long moveId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "roundId")
     private Round round;
 

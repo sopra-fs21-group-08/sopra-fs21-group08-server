@@ -18,7 +18,7 @@ public class RoundHistory {
     @OneToOne(mappedBy = "roundHistory")
     private Game game;
 
-    @OneToMany()
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Round> pastRounds = new ArrayList<>();
 
     public void addRound(Round round){

@@ -44,6 +44,15 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String creationDate;
 
+    @Column
+    private int gamesPlayed = 0;
+
+    @Column
+    private int gamesWon = 0;
+
+    @Column
+    private int winrate = 0;
+
     public String getCreationDate() {
         return creationDate;
     }
@@ -98,6 +107,35 @@ public class User implements Serializable {
     }
     public void setCurrentLobby(Lobby currentLobby) {
         this.currentLobby = currentLobby;
+    }
+
+    public int getGamesPlayed() {
+        return gamesPlayed;
+    }
+    public void setGamesPlayed(int gamesPlayed) {
+        this.gamesPlayed = gamesPlayed;
+    }
+    public void incrementGamesPlayed(){this.gamesPlayed++;}
+
+    public int getGamesWon() {
+        return gamesWon;
+    }
+    public void setGamesWon(int gamesWon) {
+        this.gamesWon = gamesWon;
+    }
+    public void incrementGamesWon(){
+        this.gamesWon++;
+        this.calculateWinrate();
+    }
+
+    private void calculateWinrate() {
+        this.winrate = this.gamesWon/this.gamesPlayed;
+    }
+    public int getWinrate() {
+        return winrate;
+    }
+    public void setWinrate(int winrate) {
+        this.winrate = winrate;
     }
 
     public void removeCurrentLobby() {

@@ -72,6 +72,7 @@ public class Game {
     public void gameOver (PlayerClass winner) {
 
         createGameSummary(winner);
+        playerGroup.gameOverCredits(winner);
 
         //TODO: add game over stuff like, no more rounds, no more nextPlayer etc.
 
