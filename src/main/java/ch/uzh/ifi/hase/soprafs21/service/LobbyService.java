@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -46,7 +47,6 @@ public class LobbyService {
      */
     public Lobby createLobby(Lobby lobbyToCreate, User issuingUser){
 
-        checkIfLobbyAlreadyExists(lobbyToCreate);
         Lobby newLobby = lobbyRepository.save(lobbyToCreate);
 
         //created new chat
@@ -160,10 +160,6 @@ public class LobbyService {
         }
     }
 
-    //TODO: self-explanatory
-    private void checkIfLobbyAlreadyExists(Lobby lobbyToCreate) {
-
-    }
 
     public void leaveLobby(User userToRemove, long lobbyId) {
         Lobby targetLobby = lobbyRepository.findByLobbyId(lobbyId);

@@ -33,6 +33,7 @@ public class StationService {
 
     public void initialiseStationsFromJSON(){
         ObjectMapper mapper = new ObjectMapper();
+        String notFound = "Station wasn't found.";
         TypeReference<List<StationDTO>> mapType = new TypeReference<List<StationDTO>>() {};
         InputStream is = TypeReference.class.getResourceAsStream("/json/station_dict.json");
         try {
@@ -44,36 +45,40 @@ public class StationService {
             for (StationDTO stationDTO : stationDTOList){
                 Optional<Station> optStation = stationRepository.findById(stationDTO.getId());
                 if (!optStation.isPresent()){
-                    throw new IllegalArgumentException("Station wasn't found.");
+                    throw new IllegalArgumentException(notFound);
                 }
                 Station station = optStation.get();
-                for (Long stationIdBus : stationDTO.getReachable_by_bus()){
-                    Optional<Station> optStationBus = stationRepository.findById(stationIdBus);
-                    if (!optStationBus.isPresent()){
-                        throw new IllegalArgumentException("Station wasn't found.");
-                    }
-                    station.appendBusStation(optStationBus.get());
-                }
-                for (Long stationIdTram : stationDTO.getReachable_by_tram()){
-                    Optional<Station> optStationTram = stationRepository.findById(stationIdTram);
-                    if (!optStationTram.isPresent()){
-                        throw new IllegalArgumentException("Station wasn't found.");
-                    }
-                    station.appendTramStation(optStationTram.get());
-                }
-                for (Long stationIdTrain : stationDTO.getReachable_by_train()){
-                    Optional<Station> optStationTrain = stationRepository.findById(stationIdTrain);
-                    if (!optStationTrain.isPresent()){
-                        throw new IllegalArgumentException("Station wasn't found.");
-                    }
-                    station.appendTrainStation(optStationTrain.get());
-                }
+                appendStations(station, stationDTO, notFound);
                 stationRepository.flush();
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    private void appendStations(Station station, StationDTO stationDTO, String notFound){
+        for (Long stationIdBus : stationDTO.getReachable_by_bus()){
+            Optional<Station> optStationBus = stationRepository.findById(stationIdBus);
+            if (!optStationBus.isPresent()){
+                throw new IllegalArgumentException(notFound);
+            }
+            station.appendBusStation(optStationBus.get());
+        }
+        for (Long stationIdTram : stationDTO.getReachable_by_tram()){
+            Optional<Station> optStationTram = stationRepository.findById(stationIdTram);
+            if (!optStationTram.isPresent()){
+                throw new IllegalArgumentException(notFound);
+            }
+            station.appendTramStation(optStationTram.get());
+        }
+        for (Long stationIdTrain : stationDTO.getReachable_by_train()){
+            Optional<Station> optStationTrain = stationRepository.findById(stationIdTrain);
+            if (!optStationTrain.isPresent()){
+                throw new IllegalArgumentException(notFound);
+            }
+            station.appendTrainStation(optStationTrain.get());
+        }
     }
 
     public void refineStations(){

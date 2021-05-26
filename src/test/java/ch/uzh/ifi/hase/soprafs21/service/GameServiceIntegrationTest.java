@@ -63,6 +63,7 @@ public class GameServiceIntegrationTest {
     @BeforeEach
     public void setUp(){
         testLobby1 = new Lobby();
+        testLobby1.setLobbyId(1L);
         testLobby1.setLobbyName("testLobby1");
 
         testUser1 = new User();
