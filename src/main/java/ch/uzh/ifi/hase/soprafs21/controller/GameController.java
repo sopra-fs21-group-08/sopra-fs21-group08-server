@@ -201,6 +201,9 @@ public class GameController {
     public void hack(@PathVariable("gameId") long gameId,
                      @RequestHeader("Authorization") String token){
 
+        User foundRequestingUser = userService.findUserByToken(token);
+        gameService.isUserInGame(gameId, foundRequestingUser);
+
         gameService.hack(gameId);
     }
 

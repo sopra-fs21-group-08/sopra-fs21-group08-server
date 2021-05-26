@@ -25,9 +25,6 @@ public class Message {
     public void setMessageId(Long messageId) {
         this.messageId = messageId;
     }
-    public Long getMessageId() {
-        return messageId;
-    }
 
 
     public String getMessage() {
