@@ -30,17 +30,8 @@ public class PlayerGroup implements Iterable<Player>{
     protected List<Player> getPlayers() {
         return players;
     }
-    protected void setPlayers(List<Player> players) {
-        this.players = players;
-    }
-    protected int getSize(){return players.size();};
+    protected int getSize(){return players.size();}
 
-    public void setPlayerGroupId(Long id) {
-        this.playerGroupId = id;
-    }
-    public Long getPlayerGroupId() {
-        return playerGroupId;
-    }
     public void add(Player player) {
         this.players.add(player);
     }
@@ -64,16 +55,7 @@ public class PlayerGroup implements Iterable<Player>{
         this.playerTurn = 0;
     }
 
-    //not sure if needed
-    public Player getPlayerById(long id){
-        Player playerToReturn = null;
-        for(Player player : players) {
-            if (player.getPlayerId() == id){
-                playerToReturn = player;
-            }
-        }
-        return playerToReturn;
-    }
+
     public Player findCorrespondingPlayer(User user){
         for(Player player : players) {
             if (player.getUser() == user){

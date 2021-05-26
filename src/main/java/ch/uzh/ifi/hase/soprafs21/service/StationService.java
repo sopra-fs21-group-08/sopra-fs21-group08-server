@@ -193,15 +193,6 @@ public class StationService {
         return false;
     }
 
-    public void resetIndices(){
-        List<Station> allStations = this.stationRepository.findAll();
-        Long index = 1L;
-        for (Station station : allStations){
-            station.setStationId(index);
-            index += 1L;
-            stationRepository.flush();
-        }
-    }
 
     private int getTotalNumberOfAdjacentStations(Station station){
         return station.get_reachable_by_bus().size()

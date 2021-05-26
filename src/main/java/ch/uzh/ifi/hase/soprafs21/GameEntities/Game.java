@@ -42,9 +42,6 @@ public class Game {
     @OneToOne(cascade = CascadeType.PERSIST)
     private GameSummary gameSummary;
 
-    public void addToPlayerGroup(Player player){
-        playerGroup.add(player);
-    }
     public Player findCorrespondingPlayer(User user){
         return playerGroup.findCorrespondingPlayer(user);
     }
