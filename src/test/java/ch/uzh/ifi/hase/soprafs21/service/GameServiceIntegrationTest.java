@@ -6,7 +6,6 @@ import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.Ticket;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
-import ch.uzh.ifi.hase.soprafs21.network.Station;
 import ch.uzh.ifi.hase.soprafs21.repository.GameRepository;
 import ch.uzh.ifi.hase.soprafs21.repository.LobbyRepository;
 import ch.uzh.ifi.hase.soprafs21.repository.StationRepository;
@@ -14,7 +13,6 @@ import ch.uzh.ifi.hase.soprafs21.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,8 +20,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

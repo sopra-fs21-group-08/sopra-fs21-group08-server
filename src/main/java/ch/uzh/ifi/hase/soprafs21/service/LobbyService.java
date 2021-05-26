@@ -154,8 +154,9 @@ public class LobbyService {
         }
     }
 
+    //TODO: self-explanatory
     private void checkIfLobbyAlreadyExists(Lobby lobbyToCreate) {
-        // does nothing so far
+
     }
 
     public void leaveLobby(User userToRemove, long lobbyId) {
