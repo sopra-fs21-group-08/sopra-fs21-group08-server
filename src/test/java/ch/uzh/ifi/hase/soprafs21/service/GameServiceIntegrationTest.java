@@ -135,6 +135,16 @@ public class GameServiceIntegrationTest {
         assertNotNull(createdGame.getBlackboard());
         assertEquals(createdGame.getBlackboard().getTickets(), gameService.getBlackboard(createdGame.getGameId()));
         assertEquals(createdGame.getMrX(), createdGame.getCurrentPlayer());
+        int i = 0;
+        for (Player player: createdGame.getPlayerGroup()){
+            if (i==0){
+                assertEquals(PlayerClass.MRX, player.getPlayerClass());
+            }
+            else{
+                assertEquals(PlayerClass.DETECTIVE, player.getPlayerClass());
+            }
+            i++;
+        }
         assertEquals(createdGame.findCorrespondingPlayer(testUser1).getUser(), testUser1);
         assertEquals(createdGame.findCorrespondingPlayer(testUser2).getUser(), testUser2);
         assertEquals(createdGame.findCorrespondingPlayer(testUser3).getUser(), testUser3);
@@ -309,6 +319,33 @@ public class GameServiceIntegrationTest {
         testMove.setTo(stationRepository.findByStationId(194L));
 
         gameService.playerIssuesMove(currUser, testMove, createdGame.getGameId());
+
+        assertEquals(createdGame.isGameOver(), true);
+        for (Player player : createdGame.getPlayerGroup()){
+            assertEquals(1,player.getUser().getGamesPlayed());
+            if (player.getPlayerClass()==PlayerClass.MRX){
+                assertEquals(0,player.getUser().getGamesWon());
+            } else{
+                assertEquals(1,player.getUser().getGamesWon());
+            }
+        }
+
+    }
+
+    @Test
+    public void playerIssuesMove_validInput_gameTerminated_MrXCaught(){
+
+        Game createdGame = gameService.initializeGame(testLobby1);
+        gameService.hack(createdGame.getGameId());
+        createdGame.getCurrentPlayer().setCurrentStation(stationRepository.findByStationId(183L));
+
+        Move tram183to232 = new Move();
+        tram183to232.setTicket(Ticket.TRAM);
+        tram183to232.setFrom(stationRepository.findByStationId(183L));
+        tram183to232.setTo(stationRepository.findByStationId(232L));
+
+        gameService.playerIssuesMove(createdGame.getCurrentPlayer().getUser(), tram183to232, createdGame.getGameId());
+        gameService.playerIssuesMove(createdGame.getCurrentPlayer().getUser(), tram194to232, createdGame.getGameId());
 
         assertEquals(createdGame.isGameOver(), true);
 
