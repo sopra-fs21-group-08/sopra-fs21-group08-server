@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs21.controller;
 
+import ch.uzh.ifi.hase.soprafs21.constant.UserStatus;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.rest.UserDTO.UserGetDTO;
 import ch.uzh.ifi.hase.soprafs21.rest.UserDTO.UserPostDTO;
@@ -300,7 +301,6 @@ public class UserControllerTest {
 
         UserPutDTO userPutDTO = new UserPutDTO();
         userPutDTO.setUsername(testUser3.getUsername());
-        userPutDTO.setDob("1995-07-14");
         userPutDTO.setToken(testUser2.getToken());
 
         long id = 2;
@@ -319,5 +319,24 @@ public class UserControllerTest {
                 .andExpect(status().isConflict());
     }
 
+    @Test
+    public void logoutUser_validInput_userLoggedOut() throws Exception{
 
+        UserPutDTO userPutDTO = new UserPutDTO();
+        userPutDTO.setUserId(testUser1.getUserId());
+        userPutDTO.setToken(testUser1.getToken());
+        testUser1.setStatus(UserStatus.OFFLINE);
+
+        when(userService.logoutUser(Mockito.any())).thenReturn(testUser1);
+
+
+        MockHttpServletRequestBuilder putRequest = put("/users/logout")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(userPutDTO));
+
+        mockMvc.perform(putRequest)
+                .andExpect(status().isNoContent())
+                .andExpect(jsonPath("$.userId", is(testUser1.getUserId().intValue())))
+                .andExpect(jsonPath("$.status", is(UserStatus.OFFLINE.toString())));
+    }
 }

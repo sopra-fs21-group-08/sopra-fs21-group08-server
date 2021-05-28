@@ -4,6 +4,7 @@ import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Movement.Move;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Players.Player;
 import ch.uzh.ifi.hase.soprafs21.GameEntities.TicketWallet.Ticket;
+import ch.uzh.ifi.hase.soprafs21.constant.PlayerClass;
 import ch.uzh.ifi.hase.soprafs21.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs21.entity.User;
 import ch.uzh.ifi.hase.soprafs21.repository.GameRepository;
@@ -33,6 +34,9 @@ public class GameServiceIntegrationTest {
     private User testUser1;
     private User testUser2;
     private User testUser3;
+    private Move tram232to183;
+    private Move tram194to232;
+    private Move tram16to242;
 
     @Qualifier("gameRepository")
     @Autowired
@@ -81,6 +85,21 @@ public class GameServiceIntegrationTest {
         testUser3.setPassword("password3");
         userService.createUser(testUser3);
 
+        tram232to183 = new Move();
+        tram232to183.setTicket(Ticket.TRAM);
+        tram232to183.setFrom(stationRepository.findByStationId(232L));
+        tram232to183.setTo(stationRepository.findByStationId(183L));
+
+        tram194to232 = new Move();
+        tram194to232.setTicket(Ticket.TRAM);
+        tram194to232.setFrom(stationRepository.findByStationId(194L));
+        tram194to232.setTo(stationRepository.findByStationId(232L));
+
+        tram16to242 = new Move();
+        tram16to242.setTicket(Ticket.TRAM);
+        tram16to242.setFrom(stationRepository.findByStationId(16L));
+        tram16to242.setTo(stationRepository.findByStationId(242L));
+
         testLobby1 = lobbyService.createLobby(testLobby1, testUser1);
         lobbyService.joinLobby(testUser2, testLobby1.getLobbyId());
         lobbyService.joinLobby(testUser3, testLobby1.getLobbyId());
@@ -95,6 +114,9 @@ public class GameServiceIntegrationTest {
         testUser1 = null;
         testUser2 = null;
         testUser3 = null;
+        tram232to183 = null;
+        tram194to232 = null;
+        tram16to242 = null;
     }
 
     @Test
@@ -150,8 +172,27 @@ public class GameServiceIntegrationTest {
         assertEquals(currPlayer.getCurrentStation(), testMove.getTo());
         assertNotEquals(createdGame.getCurrentPlayer(), currPlayer);
 
+    }
+
+    @Test
+    public void playerIssuesMove_validInputTram_playerMoved(){
+
+        Game createdGame = gameService.initializeGame(testLobby1);
+        gameService.hack(createdGame.getGameId());
+        Player currPlayer = createdGame.getCurrentPlayer();
+        User currUser = currPlayer.getUser();
+
+        final int tramTicket = currPlayer.getWallet().getTram();
+
+        gameService.playerIssuesMove(currUser, tram232to183, createdGame.getGameId());
+
+        assertEquals(currPlayer.getCurrentStation(), tram232to183.getTo());
+        assertEquals(tramTicket, currPlayer.getWallet().getTram() + 1);
+        assertNotEquals(createdGame.getCurrentPlayer(), currPlayer);
 
     }
+
+
 
 
     @Test
@@ -210,5 +251,22 @@ public class GameServiceIntegrationTest {
 
     }
 
+    @Test
+    public void fullRound_validInput_nextRoundInitiated(){
+        Game createdGame = gameService.initializeGame(testLobby1);
+        gameService.hack(createdGame.getGameId());
 
+
+        gameService.playerIssuesMove(createdGame.getCurrentPlayer().getUser(),
+                tram232to183, createdGame.getGameId());
+        gameService.playerIssuesMove(createdGame.getCurrentPlayer().getUser(),
+                tram194to232, createdGame.getGameId());
+        gameService.playerIssuesMove(createdGame.getCurrentPlayer().getUser(),
+                tram16to242, createdGame.getGameId());
+
+        assertEquals(2, createdGame.getCurrentRound().getRoundNumber());
+        assertEquals(PlayerClass.MRX, createdGame.getCurrentPlayer().getPlayerClass());
+        assertEquals(tram232to183.getTicket(), createdGame.getBlackboard().getTickets().get(0));
+
+    }
 }
