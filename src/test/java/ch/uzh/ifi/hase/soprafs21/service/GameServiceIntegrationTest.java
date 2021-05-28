@@ -144,35 +144,6 @@ public class GameServiceIntegrationTest {
 
     }
 
-    @Test
-    public void playerIssuesMove_validInput_playerMoved(){
-
-        Game createdGame = gameService.initializeGame(testLobby1);
-        Player currPlayer = createdGame.getCurrentPlayer();
-        User currUser = currPlayer.getUser();
-
-        final int busTicket = currPlayer.getWallet().getBus();
-        final int tramTicket = currPlayer.getWallet().getTram();
-        final int trainTicket = currPlayer.getWallet().getTrain();
-
-        Move testMove = gameService.createValidMove(createdGame, currUser);
-
-        gameService.playerIssuesMove(currUser, testMove, createdGame.getGameId());
-
-        assertEquals(currPlayer.getCurrentStation(), testMove.getTo());
-        if (testMove.getTicket() == Ticket.TRAM){
-            assertEquals(tramTicket, currPlayer.getWallet().getTram() + 1);
-        }else if (testMove.getTicket() == Ticket.BUS){
-            assertEquals(busTicket, currPlayer.getWallet().getBus() + 1);
-        }else if (testMove.getTicket() == Ticket.TRAIN){
-            assertEquals(trainTicket, currPlayer.getWallet().getTrain() + 1);
-        } else{
-            throw new IllegalStateException("Something went terribly wrong while testing.");
-        }
-        assertEquals(currPlayer.getCurrentStation(), testMove.getTo());
-        assertNotEquals(createdGame.getCurrentPlayer(), currPlayer);
-
-    }
 
     @Test
     public void playerIssuesMove_validInputTram_playerMoved(){
@@ -192,8 +163,100 @@ public class GameServiceIntegrationTest {
 
     }
 
+    @Test
+    public void playerIssuesMove_validInputBus_playerMoved(){
 
+        Game createdGame = gameService.initializeGame(testLobby1);
+        gameService.hack(createdGame.getGameId());
+        Player currPlayer = createdGame.getCurrentPlayer();
+        currPlayer.setCurrentStation(stationRepository.findByStationId(310L));
+        User currUser = currPlayer.getUser();
 
+        Move bus310to105 = new Move();
+        bus310to105.setTicket(Ticket.BUS);
+        bus310to105.setFrom(stationRepository.findByStationId(310L));
+        bus310to105.setTo(stationRepository.findByStationId(105L));
+
+        final int busTicket = currPlayer.getWallet().getBus();
+
+        gameService.playerIssuesMove(currUser, bus310to105, createdGame.getGameId());
+
+        assertEquals(currPlayer.getCurrentStation(), bus310to105.getTo());
+        assertEquals(busTicket, currPlayer.getWallet().getBus() + 1);
+        assertNotEquals(createdGame.getCurrentPlayer(), currPlayer);
+
+    }
+
+    @Test
+    public void playerIssuesMove_validInputTrain_playerMoved(){
+
+        Game createdGame = gameService.initializeGame(testLobby1);
+        gameService.hack(createdGame.getGameId());
+        Player currPlayer = createdGame.getCurrentPlayer();
+        currPlayer.setCurrentStation(stationRepository.findByStationId(105L));
+        User currUser = currPlayer.getUser();
+
+        Move train105to308 = new Move();
+        train105to308.setTicket(Ticket.TRAIN);
+        train105to308.setFrom(stationRepository.findByStationId(105L));
+        train105to308.setTo(stationRepository.findByStationId(308L));
+
+        final int trainTicket = currPlayer.getWallet().getTrain();
+
+        gameService.playerIssuesMove(currUser, train105to308, createdGame.getGameId());
+
+        assertEquals(currPlayer.getCurrentStation(), train105to308.getTo());
+        assertEquals(trainTicket, currPlayer.getWallet().getTrain() + 1);
+        assertNotEquals(createdGame.getCurrentPlayer(), currPlayer);
+
+    }
+
+    @Test
+    public void playerIssuesMove_validInputDouble_playerMoved(){
+
+        Game createdGame = gameService.initializeGame(testLobby1);
+        gameService.hack(createdGame.getGameId());
+        Player currPlayer = createdGame.getCurrentPlayer();
+        currPlayer.setCurrentStation(stationRepository.findByStationId(308L));
+        User currUser = currPlayer.getUser();
+
+        Move double308to204 = new Move();
+        double308to204.setTicket(Ticket.DOUBLE);
+        double308to204.setFrom(stationRepository.findByStationId(308L));
+        double308to204.setTo(stationRepository.findByStationId(204L));
+
+        final int busTicket = currPlayer.getWallet().getDouble();
+
+        gameService.playerIssuesMove(currUser, double308to204, createdGame.getGameId());
+
+        assertEquals(currPlayer.getCurrentStation(), double308to204.getTo());
+        assertEquals(busTicket, currPlayer.getWallet().getDouble() + 1);
+        assertNotEquals(createdGame.getCurrentPlayer(), currPlayer);
+
+    }
+
+    @Test
+    public void playerIssuesMove_validInputBlack_playerMoved(){
+
+        Game createdGame = gameService.initializeGame(testLobby1);
+        gameService.hack(createdGame.getGameId());
+        Player currPlayer = createdGame.getCurrentPlayer();
+        User currUser = currPlayer.getUser();
+
+        Move black232to183 = new Move();
+        black232to183.setTicket(Ticket.BLACK);
+        black232to183.setFrom(stationRepository.findByStationId(232L));
+        black232to183.setTo(stationRepository.findByStationId(183L));
+
+        final int busTicket = currPlayer.getWallet().getBlack();
+
+        gameService.playerIssuesMove(currUser, black232to183, createdGame.getGameId());
+
+        assertEquals(currPlayer.getCurrentStation(), black232to183.getTo());
+        assertEquals(busTicket, currPlayer.getWallet().getBlack() + 1);
+        assertNotEquals(createdGame.getCurrentPlayer(), currPlayer);
+
+    }
 
     @Test
     public void playerIssuesMove_invalidInput_invalidStation(){
