@@ -177,6 +177,8 @@ public class GameController {
     public GameStatusGetDTO getStatus(@PathVariable("gameId") long gameId,
                                       @RequestHeader("Authorization") String token){
 
+
+
         User foundRequestingUser = userService.findUserByToken(token);
         gameService.isUserInGame(gameId, foundRequestingUser);
 

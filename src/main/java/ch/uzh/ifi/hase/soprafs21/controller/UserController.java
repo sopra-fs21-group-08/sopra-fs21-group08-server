@@ -77,8 +77,6 @@ public class UserController {
     @ResponseBody
     public UserGetDTO getUser(@PathVariable("id") long id) {
 
-
-
         // fetch user in the internal representation
         User user = userService.getUserById(id);
         return UserDTOMapper.INSTANCE.convertEntityToUserGetDTO(user);

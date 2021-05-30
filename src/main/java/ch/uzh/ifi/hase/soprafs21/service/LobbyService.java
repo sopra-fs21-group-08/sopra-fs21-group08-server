@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs21.service;
 
 
 import ch.uzh.ifi.hase.soprafs21.GameEntities.Game;
+import ch.uzh.ifi.hase.soprafs21.constant.PlayerClass;
 import ch.uzh.ifi.hase.soprafs21.entity.*;
 import ch.uzh.ifi.hase.soprafs21.repository.LobbyRepository;
 import ch.uzh.ifi.hase.soprafs21.repository.LobbyConnectorRepository;
@@ -15,7 +16,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @Transactional
@@ -64,21 +64,21 @@ public class LobbyService {
 
     /**
      * Creates a lobby from an old lobby by taking the chat and reusing it.
-     * @param lobbyToCreate is the lobby that needs to be created
+     * @param lobbyToCopy is the lobby that needs to be created
      * @param issuingUser: user who wants to create the lobby
      * @param lastChat is the chat from the old lobby
      * @return the next lobby
      */
-    public Lobby createLobby(Lobby lobbyToCreate, User issuingUser, Chat lastChat){
+    public Lobby createLobby(Lobby lobbyToCopy, User issuingUser, Chat lastChat){
 
         // creating a new lobby
         Lobby newLobby = new Lobby();
-        newLobby.setLobbyName(lobbyToCreate.getLobbyName());
+        newLobby.setLobbyName(lobbyToCopy.getLobbyName());
 
         //set old chat
         newLobby.setChat(lastChat);
 
-        newLobby = lobbyRepository.save(lobbyToCreate);
+        newLobby = lobbyRepository.save(newLobby);
 
         // add issuing user to lobby
         newLobby.addUser(issuingUser);
@@ -123,11 +123,12 @@ public class LobbyService {
 
         //finds a potential next lobby through the connector
         LobbyConnector lobbyConnector = this.lobbyConnectorRepository.findByLastLobbyId(lobbyId);
+
         //firstly leaves the last lobby
         this.leaveLobby(issuingUser, currentLobby.getLobbyId());
 
         //case 1: there is no next lobby yet
-        if(lobbyConnectorRepository.existsByLastLobbyId(lobbyId)){
+        if(lobbyConnector == null){
 
             //create the new connection
             lobbyConnector = new LobbyConnector();
@@ -136,6 +137,9 @@ public class LobbyService {
             //creating the new lobby, reusing the old chat
             Lobby nextLobby = this.createLobby(currentLobby, issuingUser, currentLobby.getChat());
             lobbyConnector.setNext(nextLobby);
+
+            this.lobbyConnectorRepository.save(lobbyConnector);
+            this.lobbyConnectorRepository.flush();
             return nextLobby;
 
         }
@@ -143,8 +147,6 @@ public class LobbyService {
         else {
             return this.joinLobby(issuingUser, lobbyConnector.getNext().getLobbyId());
         }
-
-
     }
 
     public List<User> getUsers(long lobbyId) {
@@ -168,8 +170,21 @@ public class LobbyService {
 
         //abort the game if there is one
         if(targetLobby.getGame() != null){
-            if(!targetLobby.getGame().isGameOver()) {
-                targetLobby.getGame().abortGame();
+
+            //if there is a game retrieve it and see if its over.
+            Game game = targetLobby.getGame();;
+            if(!game.isGameOver()) {
+                // the one who leaves the game is the looser team.
+                PlayerClass looser = game.findCorrespondingPlayer(userToRemove).getPlayerClass();
+
+                //Detective left --> MRX won
+                if(looser == PlayerClass.DETECTIVE) {
+                    game.gameOver(PlayerClass.MRX);
+                }
+                //MrX left --> Detectives won
+                else {
+                    game.gameOver(PlayerClass.DETECTIVE);
+                }
             }
         }
 
@@ -191,7 +206,6 @@ public class LobbyService {
         }
     }
 
-    //TODO: change to find lobby by entity.
     public Lobby findLobbyById(long lobbyId) {
         return lobbyRepository.findByLobbyId(lobbyId);
     }

@@ -59,6 +59,9 @@ public class UserService {
 
         //find user
         User foundUser = findUserByUsername(inputUser);
+        if(foundUser == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Wrong credentials.");
+        }
 
         authenticatePassword(inputUser, foundUser);
         foundUser.setStatus(UserStatus.ONLINE);
