@@ -81,6 +81,10 @@ public class Game {
         this.currentRound = currentRound;
     }
 
+    public void setGameOver(boolean gameOver) {
+        isGameOver = gameOver;
+    }
+
     /**
      * Simple renamed Getter
      * @return boolean showing if the <code>Game</code> is over or not.

@@ -380,29 +380,6 @@ public class GameService {
         return this.gameSummaryRepository.findBySummaryId(gameId);
     }
 
-    public Move createValidMove(Game createdGame, User currUser){
-
-        Move testMove = new Move();
-
-        // get a possible station to move to
-        List<Station> possibleTramStations = possibleStations(createdGame, currUser, Ticket.TRAM);
-        List<Station> possibleBusStations = possibleStations(createdGame, currUser, Ticket.BUS);
-        List<Station> possibleTrainStations = possibleStations(createdGame, currUser, Ticket.TRAIN);
-        if (!possibleTramStations.isEmpty()){
-            testMove.setTicket(Ticket.TRAM);
-            testMove.setTo(possibleTramStations.get(0));
-        } else if(!possibleBusStations.isEmpty()){
-            testMove.setTicket(Ticket.BUS);
-            testMove.setTo(possibleBusStations.get(0));
-        } else if (!possibleTrainStations.isEmpty()){
-            testMove.setTicket(Ticket.TRAIN);
-            testMove.setTo(possibleTrainStations.get(0));
-        } else{
-            throw new IllegalStateException("Something went terribly wrong while creating a valid move!");
-        }
-
-        return testMove;
-    }
 
     public void canCurrentPlayerMove(long gameId) {
 
