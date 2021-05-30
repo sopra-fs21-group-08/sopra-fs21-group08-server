@@ -25,7 +25,6 @@ public interface LobbyDTOMapper {
     GetAllLobbiesDTO convertEntityToGetAllDTO(Lobby lobby);
 
 
-    //TODO: add conversion to USER [id, name, user1, user2, user3]
     @Mapping(source = "lobbyId", target = "lobbyId")
     @Mapping(source = "lobbyName", target = "lobbyName")
     @Mapping(expression = "java(lobby.didGameStart())", target = "gameStarted")

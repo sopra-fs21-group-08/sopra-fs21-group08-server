@@ -129,7 +129,7 @@ public class User implements Serializable {
     }
 
     private void calculateWinrate() {
-        this.winrate = (this.gamesWon/this.gamesPlayed)*100;
+        this.winrate = ((float)this.gamesWon/this.gamesPlayed)*100;
     }
     public float getWinrate() {
         return winrate;
