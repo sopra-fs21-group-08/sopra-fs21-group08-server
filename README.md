@@ -1,4 +1,4 @@
-# SoPra FS21 - Scotland Yard Zürich Edition - Client
+# SoPra FS21 - Scotland Yard Zürich Edition - Server
 
 ## Introduction
 Hi there, we are five students from the University of Zurich, who developed this application for the Software Engineering Lab FS21. This is the server side implementation of the project. The aim of this project was to create an online version of the popular board game "Scotland Yard". The main feature of the project was to transfer the game settings from London (where the game is originally based) to Zurich. All the stations and lines displayed in the game are from the real public transport system of Zurich.
