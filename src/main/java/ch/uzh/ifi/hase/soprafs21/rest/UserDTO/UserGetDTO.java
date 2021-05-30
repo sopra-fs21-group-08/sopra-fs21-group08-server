@@ -10,7 +10,7 @@ public class UserGetDTO {
     private String dob;
     private String creationDate;
     private int gamesPlayed;
-    private int winrate;
+    private float winrate;
 
     public String getCreationDate() {
         return creationDate;
@@ -54,7 +54,7 @@ public class UserGetDTO {
         this.gamesPlayed = gamesPlayed;
     }
 
-    public int getWinrate() {
+    public float getWinrate() {
         return winrate;
     }
     public void setWinrate(int winrate) {

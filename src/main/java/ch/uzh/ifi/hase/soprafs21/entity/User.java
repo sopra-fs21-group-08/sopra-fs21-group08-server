@@ -51,7 +51,7 @@ public class User implements Serializable {
     private int gamesWon = 0;
 
     @Column
-    private int winrate = 0;
+    private float winrate = 0;
 
     public String getCreationDate() {
         return creationDate;
@@ -129,9 +129,9 @@ public class User implements Serializable {
     }
 
     private void calculateWinrate() {
-        this.winrate = this.gamesWon/this.gamesPlayed;
+        this.winrate = (this.gamesWon/this.gamesPlayed)*100;
     }
-    public int getWinrate() {
+    public float getWinrate() {
         return winrate;
     }
     public void setWinrate(int winrate) {

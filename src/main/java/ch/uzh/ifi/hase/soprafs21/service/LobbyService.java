@@ -123,12 +123,11 @@ public class LobbyService {
 
         //finds a potential next lobby through the connector
         LobbyConnector lobbyConnector = this.lobbyConnectorRepository.findByLastLobbyId(lobbyId);
-
         //firstly leaves the last lobby
         this.leaveLobby(issuingUser, currentLobby.getLobbyId());
 
         //case 1: there is no next lobby yet
-        if(lobbyConnector == null){
+        if(lobbyConnectorRepository.existsByLastLobbyId(lobbyId)){
 
             //create the new connection
             lobbyConnector = new LobbyConnector();
@@ -166,10 +165,15 @@ public class LobbyService {
         if (!targetLobby.getUsers().contains(userToRemove)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User isn't in this lobby");
         }
+
+        //abort the game
+        if(!targetLobby.getGame().isGameOver()){
+            targetLobby.getGame().abortGame();
+        }
+
         targetLobby.removeUser(userToRemove);
 
         //in case the lobby is now empty, it should delete the lobby
-        //TODO: make the lobby delete everything (CHAT GAME ETC)
         if (targetLobby.isEmpty()){
             targetLobby.setChat(null);
             targetLobby.setGame(null);
