@@ -32,7 +32,7 @@ public class TicketWallet {
     }
     
     public void createMrXWallet(){
-        this.createDetectiveWallet();
+        createDetectiveWallet();
         this.ticketMap.put(Ticket.DOUBLE, 2);
         this.ticketMap.put(Ticket.BLACK, 2);
     }

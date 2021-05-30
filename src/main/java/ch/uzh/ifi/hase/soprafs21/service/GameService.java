@@ -81,6 +81,9 @@ public class GameService {
         finishedMove.executeMove();
         theGame.successfulTurn();
 
+        //check if next player can move
+        canCurrentPlayerMove(gameId);
+
         gameRepository.flush();
 
         return currentPlayer;
@@ -401,4 +404,44 @@ public class GameService {
         return testMove;
     }
 
+    public void canCurrentPlayerMove(long gameId) {
+
+        Game game = gameRepository.findByGameId(gameId);
+
+        TicketWallet currentPlayerWallet = game.getCurrentPlayer().getWallet();
+        Station currentStation = game.getCurrentPlayer().getCurrentStation();
+
+        boolean canHeMove = false;
+
+        if(!currentStation.get_reachable_by_bus().isEmpty()){
+            if(currentPlayerWallet.isTicketAvailable(Ticket.BUS)){
+                canHeMove = true;
+            }
+        }
+
+        if(!currentStation.get_reachable_by_train().isEmpty()){
+            if(currentPlayerWallet.isTicketAvailable(Ticket.TRAIN)){
+                canHeMove = true;
+            }
+        }
+
+        if(!currentStation.get_reachable_by_tram().isEmpty()){
+            if(currentPlayerWallet.isTicketAvailable(Ticket.TRAM)){
+                canHeMove = true;
+            }
+        }
+
+        if(currentPlayerWallet.isTicketAvailable(Ticket.BLACK) || currentPlayerWallet.isTicketAvailable(Ticket.DOUBLE)){
+            canHeMove = true;
+        }
+
+        if(!canHeMove){
+            Move emptyMove = new Move();
+            game.getCurrentRound().addMove(emptyMove);
+            emptyMove.setRound(game.getCurrentRound());
+            game.successfulTurn();
+        }
+
+
+    }
 }
