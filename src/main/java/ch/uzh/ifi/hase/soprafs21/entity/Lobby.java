@@ -24,7 +24,7 @@ public class Lobby {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Game game;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL)
     private Chat chat;
 
     @Transient
