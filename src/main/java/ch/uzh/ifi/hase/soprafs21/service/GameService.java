@@ -83,7 +83,7 @@ public class GameService {
         theGame.successfulTurn();
 
         //check if next player can move
-        canCurrentPlayerMove(gameId);
+        while(!canCurrentPlayerMove(gameId))
 
         gameRepository.flush();
 
@@ -405,9 +405,13 @@ public class GameService {
         return testMove;
     }
 
-    public void canCurrentPlayerMove(long gameId) {
+    public boolean canCurrentPlayerMove(long gameId) {
 
         Game game = gameRepository.findByGameId(gameId);
+
+        if(game.isGameOver()){
+            return true;
+        }
 
         TicketWallet currentPlayerWallet = game.getCurrentPlayer().getWallet();
         Station currentStation = game.getCurrentPlayer().getCurrentStation();
@@ -443,6 +447,6 @@ public class GameService {
             game.successfulTurn();
         }
 
-
+        return canHeMove;
     }
 }
