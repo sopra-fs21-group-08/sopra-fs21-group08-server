@@ -50,7 +50,6 @@ public class UserService {
         newUser = userRepository.save(newUser);
         userRepository.flush();
 
-        //TODO: add logger to all other services
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
@@ -75,7 +74,6 @@ public class UserService {
     }
 
 
-    //TODO need to remove this class and replace by findUserByEntity class, it is more elegant to pass around objects.
     public User getUserById(long id){
         User foundUser = this.userRepository.findByUserId(id);
         String baseErrorMessage = "The user doesn't exits.";
@@ -169,7 +167,6 @@ public class UserService {
         user.removeCurrentLobby();
     }
 
-    //TODO: check if user is offline or online
     public User logoutUser(User inputUser) {
 
         User foundUser = findUserByEntity(inputUser);
@@ -186,7 +183,6 @@ public class UserService {
         return foundUser;
     }
 
-    //TODO this function will expose internal behavior, fix at later point
     /**
      * this method will take two arguments
      * @param subject
@@ -205,7 +201,6 @@ public class UserService {
         }
     }
 
-    //TODO this function will expose internal behavior, fix at later point
     public void authenticateToken(User subject, User target) {
 
         // checks if Tokens match

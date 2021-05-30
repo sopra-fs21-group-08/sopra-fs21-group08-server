@@ -182,7 +182,6 @@ public class Game {
         List<Station> positions = this.playerGroup.getPlayerLocations();
         Station mrx = positions.get(0);
 
-        //TODO: rework to use iterator of PlayerGroup instead of this approach.
         for (int i=1; i<positions.size(); i++){
             if (mrx.getStationId().equals(positions.get(i).getStationId())){
                 this.gameOver(PlayerClass.DETECTIVE);

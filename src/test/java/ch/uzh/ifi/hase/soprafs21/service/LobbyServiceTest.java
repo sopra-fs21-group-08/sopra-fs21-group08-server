@@ -145,9 +145,6 @@ public class LobbyServiceTest {
 
         assertNull(testUser1.getCurrentLobby());
 
-        //TODO: fix this test that behaves weirdly
-        //wieso not null, die lobby müsste gelöscht werden
-        //assertNotNull(this.lobbyRepository.findByLobbyId(1L));
         assertNotNull(this.lobbyConnectorRepository.findByLastLobbyId(1L));
     }
 
