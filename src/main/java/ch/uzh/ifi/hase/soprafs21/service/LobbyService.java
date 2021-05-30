@@ -166,9 +166,11 @@ public class LobbyService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User isn't in this lobby");
         }
 
-        //abort the game
-        if(!targetLobby.getGame().isGameOver()){
-            targetLobby.getGame().abortGame();
+        //abort the game if there is one
+        if(targetLobby.getGame() != null){
+            if(!targetLobby.getGame().isGameOver()) {
+                targetLobby.getGame().abortGame();
+            }
         }
 
         targetLobby.removeUser(userToRemove);
