@@ -14,7 +14,7 @@ Connection to the [frontend](https://github.com/sopra-fs21-group-08/sopra-fs21-g
 ## Main Components
 
 
-###[The Game](https://github.com/sopra-fs21-group-08/sopra-fs21-group08-server/blob/master/src/main/java/ch/uzh/ifi/hase/soprafs21/GameEntities/Game.java)
+### [The Game](https://github.com/sopra-fs21-group-08/sopra-fs21-group08-server/blob/master/src/main/java/ch/uzh/ifi/hase/soprafs21/GameEntities/Game.java)
 As the center nervous system of the program, the `Game` class holds all the helper classes and 
 manipulates them according to the needs. The static fields of the class define how the game runs dynamically. 
 While not being a very complicated implementation it holds a lot of logic, such as the game termination and how the rounds and turns are handled.
@@ -30,7 +30,7 @@ Each helper class is iterable.
 After a Game is terminated, the `Game` Instance gets deleted and we "memorialize" it through a `GameSummary` class. 
 This helps us keep the database clean.
 
-###[The Lobby](https://github.com/sopra-fs21-group-08/sopra-fs21-group08-server/blob/master/src/main/java/ch/uzh/ifi/hase/soprafs21/entity/Lobby.java)
+### [The Lobby](https://github.com/sopra-fs21-group-08/sopra-fs21-group08-server/blob/master/src/main/java/ch/uzh/ifi/hase/soprafs21/entity/Lobby.java)
 The lobby is the center of our community, players join and leave them to play games and to talk to eachother in chat.
 Only Through the Lobby it is possible to create a game, and only if enough users have joined in on the fun.
 
@@ -38,7 +38,7 @@ Replaying is also only possible through the lobbies. The `LobbyConnector` is a d
 
 When a `Lobby` is empty it gets deleted, the associated `Game` and `LobbyConnector` are also deleted. This was a challenge to implement.
 
-###[Stations](https://github.com/sopra-fs21-group-08/sopra-fs21-group08-server/blob/master/src/main/java/ch/uzh/ifi/hase/soprafs21/network/Station.java)
+### [Stations](https://github.com/sopra-fs21-group-08/sopra-fs21-group08-server/blob/master/src/main/java/ch/uzh/ifi/hase/soprafs21/network/Station.java)
 
 If the `Game` is our center nervous system, the Stations, or the Network, would be the circulatory system. 
 You travel the city of Zurich as either the clever Detectives or the deceptive MrX. The Stations hold information on what moves are possible with what tickets.
@@ -116,13 +116,13 @@ The application is deployed on [heroku](https://sopra-fs21-group-08-client.herok
 
 ## Roadmap
 
-###Station Data
+### Station Data
 One could improve the station network. For example, the stations around Zürich HB can be merged into one station. Similarly, the stations around Bhf. Enge can be merged. Unfortunately, during the creating of the map Bhf. Altstetten was forgotten. It would add fun to the game and increase the authenticity of the game.
 
-###Refactor
+### Refactor
 Often functions take an ID as an argument as for example in the function isUserInGame on line 54 in the GameService class within the service package. It would be better that this function takes a game and a user instance as arguments. This would reduce the complexity of the function and would make the code more uniform and therefore more readable. Such blemishes are found throughout the code and could be easily fixed while refactoring the code.
 
-###Modes
+### Modes
 A team of sophisticated developers could add different game modes. E.g. the number of stations could be changed before starting the game to make it easier or harder to catch Mr. X. It would be interesting to implement an option to cast a vote in the lobby to determine who is going to be Mr. X. We thought that it would also be fun if the different players could choose their starting position. A completely new game mode could be that Mr. X starts at Triemli and must reach the airport of Zürich to win the game.
 ## Authors and acknowledgement
 
