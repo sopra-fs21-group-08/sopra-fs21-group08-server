@@ -178,7 +178,6 @@ public class GameController {
                                       @RequestHeader("Authorization") String token){
 
 
-
         User foundRequestingUser = userService.findUserByToken(token);
         gameService.isUserInGame(gameId, foundRequestingUser);
 
